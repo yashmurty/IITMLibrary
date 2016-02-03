@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +28,24 @@ Route::group(['middleware' => ['web']], function () {
     //
 });
 
+
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
+    
+    Route::get('/', 'HomeController@getRoot');
 
-    Route::get('/home', 'HomeController@index');
+    Route::get('home', [
+	    'as' => 'home', 'uses' => 'HomeController@getHome'
+	]);
+    
+    // Book Requisition Form 
+    Route::get('bookrequisitionform', [
+	    'as' => 'bookrequisitionform', 'uses' => 'HomeController@getBookRequisitionForm'
+	]);
+	Route::post('bookrequisitionform', [
+	    'as' => 'bookrequisitionform-post', 'uses' => 'HomeController@postBookRequisitionForm'
+	]);
+
+
+
 });
