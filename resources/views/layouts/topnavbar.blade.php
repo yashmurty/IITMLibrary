@@ -13,8 +13,9 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                    IITM Library
                 </a>
+                <img src="{{ URL::asset('img/IIT_Madras_Logo_300.png') }}" style="height:40px; margin-top:5px">
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -25,6 +26,7 @@
                     @else
                         <li><a href="{{ url('/home') }}">Home</a></li>
                         <li><a href="{{ URL::route('bookrequisitionform') }}">Book Requisition Form</a></li>
+                        <li><a href="#">Request Status</a></li>
                     @endif
                 </ul>
 

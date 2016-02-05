@@ -157,7 +157,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3 ">
                                 <button type="submit" class="btn btn-primary btn-block btn-lg">
-                                    <i class="fa fa-btn fa-book"></i>| Recomment for Purchase
+                                    <i class="fa fa-btn fa-book"></i>| Recommend for Purchase
                                 </button>
                             </div>
                         </div>
