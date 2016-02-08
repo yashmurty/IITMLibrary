@@ -16,6 +16,7 @@ class CreateBrfsTable extends Migration
         Schema::create('brfs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('doctype');
+            $table->string('author');
             $table->string('title');
             $table->string('publisher');
             $table->string('agency')->nullable();
@@ -24,7 +25,8 @@ class CreateBrfsTable extends Migration
             $table->string('price')->nullable();
             $table->string('sectioncatalogue')->nullable();
             $table->string('numberofcopies')->nullable();
-            $table->string('laravel_id')->nullable();
+            $table->string('laravel_user_id')->nullable();
+            $table->string('laravel_lac_id')->nullable();
             $table->string('lac_status')->nullable();
             $table->string('librarian_status')->nullable();
             $table->string('remarks')->nullable();

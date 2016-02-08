@@ -30,19 +30,19 @@
                             <div class="col-md-4">
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType1" value="option1" checked>
+                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType1" value="Books / Monographs" checked>
                                     Books / Monographs 
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType2" value="option2">
+                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType2" value="Thesis">
                                     Thesis 
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType3" value="option3">
+                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType3" value="Standards">
                                     Standards 
                                   </label>
                                 </div>
@@ -50,19 +50,19 @@
                             <div class="col-md-4">
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType4" value="option1">
+                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType4" value="Conference Proceedings">
                                     Conference Proceedings 
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType5" value="option2">
+                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType5" value="Audio / Video Materials">
                                     Audio / Video Materials 
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType6" value="option3">
+                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType6" value="Hindi Book(s)">
                                     Hindi Book(s) 
                                   </label>
                                 </div>
@@ -70,19 +70,19 @@
                             <div class="col-md-4">
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType7" value="option1">
+                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType7" value="Technical Reports">
                                     Technical Reports 
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType8" value="option2">
+                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType8" value="Patents">
                                     Patents 
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
-                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType9" value="option3">
+                                    <input type="radio" name="optionsDocumentType" id="optionsDocumentType9" value="Others">
                                     Others 
                                   </label>
                                 </div>

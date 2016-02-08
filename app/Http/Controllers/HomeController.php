@@ -6,6 +6,10 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Input;
 use Validator;
+use Auth;
+use View;
+
+use App\BasicRequisitionForm;
 
 class HomeController extends Controller
 {
@@ -43,7 +47,7 @@ class HomeController extends Controller
     {
 
         $validator = Validator::make(Input::all(), [
-            'inputAuthor' => 'required|max:255',
+            'inputAuthor' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -52,8 +56,25 @@ class HomeController extends Controller
                 ->withErrors($validator);
         }
 
+        $basicRequisitionFormData = BasicRequisitionForm::create(array(
+            'doctype'           => Input::get('optionsDocumentType'),
+            'author'            => Input::get('inputAuthor'),
+            'title'             => Input::get('inputTitle'),
+            'publisher'         => Input::get('inputPublisher'),
+            'agency'            => Input::get('inputAgency'),
+            'isbn'              => Input::get('inputISBN'),
+            'volumne'           => Input::get('inputVolume'),
+            'price'             => Input::get('inputPrice'),
+            'sectioncatalogue'  => Input::get('inputSectionCatalogue'),
+            'numberofcopies'    => Input::get('inputNumberOfCopies'),
+            'laravel_user_id'   => Auth::user()->id,
+            'laravel_lac_id'    => "0"
+        ));
 
+        //return Auth::user();
 
-        return Input::all();
+        return redirect('home')
+                ->with('globalalertmessage', 'Book Request Submitted')
+                ->with('globalalertclass', 'success');;
     }
 }

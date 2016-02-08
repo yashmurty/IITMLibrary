@@ -19,10 +19,10 @@ class BasicRequisitionForm extends Model
      * @var array
      */
     protected $fillable = [
-        'doctype', 'title', 'publisher','agency',
+        'doctype', 'author', 'title', 'publisher','agency',
         'isbn', 'volumne', 'price','sectioncatalogue',
-        'numberofcopies', 'laravel_id', 'lac_status','librarian_status',
-        'remarks',
+        'numberofcopies', 'laravel_user_id', 'laravel_lac_id', 'lac_status',
+        'librarian_status', 'remarks',
     ];
 
     /**
