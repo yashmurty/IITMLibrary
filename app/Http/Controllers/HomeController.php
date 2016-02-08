@@ -8,6 +8,7 @@ use Input;
 use Validator;
 use Auth;
 use View;
+use DB;
 
 use App\BasicRequisitionForm;
 
@@ -38,6 +39,7 @@ class HomeController extends Controller
         return view('pages.home');
     }
 
+    // Book Requisition Form
     public function getBookRequisitionForm()
     {
         return view('pages.BookRequisitionForm');
@@ -76,5 +78,25 @@ class HomeController extends Controller
         return redirect('home')
                 ->with('globalalertmessage', 'Book Request Submitted')
                 ->with('globalalertclass', 'success');;
+    }
+
+    // Request Status
+    public function getRequestStatus()
+    {
+        $laravel_user_id = Auth::user()->id;
+
+        $user_brfs = DB::table('brfs')
+                        ->where('laravel_user_id', $laravel_user_id)
+                        ->orderBy('id', 'desc')
+                        ->get();
+        if(!empty($user_brfs)){
+    
+            return view('pages.requeststatus')
+                    ->with('user_brfs', $user_brfs);
+
+        } else {
+            return "No Requests Found";
+        }
+
     }
 }

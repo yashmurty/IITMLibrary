@@ -26,7 +26,7 @@
                     @else
                         <li><a href="{{ url('/home') }}">Home</a></li>
                         <li><a href="{{ URL::route('bookrequisitionform') }}">Book Requisition Form</a></li>
-                        <li><a href="#">Request Status</a></li>
+                        <li><a href="{{ URL::route('requeststatus') }}">Request Status</a></li>
                     @endif
                 </ul>
 
