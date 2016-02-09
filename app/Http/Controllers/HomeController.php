@@ -70,14 +70,14 @@ class HomeController extends Controller
             'sectioncatalogue'  => Input::get('inputSectionCatalogue'),
             'numberofcopies'    => Input::get('inputNumberOfCopies'),
             'laravel_user_id'   => Auth::user()->id,
-            'laravel_lac_id'    => "0"
+            'iitm_dept_code'    => Auth::user()->iitm_dept_code
         ));
 
         //return Auth::user();
 
         return redirect('home')
                 ->with('globalalertmessage', 'Book Request Submitted')
-                ->with('globalalertclass', 'success');;
+                ->with('globalalertclass', 'success');
     }
 
     // Request Status
@@ -95,7 +95,9 @@ class HomeController extends Controller
                     ->with('user_brfs', $user_brfs);
 
         } else {
-            return "No Requests Found";
+            // return "No Requests Found";
+            return view('pages.requeststatus')
+                    ->with('user_brfs', null);
         }
 
     }

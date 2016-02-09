@@ -51,5 +51,14 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'requeststatus', 'uses' => 'HomeController@getRequestStatus'
 	]);
 
+	// LAC Module
+	Route::get('lac', [
+	    'as' => 'home', 'uses' => 'LacController@getHome'
+	]);
+	// LAC Request Status
+	Route::get('lac/requeststatus', [
+	    'as' => 'lacrequeststatus', 'uses' => 'LacController@getLacRequestStatus'
+	]);
+
 
 });

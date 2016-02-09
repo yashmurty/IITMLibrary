@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Request Status</div>
+                <div class="panel-heading">LAC Request Status</div>
 
                 <div class="panel-body">
                     
                     <table class="table"> 
-                        <caption>Status of your requests submitted via Book Requisition Form</caption> 
+                        <caption>Status of requests under you submitted via Book Requisition Form</caption> 
                         <thead> 
                             <tr> 
                                 <th>#</th> 
@@ -20,11 +20,12 @@
                                 <th>LAC Status</th> 
                                 <th>Librarian Status</th> 
                                 <th>Remarks</th> 
+                                <th>Edit</th> 
                             </tr> 
                         </thead> 
                         <tbody> 
-                            @if(!($user_brfs == null))
-                                @foreach ($user_brfs as $key => $user_brf) 
+                            @if(!($lac_user_brfs == null))
+                                @foreach ($lac_user_brfs as $key => $user_brf) 
                                 <tr> 
                                     <th scope="row">{{ $key + 1 }}</th> 
                                     <td>{{ $user_brf->doctype }}</td> 
@@ -47,6 +48,7 @@
                                     @endif
 
                                     <td>{{ $user_brf->remarks }}</td> 
+                                    <td><a href="#" class="btn btn-primary">View</a></td> 
                                 </tr> 
                                 @endforeach
                             @else
