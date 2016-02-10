@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use Input;
+use Validator;
+use App\BasicRequisitionForm;
+
 
 class LacController extends Controller
 {
@@ -82,10 +85,30 @@ class LacController extends Controller
 
     public function postLacRequestStatusApproveBRF()
     {
-        return Input::all();
+        $validator = Validator::make(Input::all(), [
+            'brf_id'    => 'required',
+            'lac_status'=> 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/lac/requeststatus')
+                ->withInput()
+                ->withErrors($validator)
+                ->with('globalalertmessage', 'Failed to Aprove. Try Again')
+                ->with('globalalertclass', 'error');
+        }
+
+        $brf_model_instance = BasicRequisitionForm::find(Input::get('brf_id'));
+        $brf_model_instance->lac_status = Input::get('lac_status');
+        $brf_model_instance->remarks = Input::get('remarks');
+        $brf_model_instance->save();
+
+        return redirect('lac/requeststatus')
+                ->with('globalalertmessage', 'Request Successfully updated.')
+                ->with('globalalertclass', 'success');
     }
 
 
 
-    
+
 }

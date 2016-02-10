@@ -7,9 +7,6 @@
             <div class="panel panel-default">
                 <div class="panel-heading">LAC - View BRF Request</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('lac/requeststatus/brf') }}">
-                        {!! csrf_field() !!}
-                        
                         @if(!($lac_user_brf == null))
                             <h4 class="text-center">{{ $lac_user_brf->title }}</h4>
                             <hr>
@@ -28,22 +25,30 @@
                                 <p><strong>Librarian Status :</strong> {{ $lac_user_brf->librarian_status }}</p>
                                 <p><strong>Remarks :</strong> {{ $lac_user_brf->remarks }}</p>
                                 <hr>
+                                <form class="form-horizontal" id="BRFapprovalForm" role="form" method="POST" action="{{ url('lac/requeststatus/brf') }}">
+                                    {!! csrf_field() !!}
+                                    <input type="hidden" id="brf_id" name="brf_id" value="{{ $lac_user_brf->id }}">
+                                    <input type="hidden" id="lac_status" name="lac_status" value="">
+                                    <input type="hidden" id="remarks" name="remarks" value="">
+                                </form>
                                 @if( $lac_user_brf->librarian_status == "approved" )
+
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <button type="submit" class="btn btn-danger btn-lg btn-block disabled">Deny</button>
+                                        <button class="btn btn-danger btn-lg btn-block disabled" disabled="">Deny</button>
+                        
                                     </div>
                                     <div class="col-md-6">
-                                        <button type="submit" class="btn btn-success btn-lg btn-block disabled">Approve</button>
+                                        <button class="btn btn-success btn-lg btn-block disabled" disabled="">Approve</button>
                                     </div>
                                 </div>
                                 @else
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <button type="submit" value="deny" class="btn btn-danger btn-lg btn-block">Deny</button>
+                                        <button type="submit" data-toggle="modal" data-target="#denyModal" class="btn btn-danger btn-lg btn-block">Deny</button>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="submit" name="button" value="approved" class="btn btn-success btn-lg btn-block">Approve</input>
+                                        <button type="submit" onclick="approveFunction()" class="btn btn-success btn-lg btn-block">Approve</button>
                                     </div>
                                 </div>
                                 @endif
@@ -57,4 +62,45 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="denyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <input type="text" name="modalremarks" class="col-md-12 form-control" id="modalremarks" placeholder="Reason for denying the request.">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" onclick="denyFunction()">Deny Book Request</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+
+
+@section('jscontent')
+<script type="text/javascript">
+
+    function approveFunction () {
+        document.getElementById("lac_status").value = "approved";
+        document.getElementById("remarks").value = "Approved by LAC";
+        document.getElementById("BRFapprovalForm").submit();
+    }
+
+    function denyFunction () {
+        document.getElementById("lac_status").value = "denied";
+        document.getElementById("remarks").value = document.getElementById("modalremarks").value;
+        document.getElementById("BRFapprovalForm").submit();
+    }
+    
+</script>
 @endsection

@@ -50,6 +50,8 @@
             </script>
     @endif
 
+    @yield('jscontent')
+
 
 </body>
 </html>
