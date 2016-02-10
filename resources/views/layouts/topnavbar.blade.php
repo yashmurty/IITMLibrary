@@ -15,7 +15,9 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     IITM Library
                 </a>
-                <img src="{{ URL::asset('img/IIT_Madras_Logo_300.png') }}" style="height:40px; margin-top:5px">
+                <a href="{{ URL::route('lachome') }}">
+                    <img src="{{ URL::asset('img/IIT_Madras_Logo_300.png') }}" style="height:40px; margin-top:5px">
+                </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">

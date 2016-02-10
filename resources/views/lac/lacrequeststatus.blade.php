@@ -48,7 +48,7 @@
                                     @endif
 
                                     <td>{{ $user_brf->remarks }}</td> 
-                                    <td><a href="#" class="btn btn-primary">View</a></td> 
+                                    <td><a href="{{ url('lac/requeststatus/brf/') }}/{{ $user_brf->id }}" class="btn btn-primary">View</a></td> 
                                 </tr> 
                                 @endforeach
                             @else

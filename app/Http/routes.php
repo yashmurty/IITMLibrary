@@ -56,11 +56,19 @@ Route::group(['middleware' => 'web'], function () {
 
 	// LAC Module
 	Route::get('lac', [
-	    'as' => 'home', 'uses' => 'LacController@getHome'
+	    'as' => 'lachome', 'uses' => 'LacController@getHome'
 	]);
 	// LAC Request Status
 	Route::get('lac/requeststatus', [
 	    'as' => 'lacrequeststatus', 'uses' => 'LacController@getLacRequestStatus'
+	]);
+	// LAC Request Status View BRF
+	Route::get('lac/requeststatus/brf/{brf_id}', [
+	    'as' => 'lacrequeststatus-view-brf', 'uses' => 'LacController@getLacRequestStatusViewBRF'
+	]);
+	// LAC Request Status Approve BRF
+	Route::post('lac/requeststatus/brf', [
+	    'as' => 'lacrequeststatus-approve-brf-post', 'uses' => 'LacController@postLacRequestStatusApproveBRF'
 	]);
 
 

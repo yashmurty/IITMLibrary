@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use Auth;
 use DB;
+use Input;
 
 class LacController extends Controller
 {
@@ -53,4 +54,38 @@ class LacController extends Controller
         }
 
     }
+
+    // Request Status View BRF
+    public function getLacRequestStatusViewBRF($brf_id)
+    {
+        $iitm_dept_code = Auth::user()->iitm_dept_code;
+
+        $lac_user_brf = DB::table('brfs')
+                        ->where('iitm_dept_code', $iitm_dept_code)
+                        ->where('id', $brf_id)
+                        ->orderBy('id', 'desc')
+                        ->first();
+
+        // dd($lac_user_brf);
+
+        if(!empty($lac_user_brf)){
+    
+            return view('lac.lacrequeststatusviewbrf')
+                    ->with('lac_user_brf', $lac_user_brf);
+
+        } else {
+            // return "No Requests Found";
+            return view('lac.lacrequeststatusviewbrf')
+                    ->with('lac_user_brf', null);
+        }
+    }
+
+    public function postLacRequestStatusApproveBRF()
+    {
+        return Input::all();
+    }
+
+
+
+    
 }
