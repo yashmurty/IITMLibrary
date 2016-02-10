@@ -32,7 +32,10 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
     
-    Route::get('/', 'HomeController@getRoot');
+    // Route::get('/', 'HomeController@getRoot');
+    Route::get('/', [
+	    'as' => 'root', 'uses' => 'HomeController@getHome'
+	]);
 
     Route::get('home', [
 	    'as' => 'home', 'uses' => 'HomeController@getHome'

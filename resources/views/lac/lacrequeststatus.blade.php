@@ -52,7 +52,7 @@
                                 </tr> 
                                 @endforeach
                             @else
-                                You have not made any requests yet.
+                                You don't have any approval requests yet.
                             @endif
                                 
                         </tbody> 
