@@ -15,7 +15,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     IITM Library
                 </a>
-                <a href="{{ URL::route('lachome') }}">
+                <a href="{{ URL::route('home') }}">
                     <img src="{{ URL::asset('img/IIT_Madras_Logo_300.png') }}" style="height:40px; margin-top:5px">
                 </a>
             </div>
@@ -29,6 +29,10 @@
                         <li><a href="{{ url('/home') }}">Home</a></li>
                         <li><a href="{{ URL::route('bookrequisitionform') }}">Book Requisition Form</a></li>
                         <li><a href="{{ URL::route('requeststatus') }}">Request Status</a></li>
+                        @if ($auth_usertype == "lac")
+                            <li><a href="{{ URL::route('lachome') }}">LAC Home</a></li>
+                        @endif
+
                     @endif
                 </ul>
 

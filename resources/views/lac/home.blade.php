@@ -6,7 +6,6 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Welcome to LAC Dashboard</div>
-
                 <div class="panel-body">
                     Approve requests in <a href="{{ URL::route('lacrequeststatus') }}">LAC Request Status</a>
                 </div>
