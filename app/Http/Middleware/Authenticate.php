@@ -26,17 +26,21 @@ class Authenticate
             }
         }
 
-        //return Auth::user();
         $iitm_id = Auth::user()->iitm_id;
 
-        // $BasicProfileData = BasicProfile::where('api_userId', '=', 1);
         $lac_user = DB::table('lac_users')
                         ->where('iitm_id', '=', $iitm_id)
                         ->first();
+
+        $admin_user = DB::table('admin_users')
+                        ->where('iitm_id', '=', $iitm_id)
+                        ->first();
+
         if (!empty($lac_user)) {
             view()->share('auth_usertype', 'lac');
+        } elseif (!empty($admin_user)) {
+            view()->share('auth_usertype', 'admin');
         } else {
-            // return "You are not an Admin";
             view()->share('auth_usertype', 'faculty');
         }
 

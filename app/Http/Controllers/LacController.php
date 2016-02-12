@@ -31,8 +31,6 @@ class LacController extends Controller
     public function getHome()
     {
 
-        
-
     	return view('lac.home');
     }
 

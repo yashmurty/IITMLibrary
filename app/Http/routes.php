@@ -54,7 +54,9 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'requeststatus', 'uses' => 'HomeController@getRequestStatus'
 	]);
 
+	/*
 	// LAC Module
+	*/
 	Route::get('lac', [
 	    'as' => 'lachome', 'uses' => 'LacController@getHome'
 	]);
@@ -71,5 +73,15 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'lacrequeststatus-approve-brf-post', 'uses' => 'LacController@postLacRequestStatusApproveBRF'
 	]);
 
+	/*
+	// Admin Module //
+	*/
+	Route::get('admin', [
+	    'as' => 'adminhome', 'uses' => 'AdminController@getHome'
+	]);
+	// Admin Request Status
+	Route::get('admin/requeststatus', [
+	    'as' => 'adminrequeststatus', 'uses' => 'AdminController@getAdminRequestStatus'
+	]);
 
 });

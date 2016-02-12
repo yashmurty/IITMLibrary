@@ -31,6 +31,8 @@
                         <li><a href="{{ URL::route('requeststatus') }}">Request Status</a></li>
                         @if ($auth_usertype == "lac")
                             <li><a href="{{ URL::route('lachome') }}">LAC Home</a></li>
+                        @elseif ($auth_usertype == "admin")
+                            <li><a href="{{ URL::route('adminhome') }}">Admin Home</a></li>
                         @endif
 
                     @endif
