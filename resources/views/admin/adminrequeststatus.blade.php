@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">LAC Request Status</div>
+                <div class="panel-heading">Admin Request Status</div>
 
                 <div class="panel-body">
                     
@@ -48,7 +48,7 @@
                                     @endif
 
                                     <td>{{ $user_brf->remarks }}</td> 
-                                    <td><a href="{{ url('lac/requeststatus/brf/') }}/{{ $user_brf->id }}" class="btn btn-primary">View</a></td> 
+                                    <td><a href="{{ url('admin/requeststatus/brf/') }}/{{ $user_brf->id }}" class="btn btn-primary">View</a></td> 
                                 </tr> 
                                 @endforeach
                             @else

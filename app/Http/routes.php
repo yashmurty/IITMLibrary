@@ -83,5 +83,13 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('admin/requeststatus', [
 	    'as' => 'adminrequeststatus', 'uses' => 'AdminController@getAdminRequestStatus'
 	]);
+	// Admin Request Status View BRF
+	Route::get('admin/requeststatus/brf/{brf_id}', [
+	    'as' => 'adminrequeststatus-view-brf', 'uses' => 'AdminController@getAdminRequestStatusViewBRF'
+	]);
+	// Admin Request Status Approve BRF
+	Route::post('admin/requeststatus/brf', [
+	    'as' => 'adminrequeststatus-approve-brf-post', 'uses' => 'AdminController@postAdminRequestStatusApproveBRF'
+	]);
 
 });
