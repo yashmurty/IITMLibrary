@@ -29,6 +29,7 @@ class CreateBrfsTable extends Migration
             $table->string('iitm_dept_code')->nullable();
             $table->string('lac_status')->nullable();
             $table->string('librarian_status')->nullable();
+            $table->string('download_status')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
         });
