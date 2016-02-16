@@ -33,6 +33,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     // Login with ADS
+    // There is an ADSController which has been added to .gitignore for 
+    // Security reasons.
     Route::post('/loginwithads', [
 	    'as' => 'login-with-ads', 'uses' => 'ADSController@postLoginwithADS'
 	]);
