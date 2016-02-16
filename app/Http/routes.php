@@ -31,6 +31,11 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
+
+    // Login with ADS
+    Route::post('/loginwithads', [
+	    'as' => 'login-with-ads', 'uses' => 'ADSController@postLoginwithADS'
+	]);
     
     // Route::get('/', 'HomeController@getRoot');
     Route::get('/', [

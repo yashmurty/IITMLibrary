@@ -3,3 +3,4 @@
 Homestead.yaml
 Homestead.json
 .env
+/app/Http/Controllers/ADSController.php
