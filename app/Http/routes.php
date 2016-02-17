@@ -98,5 +98,10 @@ Route::group(['middleware' => 'web'], function () {
 	Route::post('admin/requeststatus/brf', [
 	    'as' => 'adminrequeststatus-approve-brf-post', 'uses' => 'AdminController@postAdminRequestStatusApproveBRF'
 	]);
+	// Admin Export to Excel
+	Route::get('admin/requeststatus/exporttoexcel', [
+	    'as' => 'adminrequeststatus-export-excel', 'uses' => 'AdminController@getAdminRequestStatusExportExcel'
+	]);
+
 
 });

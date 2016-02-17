@@ -8,7 +8,10 @@
                 <div class="panel-heading">Admin Request Status</div>
 
                 <div class="panel-body">
-                    
+                    <p>
+                    Export the requests that have been aprroved by the Librarian
+                    <a href="{{ URL::route('adminrequeststatus-export-excel') }}" class="btn btn-primary">Export to Excel</a>
+                    </p>
                     <table class="table"> 
                         <caption>Status of requests under you submitted via Book Requisition Form</caption> 
                         <thead> 

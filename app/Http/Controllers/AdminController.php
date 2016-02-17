@@ -11,6 +11,7 @@ use Validator;
 use Input;
 use Auth;
 use App\BasicRequisitionForm;
+use Excel;
 
 
 class AdminController extends Controller
@@ -57,8 +58,6 @@ class AdminController extends Controller
     // Request Status View BRF
     public function getAdminRequestStatusViewBRF($brf_id)
     {
-        $iitm_dept_code = Auth::user()->iitm_dept_code;
-
         $admin_user_brf = DB::table('brfs')
                         ->where('lac_status', "approved")
                         ->where('id', $brf_id)
@@ -102,6 +101,54 @@ class AdminController extends Controller
         return redirect('admin/requeststatus')
                 ->with('globalalertmessage', 'Request Successfully updated.')
                 ->with('globalalertclass', 'success');
+    }
+
+    public function getAdminRequestStatusExportExcel()
+    {
+
+        $admin_user_brfs = DB::table('brfs')
+                        ->where('lac_status', "approved")
+                        ->where('librarian_status', "approved")
+                        ->where('download_status', null)
+                        ->orderBy('id', 'desc')
+                        ->get();
+
+        // dd($admin_user_brfs);
+
+        if(!empty($admin_user_brfs)){
+
+            foreach ($admin_user_brfs as $key => $admin_user_brf) {
+
+                $brf_model_instance = BasicRequisitionForm::find($admin_user_brf->id);
+                $brf_model_instance->download_status = "downloaded";
+                $brf_model_instance->remarks = "Order has been placed";
+                $brf_model_instance->save();
+
+                $brf_array_row = (array) $admin_user_brf;
+                $brf_array[] = $brf_array_row;
+            }
+            $data = (array) $brf_array;
+                
+            Excel::create('Filename', function($excel) use($data) {
+
+                $excel->sheet('Sheetname', function($sheet) use($data) {
+
+                    $sheet->fromArray($data);
+
+                });
+
+            })->export('xls');
+
+            return "Excel Exported";
+
+        } else {
+            return redirect('admin/requeststatus')
+                ->with('globalalertmessage', 'No requests found to be exported')
+                ->with('globalalertclass', 'error');
+        }
+
+
+        
     }
 
 
