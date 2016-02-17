@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('iitm_id');
             $table->string('iitm_dept_code');
+            $table->string('ads_department');
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->rememberToken();
