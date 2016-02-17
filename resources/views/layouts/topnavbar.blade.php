@@ -46,7 +46,8 @@
                         <!-- <li><a href="{{ url('/register') }}">Register</a></li> -->
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle" style="padding:0px;" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <img src="https://photos.iitm.ac.in/byid.php?id={{ Auth::user()->iitm_id }}" style="height:50px;">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
