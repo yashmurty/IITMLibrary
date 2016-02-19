@@ -12,6 +12,8 @@ use DB;
 use Input;
 use Validator;
 use App\BasicRequisitionForm;
+use Mail;
+use App\User;
 
 
 class LacController extends Controller
@@ -100,6 +102,22 @@ class LacController extends Controller
         $brf_model_instance->lac_status = Input::get('lac_status');
         $brf_model_instance->remarks = Input::get('remarks');
         $brf_model_instance->save();
+
+        if (Input::get('lac_status') == "denied") {
+            # code...
+            $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
+
+            Mail::send('emails.deniedbylibrarian', 
+                [
+                    'brf_model_instance'        => $brf_model_instance,
+                    'brf_model_user_instance'   => $brf_model_user_instance
+                ], 
+                function ($m) use ($brf_model_instance, $brf_model_user_instance) {
+                $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
+                // $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
+                $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
+            });
+        }
 
         return redirect('lac/requeststatus')
                 ->with('globalalertmessage', 'Request Successfully updated.')

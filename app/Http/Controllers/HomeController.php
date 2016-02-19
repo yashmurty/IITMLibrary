@@ -9,6 +9,7 @@ use Validator;
 use Auth;
 use View;
 use DB;
+use Mail;
 
 use App\BasicRequisitionForm;
 
@@ -84,6 +85,12 @@ class HomeController extends Controller
     public function getRequestStatus()
     {
         $laravel_user_id = Auth::user()->id;
+
+        // Mail::send('emails.test', ['laravel_user_id' => $laravel_user_id], function ($m) use ($laravel_user_id) {
+        //     $m->from('hello@smail.iitm.ac.in', 'Your Application');
+
+        //     $m->to("ae11b049@smail.iitm.ac.in", "Yash")->subject('Your Reminder!');
+        // });
 
         $user_brfs = DB::table('brfs')
                         ->where('laravel_user_id', $laravel_user_id)

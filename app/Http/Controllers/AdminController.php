@@ -12,7 +12,8 @@ use Input;
 use Auth;
 use App\BasicRequisitionForm;
 use Excel;
-
+use Mail;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -98,6 +99,22 @@ class AdminController extends Controller
         $brf_model_instance->remarks = Input::get('remarks');
         $brf_model_instance->save();
 
+        if (Input::get('librarian_status') == "denied") {
+            # code...
+            $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
+
+            Mail::send('emails.deniedbylibrarian', 
+                [
+                    'brf_model_instance'        => $brf_model_instance,
+                    'brf_model_user_instance'   => $brf_model_user_instance
+                ], 
+                function ($m) use ($brf_model_instance, $brf_model_user_instance) {
+                $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
+                // $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
+                $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
+            });
+        }
+
         return redirect('admin/requeststatus')
                 ->with('globalalertmessage', 'Request Successfully updated.')
                 ->with('globalalertclass', 'success');
@@ -123,6 +140,19 @@ class AdminController extends Controller
                 $brf_model_instance->download_status = "downloaded";
                 $brf_model_instance->remarks = "Order has been placed";
                 $brf_model_instance->save();
+
+                $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
+
+                Mail::send('emails.acceptedbylibrarian', 
+                    [
+                        'brf_model_instance'        => $brf_model_instance,
+                        'brf_model_user_instance'   => $brf_model_user_instance
+                    ], 
+                    function ($m) use ($brf_model_instance, $brf_model_user_instance) {
+                    $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
+                    // $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
+                    $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name)->subject('[Library] Request Approved for Book');
+                });
 
                 $brf_array_row = (array) $admin_user_brf;
                 $brf_array[] = $brf_array_row;
