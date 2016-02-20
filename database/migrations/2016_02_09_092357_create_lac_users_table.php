@@ -18,6 +18,7 @@ class CreateLacUsersTable extends Migration
             $table->string('laravel_user_id');
             $table->string('iitm_id');
             $table->string('iitm_dept_code');
+            $table->string('lac_email_id');
             $table->timestamps();
         });
     }
