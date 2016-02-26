@@ -28,11 +28,12 @@
                     @else
                         <li><a href="{{ url('/home') }}">Home</a></li>
                         <li><a href="{{ URL::route('bookrequisitionform') }}">Book Requisition Form</a></li>
-                        <li><a href="{{ URL::route('requeststatus') }}">Request Status</a></li>
                         @if ($auth_usertype == "lac")
                             <li><a href="{{ URL::route('lachome') }}">LAC Home</a></li>
                         @elseif ($auth_usertype == "admin")
                             <li><a href="{{ URL::route('adminhome') }}">Admin Home</a></li>
+                        @else
+                            <li><a href="{{ URL::route('requeststatus') }}">Request Status</a></li>
                         @endif
 
                     @endif
