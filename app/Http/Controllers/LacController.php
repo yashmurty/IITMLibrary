@@ -107,7 +107,7 @@ class LacController extends Controller
             # code...
             $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
 
-            Mail::send('emails.deniedbylibrarian', 
+            Mail::send('emails.deniedbylac', 
                 [
                     'brf_model_instance'        => $brf_model_instance,
                     'brf_model_user_instance'   => $brf_model_user_instance
