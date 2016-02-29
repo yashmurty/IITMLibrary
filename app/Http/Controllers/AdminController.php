@@ -103,6 +103,12 @@ class AdminController extends Controller
             # code...
             $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
 
+            $lac_user_instance = DB::table('lac_users')
+                                    ->where('iitm_dept_code', '=', $brf_model_instance->iitm_dept_code)
+                                    ->first();
+
+            // return $lac_user_instance;
+
             Mail::send('emails.deniedbylibrarian', 
                 [
                     'brf_model_instance'        => $brf_model_instance,
@@ -111,7 +117,10 @@ class AdminController extends Controller
                 function ($m) use ($brf_model_instance, $brf_model_user_instance) {
                 $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
                 // $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
-                $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
+                $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name);
+                // $m->to($lac_user_instance->lac_email_id, $lac_user_instance->iitm_dept_code . " LAC Member")->subject('[Library] Request Denied for Book');
+                $m->cc("test@smail.iitm.ac.in", "X LAC Member");
+                $m->subject('[Library] Request Denied for Book');
             });
         }
 
