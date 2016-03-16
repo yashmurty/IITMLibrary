@@ -10,6 +10,7 @@ use Auth;
 use View;
 use DB;
 use Mail;
+use GuzzleHttp\Client;
 
 use App\BasicRequisitionForm;
 
@@ -106,6 +107,89 @@ class HomeController extends Controller
             return view('pages.requeststatus')
                     ->with('user_brfs', null);
         }
+
+    }
+
+    public function postBookRequisitionFormISBN()
+    {
+
+        $validator = Validator::make(Input::all(), [
+            'inputISBN' => 'min:10',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/home')
+                ->withInput()
+                ->withErrors($validator)
+                ->with('globalalertmessage', 'ISBN number should be 10 Digits minimum')
+                ->with('globalalertclass', 'error');
+        }
+        // return Input::all();
+        $inputISBN = Input::get('inputISBN');
+
+        $client = new Client();
+        $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:'.$inputISBN);
+
+        $body = $response->getBody();
+        $bodyContents = $body->getContents();
+        $bodyContentsJSON = json_decode($bodyContents);
+        $bodyContentsJSONtotalItems = $bodyContentsJSON->totalItems;
+
+        if (!($bodyContentsJSONtotalItems == 0)) {
+
+            $bodyContentsJSONItems = $bodyContentsJSON->items;
+            // dd($bodyContentsJSONItems);
+
+            if (isset($bodyContentsJSONItems[0]->volumeInfo->title)) {
+                $title = $bodyContentsJSONItems[0]->volumeInfo->title;
+            } else {
+                $title = null;
+            }
+            if (isset($bodyContentsJSONItems[0]->volumeInfo->authors)) {
+                $authors = implode(", ", $bodyContentsJSONItems[0]->volumeInfo->authors);
+            } else {
+                $authors = null;
+            }
+            if (isset($bodyContentsJSONItems[0]->volumeInfo->publisher)) {
+                $publisher = $bodyContentsJSONItems[0]->volumeInfo->publisher;
+            } else {
+                $publisher = null;
+            }
+            if (isset($bodyContentsJSONItems[0]->volumeInfo->publishedDate)) {
+                $publishedDate = $bodyContentsJSONItems[0]->volumeInfo->publishedDate;
+            } else {
+                $publishedDate = null;
+            }
+            if (isset($bodyContentsJSONItems[0]->volumeInfo->imageLinks->thumbnail)) {
+                $thumbnail = $bodyContentsJSONItems[0]->volumeInfo->imageLinks->thumbnail;
+            } else {
+                $thumbnail = null;
+            }
+            if (isset($bodyContentsJSONItems[0]->accessInfo->webReaderLink)) {
+                $webReaderLink = $bodyContentsJSONItems[0]->accessInfo->webReaderLink;
+            } else {
+                $webReaderLink = "#";
+            }
+
+
+            return view('pages.BookRequisitionFormISBN')
+                    ->with('authors', $authors)
+                    ->with('title', $title)
+                    ->with('publisher', $publisher)
+                    ->with('inputISBN', $inputISBN)
+                    ->with('publishedDate', $publishedDate)
+                    ->with('thumbnail', $thumbnail)
+                    ->with('webReaderLink', $webReaderLink);
+
+
+        } else {
+            return redirect('/home')
+                ->with('globalalertmessage', 'Book not found with this ISBN')
+                ->with('globalalertclass', 'error');
+        }
+
+
+
 
     }
 }

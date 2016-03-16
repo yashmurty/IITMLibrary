@@ -56,6 +56,10 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'bookrequisitionform-post', 'uses' => 'HomeController@postBookRequisitionForm'
 	]);
 
+	Route::post('bookrequisitionformisbn', [
+	    'as' => 'bookrequisitionformisbn-post', 'uses' => 'HomeController@postBookRequisitionFormISBN'
+	]);
+
 	// Request Status
 	Route::get('requeststatus', [
 	    'as' => 'requeststatus', 'uses' => 'HomeController@getRequestStatus'
