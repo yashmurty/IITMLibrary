@@ -14,6 +14,7 @@
                         <thead> 
                             <tr> 
                                 <th>#</th> 
+                                <th>Faculty</th> 
                                 <th>Doctype</th> 
                                 <th>Author</th> 
                                 <th>Title</th> 
@@ -28,6 +29,7 @@
                                 @foreach ($lac_user_brfs as $key => $user_brf) 
                                 <tr> 
                                     <th scope="row">{{ $key + 1 }}</th> 
+                                    <td>{{ $user_brf->doctype }}</td> 
                                     <td>{{ $user_brf->doctype }}</td> 
                                     <td>{{ $user_brf->author }}</td> 
                                     <td>{{ $user_brf->title }}</td> 
