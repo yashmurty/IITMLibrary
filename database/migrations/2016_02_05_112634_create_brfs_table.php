@@ -27,6 +27,7 @@ class CreateBrfsTable extends Migration
             $table->string('numberofcopies')->nullable();
             $table->string('laravel_user_id')->nullable();
             $table->string('iitm_dept_code')->nullable();
+            $table->string('iitm_id')->nullable();
             $table->string('lac_status')->nullable();
             $table->string('librarian_status')->nullable();
             $table->string('download_status')->nullable();

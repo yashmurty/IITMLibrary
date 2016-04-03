@@ -21,8 +21,8 @@ class BasicRequisitionForm extends Model
     protected $fillable = [
         'doctype', 'author', 'title', 'publisher','agency',
         'isbn', 'volumne', 'price','sectioncatalogue',
-        'numberofcopies', 'laravel_user_id', 'iitm_dept_code', 'lac_status',
-        'librarian_status', 'remarks',
+        'numberofcopies', 'laravel_user_id', 'iitm_dept_code', 'iitm_id',
+        'lac_status', 'librarian_status', 'remarks',
     ];
 
     /**

@@ -72,6 +72,7 @@ class HomeController extends Controller
             'sectioncatalogue'  => Input::get('inputSectionCatalogue'),
             'numberofcopies'    => Input::get('inputNumberOfCopies'),
             'laravel_user_id'   => Auth::user()->id,
+            'iitm_id'           => Auth::user()->iitm_id,
             'iitm_dept_code'    => Auth::user()->iitm_dept_code
         ));
 
