@@ -73,6 +73,7 @@ class HomeController extends Controller
             'numberofcopies'    => Input::get('inputNumberOfCopies'),
             'laravel_user_id'   => Auth::user()->id,
             'iitm_id'           => Auth::user()->iitm_id,
+            'faculty'           => Auth::user()->name,
             'iitm_dept_code'    => Auth::user()->iitm_dept_code
         ));
 

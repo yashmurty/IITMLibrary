@@ -22,7 +22,7 @@ class BasicRequisitionForm extends Model
         'doctype', 'author', 'title', 'publisher','agency',
         'isbn', 'volumne', 'price','sectioncatalogue',
         'numberofcopies', 'laravel_user_id', 'iitm_dept_code', 'iitm_id',
-        'lac_status', 'librarian_status', 'remarks',
+        'faculty', 'lac_status', 'librarian_status', 'remarks',
     ];
 
     /**
