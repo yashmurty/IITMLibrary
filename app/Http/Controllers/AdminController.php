@@ -147,7 +147,7 @@ class AdminController extends Controller
 
                 $brf_model_instance = BasicRequisitionForm::find($admin_user_brf->id);
                 $brf_model_instance->download_status = "downloaded";
-                $brf_model_instance->remarks = "Order has been placed";
+                $brf_model_instance->remarks = "The procurement process has been initiated.";
                 $brf_model_instance->save();
 
                 $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
