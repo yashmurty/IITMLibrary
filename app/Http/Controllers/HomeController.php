@@ -93,8 +93,8 @@ class HomeController extends Controller
                 ], 
                 function ($m) use ($lac_user_instance, $inputTitle) {
                 $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
-                // $m->to($lac_user_instance->lac_email_id, $lac_user_instance->name)->subject('[Library] New Request for Book');
-                $m->to("ae11b049@smail.iitm.ac.in", $lac_user_instance->name)->subject('[Library] New Request for Book');
+                $m->to($lac_user_instance->lac_email_id, $lac_user_instance->name)->subject('[Library] New Request for Book');
+                // $m->to("ae11b049@smail.iitm.ac.in", $lac_user_instance->name)->subject('[Library] New Request for Book');
             });        
 
         return redirect('home')
