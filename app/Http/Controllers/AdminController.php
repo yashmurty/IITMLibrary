@@ -159,7 +159,7 @@ class AdminController extends Controller
                     ], 
                     function ($m) use ($brf_model_instance, $brf_model_user_instance) {
                     $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
-                    $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
+                    $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Approved for Book');
                     // $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name)->subject('[Library] Request Approved for Book');
                     // No commented test for CC here.
 
