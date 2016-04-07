@@ -190,5 +190,24 @@ class AdminController extends Controller
         
     }
 
+    public function getAdminLACMembers()
+    {
+
+        $lac_users = DB::table('lac_users')
+                        ->orderBy('iitm_dept_code', 'asc')
+                        ->get();
+        if(!empty($lac_users)){
+    
+            return view('admin.adminlacmembers')
+                    ->with('lac_users', $lac_users);
+
+        } else {
+            // return "No Requests Found";
+            return view('admin.adminlacmembers')
+                    ->with('lac_users', null);
+        }
+
+    }
+
 
 }

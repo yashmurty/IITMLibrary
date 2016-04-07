@@ -107,5 +107,9 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'adminrequeststatus-export-excel', 'uses' => 'AdminController@getAdminRequestStatusExportExcel'
 	]);
 
+	// Admin LAC Memebers
+	Route::get('admin/lacmembers', [
+	    'as' => 'admin-lacmembers', 'uses' => 'AdminController@getAdminLACMembers'
+	]);
 
 });
