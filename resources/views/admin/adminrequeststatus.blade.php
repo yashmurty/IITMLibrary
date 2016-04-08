@@ -18,6 +18,7 @@
                             <tr> 
                                 <th>#</th> 
                                 <th>Faculty</th> 
+                                <th>Department</th> 
                                 <th>Doctype</th> 
                                 <th>Author</th> 
                                 <th>Title</th> 
@@ -33,6 +34,7 @@
                                 <tr> 
                                     <th scope="row">{{ $key + 1 }}</th> 
                                     <td>{{ $user_brf->faculty }}</td> 
+                                    <td>{{ $user_brf->iitm_dept_code }}</td> 
                                     <td>{{ $user_brf->doctype }}</td> 
                                     <td>{{ $user_brf->author }}</td> 
                                     <td>{{ $user_brf->title }}</td> 
