@@ -38,7 +38,16 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/loginwithads', [
 	    'as' => 'login-with-ads', 'uses' => 'ADSController@postLoginwithADS'
 	]);
+
+	Route::post('/loginwithstaffads', [
+	    'as' => 'login-with-staff-ads', 'uses' => 'ADSController@postLoginwithStaffADS'
+	]);
     
+    // Staff ADS Login. Factulty Login is located at Native Login
+    Route::get('/stafflogin', [
+	    'as' => 'staff-login', 'uses' => 'ADSController@getStaffLogin'
+	]);
+
     // Route::get('/', 'HomeController@getRoot');
     Route::get('/', [
 	    'as' => 'root', 'uses' => 'HomeController@getHome'
