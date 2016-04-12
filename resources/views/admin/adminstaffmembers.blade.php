@@ -15,7 +15,9 @@
                             <tr> 
                                 <th>#</th> 
                                 <th>Image</th> 
+                                <th>Name</th> 
                                 <th>Employee ID</th> 
+                                <th>Email</th> 
                                 <th>Edit</th> 
                             </tr> 
                         </thead> 
@@ -25,7 +27,9 @@
                                 <tr> 
                                     <th scope="row">{{ $key + 1 }}</th> 
                                     <td><img src="https://photos.iitm.ac.in/byid.php?id={{ $admin_user->iitm_id }}" style="height:50px;"></td> 
+                                    <td>{{ $admin_user->name }}</td> 
                                     <td>{{ $admin_user->iitm_id }}</td> 
+                                    <td>{{ $admin_user->email }}</td> 
 
                                     <td><a href="#" class="btn btn-danger" disabled>Edit</a></td> 
                                 </tr> 
