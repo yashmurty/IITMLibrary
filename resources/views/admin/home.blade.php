@@ -23,6 +23,12 @@
                                 LAC Memebers
                             </div>
                             </a>
+
+                            <a class="col-sm-12 col-md-4" href="{{ URL::route('admin-staffmembers') }}">
+                            <div style="background-color:#DDD; padding: 15px;">
+                                Admin Staff Members
+                            </div>
+                            </a>
                         </div>
                     </div>
 

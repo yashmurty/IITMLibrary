@@ -121,4 +121,9 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'admin-lacmembers', 'uses' => 'AdminController@getAdminLACMembers'
 	]);
 
+	// Admin Staff Memebers
+	Route::get('admin/staffmembers', [
+	    'as' => 'admin-staffmembers', 'uses' => 'AdminController@getAdminStaffMembers'
+	]);
+
 });

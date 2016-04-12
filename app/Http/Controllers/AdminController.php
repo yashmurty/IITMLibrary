@@ -211,5 +211,24 @@ class AdminController extends Controller
 
     }
 
+    public function getAdminStaffMembers()
+    {
+
+        $admin_users = DB::table('admin_users')
+                        ->orderBy('id', 'asc')
+                        ->get();
+        if(!empty($admin_users)){
+    
+            return view('admin.adminstaffmembers')
+                    ->with('admin_users', $admin_users);
+
+        } else {
+            // return "No Requests Found";
+            return view('admin.adminstaffmembers')
+                    ->with('admin_users', null);
+        }
+
+    }
+
 
 }
