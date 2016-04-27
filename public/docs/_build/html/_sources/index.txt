@@ -11,7 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-
+   pages/faculty
 
 Indices and tables
 ==================
