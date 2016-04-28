@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    pages/faculty
+   pages/lacmembers
 
 Indices and tables
 ==================
