@@ -13,6 +13,7 @@ Contents:
 
    pages/faculty
    pages/lacmembers
+   pages/administrators
 
 Indices and tables
 ==================

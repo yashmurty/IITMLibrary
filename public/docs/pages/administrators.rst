@@ -1,4 +1,4 @@
-Documentaion for LAC Members
+Documentaion for Administrators
 =========================
 
 Hello.
