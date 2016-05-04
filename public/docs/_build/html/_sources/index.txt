@@ -6,6 +6,8 @@
 Welcome to IITM Library Portal's documentation!
 ===============================================
 
+**Production Server URL at** http://10.24.0.175/
+
 Contents:
 
 .. toctree::
@@ -15,10 +17,10 @@ Contents:
    pages/lacmembers
    pages/administrators
 
-Indices and tables
-==================
+.. Indices and tables
+.. ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
 
