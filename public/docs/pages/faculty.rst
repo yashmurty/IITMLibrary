@@ -1,4 +1,4 @@
-Documentaion for Faculty
+Documentation for Faculty
 =========================
 
 **Welcome to IITM Library Portal**

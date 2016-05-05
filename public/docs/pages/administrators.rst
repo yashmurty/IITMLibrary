@@ -1,4 +1,4 @@
-Documentaion for Administrators
+Documentation for Administrators
 =========================
 
-Hello.
+Coming Soon.

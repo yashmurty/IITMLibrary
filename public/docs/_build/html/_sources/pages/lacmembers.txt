@@ -1,4 +1,4 @@
-Documentaion for LAC Members
+Documentation for LAC Members
 =========================
 
-Hello.
+Coming Soon.
