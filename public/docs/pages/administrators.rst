@@ -26,4 +26,4 @@ Step 2 : Home Page
 
 After Logging in, you will be taken to the Home page. You can enter the **ISBN number** on this page and it will automatically fetch the book details and take you to the **Book Requisition Form**. The Home page looks like this.
 
-.. image:: /images/faculty/iitmlib-home.png
+.. image:: /images/admin/admin-home.png
