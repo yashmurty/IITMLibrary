@@ -27,3 +27,25 @@ Step 2 : Home Page
 After Logging in, you will be taken to the Home page. You can enter the **ISBN number** on this page and it will automatically fetch the book details and take you to the **Book Requisition Form**. The Home page looks like this.
 
 .. image:: /images/admin/admin-home.png
+
+You can see in the top navigation bar a button which says **Admin Home**. Clicking it will take you to the Admin Dashboard. 
+
+========================
+Step 3 : Admin Dashboard
+========================
+
+It has currently three active modules: 
+    
+    * Admin Request Status
+    * LAC Members
+    * Admin Staff Members
+
+This is how the Admin Dashboard looks like.
+
+.. image:: /images/admin/admin-dashboard.png
+
+To accept book requests, click on **Admin Request Status**. This will load the following request status page.
+
+.. image:: /images/admin/admin-viewstatus.png
+
+
