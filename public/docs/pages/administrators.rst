@@ -48,4 +48,21 @@ To accept book requests, click on **Admin Request Status**. This will load the f
 
 .. image:: /images/admin/admin-viewstatus.png
 
+==============================
+Step 4 : Approve/Deny Requests
+==============================
 
+After reaching the **Admin Request Status** page as explained above, you can view all the book requests made by the faculty, and which have already been approved by LAC Members. To appove/deny these requests click on the **View** button in the last column.
+
+.. image:: /images/admin/admin-viewrequest.png
+
+If you click **Approve**, the book request gets approved and will be **Exported to Excel** the next time you export all the pending requests.
+
+If you click **Deny**, a dialog box will be displayed, requesting you to explain the reason for for denying the book request. 
+
+.. image:: /images/admin/admin-denyreq.png
+
+When you enter the reason and submit it, an Email is sent to the Faculty as well as the respective LAC member informing them about the rejection of request, along with the reason that you entered.
+
+.. note::
+	 An email is not sent to the faculty when you click **Approve** button here. Approval email is only sent to the respective faculty when their book request gets exported to Excel.
