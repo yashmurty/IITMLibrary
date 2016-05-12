@@ -66,3 +66,7 @@ When you enter the reason and submit it, an Email is sent to the Faculty as well
 
 .. note::
 	 An email is not sent to the faculty when you click **Approve** button here. Approval email is only sent to the respective faculty when their book request gets exported to Excel.
+
+Once you are done Approving/Denying the book requests, you can click on the **Export to Excel** button. This will export all those requests which have been approved by you, but haven't been exported yet. 
+
+When you export these requests, an email sent to the respective faculty stating that their request has been approved and the procurement process has been initiated from the Library side. 
