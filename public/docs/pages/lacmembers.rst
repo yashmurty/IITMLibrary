@@ -1,4 +1,4 @@
-Documentation for Faculty
+Documentation for LAC Members
 =========================
 
 **Welcome to IITM Library Portal**
