@@ -14,6 +14,8 @@ use App\BasicRequisitionForm;
 use Excel;
 use Mail;
 use App\User;
+use DateTime;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -169,8 +171,10 @@ class AdminController extends Controller
                 $brf_array[] = $brf_array_row;
             }
             $data = (array) $brf_array;
-                
-            Excel::create('Filename', function($excel) use($data) {
+            $date = Carbon::now();
+            $currentDateTime = $date->toDateTimeString();
+
+            Excel::create($currentDateTime, function($excel) use($data) {
 
                 $excel->sheet('Sheetname', function($sheet) use($data) {
 
