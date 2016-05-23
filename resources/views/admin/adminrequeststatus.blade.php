@@ -31,7 +31,11 @@
                         <tbody> 
                             @if(!($admin_user_brfs == null))
                                 @foreach ($admin_user_brfs as $key => $user_brf) 
+                                @if( $user_brf->download_status == null)
                                 <tr> 
+                                @elseif( $user_brf->download_status == "downloaded" )
+                                <tr class="success">
+                                @endif
                                     <th scope="row">{{ $key + 1 }}</th> 
                                     <td>{{ $user_brf->faculty }}</td> 
                                     <td>{{ $user_brf->iitm_dept_code }}</td> 
