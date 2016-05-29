@@ -141,11 +141,12 @@ class HomeController extends Controller
             return redirect('/home')
                 ->withInput()
                 ->withErrors($validator)
-                ->with('globalalertmessage', 'ISBN number should be 10 Digits minimum')
+                ->with('globalalertmessage', 'ISBN number should be 10 or 13 Digits only.')
                 ->with('globalalertclass', 'error');
         }
         // return Input::all();
         $inputISBN = Input::get('inputISBN');
+        $inputISBN = str_replace(' ', '', $inputISBN);
 
         $client = new Client();
         $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:'.$inputISBN);
