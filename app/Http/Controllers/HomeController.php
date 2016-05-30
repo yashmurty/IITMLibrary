@@ -147,6 +147,7 @@ class HomeController extends Controller
         // return Input::all();
         $inputISBN = Input::get('inputISBN');
         $inputISBN = str_replace(' ', '', $inputISBN);
+        $inputISBN = str_replace('-', '', $inputISBN);
 
         $client = new Client();
         $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:'.$inputISBN);
