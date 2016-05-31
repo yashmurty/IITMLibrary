@@ -63,6 +63,9 @@
                         </div>
                     </form>
                 </div>
+                <div class="col-sm-12 bg-info" style="padding: 3px;">
+                    <h5>Logging in the first time? <a href="https://books.iitm.ac.in/docs/_build/html/" target="_alt">Click here to View Documentation</a></h5>
+                </div>
             </div>
         </div>
     </div>
