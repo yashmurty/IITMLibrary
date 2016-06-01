@@ -8,6 +8,9 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
+                    <div class="col-sm-12 bg-info" style="padding: 5px; margin-bottom: 10px;">
+                        <h5>Logging in the first time? <a href="https://books.iitm.ac.in/docs/_build/html/" target="_alt">Click here to View Documentation</a></h5>
+                    </div>
                     <p>
                     You are logged in! Visit the <a href="{{ URL::route('bookrequisitionform') }}">Book Requisition Form</a>
                     </p>
