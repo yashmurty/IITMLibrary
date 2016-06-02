@@ -4,7 +4,7 @@
 		
 	There is a new request for the book <strong>{{ $inputTitle }}</strong> pending your approval. Please visit the following link and apporve it.<br>
 
-	<strong><a href="http://10.24.0.175">Library Portal</a></strong>
+	<strong><a href="https://books.iitm.ac.in">Library Portal</a></strong>
 
 	<br>
 	Regards,<br>
