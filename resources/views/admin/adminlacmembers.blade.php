@@ -34,7 +34,7 @@
                                     <td>{{ $lac_user->iitm_dept_code }}</td>
 
 
-                                    <td><a href="#" class="btn btn-danger">Edit</a></td> 
+                                    <td><a href="{{ url('/') }}/admin/lacmembers/{{ $lac_user->iitm_dept_code }}/edit" class="btn btn-danger">Edit</a></td> 
                                 </tr>
                                 @endforeach
                             @else
