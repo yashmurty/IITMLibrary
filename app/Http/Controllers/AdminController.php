@@ -46,7 +46,7 @@ class AdminController extends Controller
                         ->orderBy('id', 'desc')
                         ->get();
         if(!empty($admin_user_brfs)){
-    
+
             return view('admin.adminrequeststatus')
                     ->with('admin_user_brfs', $admin_user_brfs);
 
@@ -70,7 +70,7 @@ class AdminController extends Controller
         // dd($lac_user_brf);
 
         if(!empty($admin_user_brf)){
-    
+
             return view('admin.adminrequeststatusviewbrf')
                     ->with('admin_user_brf', $admin_user_brf);
 
@@ -111,12 +111,12 @@ class AdminController extends Controller
 
             // return $lac_user_instance;
 
-            Mail::send('emails.deniedbylibrarian', 
+            Mail::send('emails.deniedbylibrarian',
                 [
                     'brf_model_instance'        => $brf_model_instance,
                     'brf_model_user_instance'   => $brf_model_user_instance,
                     'lac_user_instance'         => $lac_user_instance
-                ], 
+                ],
                 function ($m) use ($brf_model_instance, $brf_model_user_instance, $lac_user_instance) {
                 $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
                 $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
@@ -155,11 +155,11 @@ class AdminController extends Controller
 
                 $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
 
-                Mail::send('emails.acceptedbylibrarian', 
+                Mail::send('emails.acceptedbylibrarian',
                     [
                         'brf_model_instance'        => $brf_model_instance,
                         'brf_model_user_instance'   => $brf_model_user_instance
-                    ], 
+                    ],
                     function ($m) use ($brf_model_instance, $brf_model_user_instance) {
                     $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
                     $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Approved for Book');
@@ -194,7 +194,7 @@ class AdminController extends Controller
         }
 
 
-        
+
     }
 
     public function getAdminLACMembers()
@@ -204,7 +204,7 @@ class AdminController extends Controller
                         ->orderBy('iitm_dept_code', 'asc')
                         ->get();
         if(!empty($lac_users)){
-    
+
             return view('admin.adminlacmembers')
                     ->with('lac_users', $lac_users);
 
@@ -216,6 +216,11 @@ class AdminController extends Controller
 
     }
 
+    public function getAdminLACMembersEdit($iitm_dept_code)
+    {
+        return $iitm_dept_code;
+    }
+
     public function getAdminStaffMembers()
     {
 
@@ -223,7 +228,7 @@ class AdminController extends Controller
                         ->orderBy('id', 'asc')
                         ->get();
         if(!empty($admin_users)){
-    
+
             return view('admin.adminstaffmembers')
                     ->with('admin_users', $admin_users);
 

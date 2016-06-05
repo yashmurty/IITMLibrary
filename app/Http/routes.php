@@ -33,7 +33,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     // Login with ADS
-    // There is an ADSController which has been added to .gitignore for 
+    // There is an ADSController which has been added to .gitignore for
     // Security reasons.
     Route::post('/loginwithads', [
 	    'as' => 'login-with-ads', 'uses' => 'ADSController@postLoginwithADS'
@@ -42,7 +42,7 @@ Route::group(['middleware' => 'web'], function () {
 	Route::post('/loginwithstaffads', [
 	    'as' => 'login-with-staff-ads', 'uses' => 'ADSController@postLoginwithStaffADS'
 	]);
-    
+
     // Staff ADS Login. Factulty Login is located at Native Login
     Route::get('/stafflogin', [
 	    'as' => 'staff-login', 'uses' => 'ADSController@getStaffLogin'
@@ -56,8 +56,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('home', [
 	    'as' => 'home', 'uses' => 'HomeController@getHome'
 	]);
-    
-    // Book Requisition Form 
+
+    // Book Requisition Form
     Route::get('bookrequisitionform', [
 	    'as' => 'bookrequisitionform', 'uses' => 'HomeController@getBookRequisitionForm'
 	]);
@@ -119,6 +119,10 @@ Route::group(['middleware' => 'web'], function () {
 	// Admin LAC Memebers
 	Route::get('admin/lacmembers', [
 	    'as' => 'admin-lacmembers', 'uses' => 'AdminController@getAdminLACMembers'
+	]);
+    // Admin LAC Memebers Edit
+	Route::get('admin/lacmembers/{iitm_dept_code}/edit', [
+	    'as' => 'admin-lacmembers-edit', 'uses' => 'AdminController@getAdminLACMembersEdit'
 	]);
 
 	// Admin Staff Memebers
