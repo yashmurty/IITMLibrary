@@ -221,8 +221,16 @@ class AdminController extends Controller
         $lac_user = DB::table('lac_users')
                         ->where('iitm_dept_code', $iitm_dept_code)
                         ->first();
-        dd($lac_user);
-        return $iitm_dept_code;
+        if(!empty($lac_user)){
+
+            return view('admin.admin-lacmembers-edit')
+                    ->with('lac_user', $lac_user);
+
+        } else {
+            // return "No Requests Found";
+            return view('admin.admin-lacmembers-edit')
+                    ->with('lac_user', null);
+        }
     }
 
     public function getAdminStaffMembers()
