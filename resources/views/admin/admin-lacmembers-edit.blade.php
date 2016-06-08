@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Edit LAC Member</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/lacmembers/') }}/{{ $lac_user->iitm_dept_code }}/edit">
                         {!! csrf_field() !!}
 
                         <!-- <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -31,14 +31,19 @@
                         </div>
                         <!-- END - Department Code -->
 
-                        <!-- START - IITM ID -->
+                        <!-- START - Name -->
                         <div class="form-group col-md-12">
-                            <label for="input_iitm_id">IITM ID </label>
-                            <input type="text" class="form-control" id="input_iitm_id" name="input_iitm_id" value="{{ $lac_user->iitm_id }}" required="">
+                            <label for="input_name">Name </label>
+                            <input type="text" class="form-control" id="input_name" name="input_name" value="{{ $lac_user->name }}" required="">
                         </div>
-                        <!-- END - IITM ID -->
+                        <!-- END - Name -->
 
-
+                        <!-- START - Email ID -->
+                        <div class="form-group col-md-12">
+                            <label for="input_lac_email_id">Email ID </label>
+                            <input type="text" class="form-control" id="input_lac_email_id" name="input_lac_email_id" value="{{ $lac_user->lac_email_id }}" required="">
+                        </div>
+                        <!-- END - Email ID -->
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3 ">
