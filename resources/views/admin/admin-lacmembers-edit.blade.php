@@ -31,6 +31,13 @@
                         </div>
                         <!-- END - Department Code -->
 
+                        <!-- START - IITM ID -->
+                        <div class="form-group col-md-12">
+                            <label for="input_iitm_id">IITM ID </label>
+                            <input type="text" class="form-control" id="input_iitm_id" name="input_iitm_id" value="{{ $lac_user->iitm_id }}" required="">
+                        </div>
+                        <!-- END - IITM ID -->
+
                         <!-- START - Name -->
                         <div class="form-group col-md-12">
                             <label for="input_name">Name </label>
