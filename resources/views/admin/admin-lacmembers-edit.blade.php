@@ -52,6 +52,15 @@
                         </div>
                         <!-- END - Email ID -->
 
+                        <!-- START - IMG -->
+                        <div class="form-group col-md-12">
+                            <div class="text-center">
+                                <a href="#" target="_alt"><img src="https://photos.iitm.ac.in/byid.php?id={{ $lac_user->iitm_id }}"></a>
+                            </div>
+                        <hr>
+                        </div>
+                        <!-- END - IMG -->
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3 ">
                                 <button type="submit" class="btn btn-primary btn-block btn-lg">
