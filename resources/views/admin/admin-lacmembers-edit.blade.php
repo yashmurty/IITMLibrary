@@ -55,7 +55,7 @@
                         <!-- START - IMG -->
                         <div class="form-group col-md-12">
                             <div class="text-center">
-                                <a href="#" target="_alt"><img src="https://photos.iitm.ac.in/byid.php?id={{ $lac_user->iitm_id }}"></a>
+                                <img src="https://photos.iitm.ac.in/byid.php?id={{ $lac_user->iitm_id }}" style="max-height:100px;">
                             </div>
                         <hr>
                         </div>
