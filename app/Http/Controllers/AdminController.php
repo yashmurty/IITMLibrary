@@ -233,6 +233,11 @@ class AdminController extends Controller
         }
     }
 
+    public function postAdminLACMembersEdit($iitm_dept_code)
+    {
+        return $iitm_dept_code;
+    }
+
     public function getAdminStaffMembers()
     {
 

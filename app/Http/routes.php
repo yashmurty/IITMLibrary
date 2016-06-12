@@ -124,6 +124,10 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('admin/lacmembers/{iitm_dept_code}/edit', [
 	    'as' => 'admin-lacmembers-edit', 'uses' => 'AdminController@getAdminLACMembersEdit'
 	]);
+    // Admin LAC Memebers Edit POST
+	Route::post('admin/lacmembers/{iitm_dept_code}/edit', [
+	    'as' => 'admin-lacmembers-edit-post', 'uses' => 'AdminController@postAdminLACMembersEdit'
+	]);
 
 	// Admin Staff Memebers
 	Route::get('admin/staffmembers', [
