@@ -6,7 +6,7 @@
 Welcome to IITM Library Portal's documentation!
 ===============================================
 
-**Production Server URL at** http://10.24.0.175/
+**Production Server URL at** https://books.iitm.ac.in/
 
 Contents:
 
@@ -23,4 +23,3 @@ Contents:
 .. * :ref:`genindex`
 .. * :ref:`modindex`
 .. * :ref:`search`
-
