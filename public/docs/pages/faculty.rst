@@ -2,9 +2,9 @@ Documentation for Faculty
 =========================
 
 **Welcome to IITM Library Portal**
-  Production Server URL at http://10.24.0.175/
+  Production Server URL at https://books.iitm.ac.in/
 
-Visit the IITM Library URL. Since you are not yet signed in, you will be redirected to the Login URL which is http://10.24.0.175/login
+Visit the IITM Library URL. Since you are not yet signed in, you will be redirected to the Login URL which is https://books.iitm.ac.in/login
 
 ==================
 Step 1 : Log in
@@ -45,11 +45,11 @@ The Book Requisition Form looks like this
 Step 4 : Request Status
 ================================
 
-After submitting the Book request, now visit the third link in the top navigation bar which says **Request Status**. 
+After submitting the Book request, now visit the third link in the top navigation bar which says **Request Status**.
 
 You can view the status of your request on this page. The page will look like this
 
 .. image:: /images/faculty/iitmlib-status.png
 
 .. note::
-	You need not keep checking the status again and again. You will be notified via E-mail once the request is approved/rejected by the Librarian. 
+	You need not keep checking the status again and again. You will be notified via E-mail once the request is approved/rejected by the Librarian.
