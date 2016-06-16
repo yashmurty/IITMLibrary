@@ -2,9 +2,9 @@ Documentation for LAC Members
 =========================
 
 **Welcome to IITM Library Portal**
-  Production Server URL at http://10.24.0.175/
+  Production Server URL at https://books.iitm.ac.in/
 
-Visit the IITM Library URL. Since you are not yet signed in, you will be redirected to the Login URL which is http://10.24.0.175/login
+Visit the IITM Library URL. Since you are not yet signed in, you will be redirected to the Login URL which is https://books.iitm.ac.in/login
 
 ==================
 Step 1 : Log in
@@ -25,14 +25,14 @@ After Logging in, you will be taken to the Home page. You can enter the **ISBN n
 .. image:: /images/lac/lac-home.png
 
 
-You can see in the top navigation bar a button which says **LAC Home**. Clicking it will take you to the LAC Dashboard. 
+You can see in the top navigation bar a button which says **LAC Home**. Clicking it will take you to the LAC Dashboard.
 
 ========================
 Step 3 : LAC Dashboard
 ========================
 
-It has currently one active module: 
-    
+It has currently one active module:
+
     * LAC Request Status
 
 This is how the LAC Dashboard looks like.
@@ -53,7 +53,7 @@ After reaching the **LAC Request Status** page as explained above, you can view 
 
 If you click **Approve**, the book request gets approved and will be forwarded to the Library Staff/Admin for further approval.
 
-If you click **Deny**, a dialog box will be displayed, requesting you to explain the reason for for denying the book request. 
+If you click **Deny**, a dialog box will be displayed, requesting you to explain the reason for for denying the book request.
 
 .. image:: /images/lac/lac-denyreq.png
 
