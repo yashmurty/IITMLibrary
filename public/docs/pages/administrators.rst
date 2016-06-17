@@ -1,7 +1,7 @@
 Documentation for Administrators
 =========================
 
-Visit the IITM Library URL. Since you are not yet signed in, you will be redirected to the Login URL which is http://10.24.0.175/login
+Visit the IITM Library URL. Since you are not yet signed in, you will be redirected to the Login URL which is https://books.iitm.ac.in/login
 
 ==================
 Step 1 : Log in for Staff
@@ -28,14 +28,14 @@ After Logging in, you will be taken to the Home page. You can enter the **ISBN n
 
 .. image:: /images/admin/admin-home.png
 
-You can see in the top navigation bar a button which says **Admin Home**. Clicking it will take you to the Admin Dashboard. 
+You can see in the top navigation bar a button which says **Admin Home**. Clicking it will take you to the Admin Dashboard.
 
 ========================
 Step 3 : Admin Dashboard
 ========================
 
-It has currently three active modules: 
-    
+It has currently three active modules:
+
     * Admin Request Status
     * LAC Members
     * Admin Staff Members
@@ -58,7 +58,7 @@ After reaching the **Admin Request Status** page as explained above, you can vie
 
 If you click **Approve**, the book request gets approved and will be **Exported to Excel** the next time you export all the pending requests.
 
-If you click **Deny**, a dialog box will be displayed, requesting you to explain the reason for for denying the book request. 
+If you click **Deny**, a dialog box will be displayed, requesting you to explain the reason for for denying the book request.
 
 .. image:: /images/admin/admin-denyreq.png
 
@@ -67,6 +67,6 @@ When you enter the reason and submit it, an Email is sent to the Faculty as well
 .. note::
 	 An email is not sent to the faculty when you click **Approve** button here. Approval email is only sent to the respective faculty when their book request gets exported to Excel.
 
-Once you are done Approving/Denying the book requests, you can click on the **Export to Excel** button. This will export all those requests which have been approved by you, but haven't been exported yet. 
+Once you are done Approving/Denying the book requests, you can click on the **Export to Excel** button. This will export all those requests which have been approved by you, but haven't been exported yet.
 
-When you export these requests, an email sent to the respective faculty stating that their request has been approved and the procurement process has been initiated from the Library side. 
+When you export these requests, an email sent to the respective faculty stating that their request has been approved and the procurement process has been initiated from the Library side.
