@@ -235,6 +235,10 @@ class AdminController extends Controller
 
     public function postAdminLACMembersEdit($iitm_dept_code)
     {
+        $lac_user = DB::table('lac_users')
+                        ->where('iitm_dept_code', $iitm_dept_code)
+                        ->first();
+        dd($lac_user);
         return $iitm_dept_code;
     }
 
