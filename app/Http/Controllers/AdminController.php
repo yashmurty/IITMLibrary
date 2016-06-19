@@ -235,11 +235,17 @@ class AdminController extends Controller
 
     public function postAdminLACMembersEdit($iitm_dept_code)
     {
+        return Input::all();
+        
         $lac_user = DB::table('lac_users')
                         ->where('iitm_dept_code', $iitm_dept_code)
-                        ->first();
-        dd($lac_user);
-        return $iitm_dept_code;
+                        ->update(
+                                    [
+                                        'iitm_id'       => $iitm_id,
+                                        'name'          => $name,
+                                        'lac_email_id'  => $lac_email_id
+                                    ]);
+        return redirect('/admin/lacmembers');
     }
 
     public function getAdminStaffMembers()
