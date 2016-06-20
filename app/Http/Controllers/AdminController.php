@@ -235,8 +235,11 @@ class AdminController extends Controller
 
     public function postAdminLACMembersEdit($iitm_dept_code)
     {
-        return Input::all();
-        
+        // return Input::all();
+        $input_iitm$iitm_id_id = Input::get('input_iitm_id');
+        $name               = Input::get('input_name');
+        $lac_email_id       = Input::get('input_lac_email_id');
+
         $lac_user = DB::table('lac_users')
                         ->where('iitm_dept_code', $iitm_dept_code)
                         ->update(
