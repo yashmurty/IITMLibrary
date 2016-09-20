@@ -270,5 +270,35 @@ class AdminController extends Controller
 
     }
 
+    public function getAdminBRFAnalytics()
+    {
+        $brf_all_count = BasicRequisitionForm::all()->count();
+        // Requests that are pending but have been approved by LAC Members
+        $brf_pending_lac_approved_count = BasicRequisitionForm::where('lac_status', "approved")->where('librarian_status', NULL)->count();
+        // Requests that are pending but have been approved by LAC Members and Librarian
+        $brf_pending_librarian_approved_count = BasicRequisitionForm::where('lac_status', "approved")->where('librarian_status', "approved")->where('download_status', NULL)->count();
+        // Requests that have been Successfully downloaded and approved
+        $brf_approved_downloaded_count = BasicRequisitionForm::where('lac_status', "approved")->where('librarian_status', "approved")->where('download_status', "downloaded")->count();
+
+        // Requests that have been Denied by LAC Members
+        $brf_pending_lac_denied_count = BasicRequisitionForm::where('lac_status', "denied")->count();
+        // Requests that have been Denied by Librarian
+        $brf_pending_librarian_denied_count = BasicRequisitionForm::where('lac_status', "approved")->where('librarian_status', "denied")->count();
+
+        // Requests that are new and pending LAC Member Approval
+        $brf_new_pending_lac_count = BasicRequisitionForm::where('lac_status', NULL)->count();
+
+        return view('admin.admin-brf-analytics')
+                ->with('brf_all_count', $brf_all_count)
+                ->with('brf_pending_lac_approved_count', $brf_pending_lac_approved_count)
+                ->with('brf_pending_librarian_approved_count', $brf_pending_librarian_approved_count)
+                ->with('brf_approved_downloaded_count', $brf_approved_downloaded_count)
+                ->with('brf_pending_lac_denied_count', $brf_pending_lac_denied_count)
+                ->with('brf_pending_librarian_denied_count', $brf_pending_librarian_denied_count)
+                ->with('brf_new_pending_lac_count', $brf_new_pending_lac_count);
+
+
+    }
+
 
 }

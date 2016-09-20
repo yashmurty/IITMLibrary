@@ -29,6 +29,12 @@
                                 Admin Staff Members
                             </div>
                             </a>
+
+                            <a style="margin-top:20px;" class="col-sm-12 col-md-4" href="{{ URL::route('admin-brf-analytics') }}">
+                            <div style="background-color:#DDD; padding: 15px;">
+                                BRF Analytics
+                            </div>
+                            </a>
                         </div>
                     </div>
 
