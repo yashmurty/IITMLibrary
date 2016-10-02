@@ -124,6 +124,10 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('admin/requeststatus/exporttoexcel', [
 	    'as' => 'adminrequeststatus-export-excel', 'uses' => 'AdminController@getAdminRequestStatusExportExcel'
 	]);
+    // Admin Pending Requests Export to Excel
+	Route::get('admin/requeststatus/pending/exporttoexcel', [
+	    'as' => 'adminrequeststatus-pending-export-excel', 'uses' => 'AdminController@getAdminPendingRequestStatusExportExcel'
+	]);
 
 	// Admin LAC Memebers
 	Route::get('admin/lacmembers', [

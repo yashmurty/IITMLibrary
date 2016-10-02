@@ -10,6 +10,19 @@
                 <div class="panel-body">
                     <div class ="row">
                         <div class="col-md-12">
+                            Showing <strong>Complete</strong> data.
+                            <!-- Single button -->
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                View Yearwise <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">2016-2017</a></li>
+                                <li><a href="#">2017-2018</a></li>
+                              </ul>
+                            </div>
+
+                            <hr>
                             <p style="padding:10px;" class="bg-primary">Total BRF Requests made till date : <strong> {{ $brf_all_count }} </strong></p>
 
                             <p style="padding:10px;" class="bg-success">Approved Requests downloaded for Processing : <strong> {{ $brf_approved_downloaded_count }} </strong></p>
@@ -65,7 +78,6 @@
     // Set chart options
     var options = {'title':'BRF Analytics',
                    'colors': ['#3c763d', '#8a6d3b', '#8a6d3b', '#a94442', '#a94442', '#31708f'],
-                   'width':800,
                    'height':300};
 
     // Instantiate and draw our chart, passing in some options.

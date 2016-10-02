@@ -197,6 +197,52 @@ class AdminController extends Controller
 
     }
 
+    // Approved by LAC but pending Librarian approval
+    public function getAdminPendingRequestStatusExportExcel()
+    {
+
+        $admin_user_brfs = DB::table('brfs')
+                        ->where('lac_status', "approved")
+                        ->where('librarian_status', null)
+                        ->where('download_status', null)
+                        ->orderBy('id', 'desc')
+                        ->get();
+
+        // dd($admin_user_brfs);
+
+        if(!empty($admin_user_brfs)){
+
+            foreach ($admin_user_brfs as $key => $admin_user_brf) {
+
+                $brf_array_row = (array) $admin_user_brf;
+                $brf_array[] = $brf_array_row;
+            }
+            $data = (array) $brf_array;
+            $date = Carbon::now();
+            $currentDateTime = $date->toDateTimeString();
+
+            Excel::create($currentDateTime, function($excel) use($data) {
+
+                $excel->sheet('Sheetname', function($sheet) use($data) {
+
+                    $sheet->fromArray($data);
+
+                });
+
+            })->export('xls');
+
+            return "Pending Status Excel Exported";
+
+        } else {
+            return redirect('admin/requeststatus')
+                ->with('globalalertmessage', 'No requests found to be exported')
+                ->with('globalalertclass', 'error');
+        }
+
+
+
+    }
+
     public function getAdminLACMembers()
     {
 
@@ -296,8 +342,6 @@ class AdminController extends Controller
                 ->with('brf_pending_lac_denied_count', $brf_pending_lac_denied_count)
                 ->with('brf_pending_librarian_denied_count', $brf_pending_librarian_denied_count)
                 ->with('brf_new_pending_lac_count', $brf_new_pending_lac_count);
-
-
     }
 
 
