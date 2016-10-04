@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Admin BRF Analytics</div>
+                <div class="panel-heading">Admin BRF Analytics Filtered Yearwise</div>
 
                 <div class="panel-body">
                     <div class ="row">
                         <div class="col-md-12">
-                            Showing <strong>Complete</strong> data.
+                            Showing data for <strong>31st March, {{ $year_from }}</strong> to <strong>1st April, {{ $year_until }} </strong> data.
                             <!-- Single button -->
                             <div class="btn-group">
                               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

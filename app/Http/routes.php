@@ -152,4 +152,9 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'admin-brf-analytics', 'uses' => 'AdminController@getAdminBRFAnalytics'
 	]);
 
+    // Admin BRF Analytics - Year wise
+	Route::get('admin/brf-analytics/{year_from_until}', [
+	    'as' => 'admin-brf-analytics-year', 'uses' => 'AdminController@getAdminBRFAnalyticsYear'
+	]);
+
 });
