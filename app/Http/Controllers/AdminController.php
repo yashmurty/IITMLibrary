@@ -351,48 +351,65 @@ class AdminController extends Controller
         $year_untill = $years[1];
 
         // return $year_from;
+        $iitm_dept_code = null;
+        $lac_users_departments = DB::table('lac_users')
+                                    ->get();
 
         $brf_all_count = BasicRequisitionForm::all()->count();
         // Requests that are pending but have been approved by LAC Members
         $brf_pending_lac_approved_count = BasicRequisitionForm::where('lac_status', "approved")
                                             ->where('librarian_status', NULL)
-                                            ->whereDate('created_at', '>=', $years[0].'-04-31')
-                                            ->whereDate('created_at', '<=', $years[1].'-03-01')
+                                            ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                            ->whereDate('created_at', '<=', $years[1].'-03-31')
                                             ->count();
         // Requests that are pending but have been approved by LAC Members and Librarian
         $brf_pending_librarian_approved_count = BasicRequisitionForm::where('lac_status', "approved")
                                                 ->where('librarian_status', "approved")
                                                 ->where('download_status', NULL)
-                                                ->whereDate('created_at', '>=', $years[0].'-04-31')
-                                                ->whereDate('created_at', '<=', $years[1].'-03-01')
+                                                ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                                ->whereDate('created_at', '<=', $years[1].'-03-31')
                                                 ->count();
         // Requests that have been Successfully downloaded and approved
         $brf_approved_downloaded_count = BasicRequisitionForm::where('lac_status', "approved")
                                             ->where('librarian_status', "approved")
                                             ->where('download_status', "downloaded")
-                                            ->whereDate('created_at', '>=', $years[0].'-04-31')
-                                            ->whereDate('created_at', '<=', $years[1].'-03-01')
+                                            ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                            ->whereDate('created_at', '<=', $years[1].'-03-31')
                                             ->count();
 
         // Requests that have been Denied by LAC Members
         $brf_pending_lac_denied_count = BasicRequisitionForm::where('lac_status', "denied")
-                                            ->whereDate('created_at', '>=', $years[0].'-04-31')
-                                            ->whereDate('created_at', '<=', $years[1].'-03-01')
+                                            ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                            ->whereDate('created_at', '<=', $years[1].'-03-31')
                                             ->count();
         // Requests that have been Denied by Librarian
         $brf_pending_librarian_denied_count = BasicRequisitionForm::where('lac_status', "approved")
                                                 ->where('librarian_status', "denied")
-                                                ->whereDate('created_at', '>=', $years[0].'-04-31')
-                                                ->whereDate('created_at', '<=', $years[1].'-03-01')
+                                                ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                                ->whereDate('created_at', '<=', $years[1].'-03-31')
                                                 ->count();
 
         // Requests that are new and pending LAC Member Approval
         $brf_new_pending_lac_count = BasicRequisitionForm::where('lac_status', NULL)
-                                        ->whereDate('created_at', '>=', $years[0].'-04-31')
-                                        ->whereDate('created_at', '<=', $years[1].'-03-01')
+                                        ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                        ->whereDate('created_at', '<=', $years[1].'-03-31')
                                         ->count();
 
+        // User Analytics
+        $users = DB::table('users')
+                    ->get();
+        foreach ($users as $key => $user) {
+            $brf_requests_count = BasicRequisitionForm::where('iitm_id', $user->iitm_id)
+                                                        ->count();
+            $user->brf_requests_count = $brf_requests_count;
+        }
+        usort($users, function($a, $b) { //Sort the array using a user defined function
+            return $a->brf_requests_count > $b->brf_requests_count ? -1 : 1; //Compare the scores
+        });
+
         return view('admin.admin-brf-analytics-year')
+                ->with('iitm_dept_code', $iitm_dept_code)
+                ->with('lac_users_departments', $lac_users_departments)
                 ->with('brf_all_count', $brf_all_count)
                 ->with('brf_pending_lac_approved_count', $brf_pending_lac_approved_count)
                 ->with('brf_pending_librarian_approved_count', $brf_pending_librarian_approved_count)
@@ -401,6 +418,91 @@ class AdminController extends Controller
                 ->with('brf_pending_librarian_denied_count', $brf_pending_librarian_denied_count)
                 ->with('brf_new_pending_lac_count', $brf_new_pending_lac_count)
                 ->with('year_from', $year_from)
+                ->with('year_until', $year_untill)
+                ->with('users', $users);
+    }
+
+    public function getAdminBRFAnalyticsYearDepartment($year_from_until, $iitm_dept_code)
+    {
+        $years = explode("-", $year_from_until);
+        $year_from = $years[0];
+        $year_untill = $years[1];
+
+        // return $year_from;
+        $lac_users_departments = DB::table('lac_users')
+                                    ->get();
+
+        $brf_all_count = BasicRequisitionForm::all()->count();
+        // Requests that are pending but have been approved by LAC Members
+        $brf_pending_lac_approved_count = BasicRequisitionForm::where('lac_status', "approved")
+                                            ->where('iitm_dept_code', $iitm_dept_code)
+                                            ->where('librarian_status', NULL)
+                                            ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                            ->whereDate('created_at', '<=', $years[1].'-03-31')
+                                            ->count();
+        // Requests that are pending but have been approved by LAC Members and Librarian
+        $brf_pending_librarian_approved_count = BasicRequisitionForm::where('lac_status', "approved")
+                                                ->where('iitm_dept_code', $iitm_dept_code)
+                                                ->where('librarian_status', "approved")
+                                                ->where('download_status', NULL)
+                                                ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                                ->whereDate('created_at', '<=', $years[1].'-03-31')
+                                                ->count();
+        // Requests that have been Successfully downloaded and approved
+        $brf_approved_downloaded_count = BasicRequisitionForm::where('lac_status', "approved")
+                                            ->where('iitm_dept_code', $iitm_dept_code)
+                                            ->where('librarian_status', "approved")
+                                            ->where('download_status', "downloaded")
+                                            ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                            ->whereDate('created_at', '<=', $years[1].'-03-31')
+                                            ->count();
+
+        // Requests that have been Denied by LAC Members
+        $brf_pending_lac_denied_count = BasicRequisitionForm::where('lac_status', "denied")
+                                            ->where('iitm_dept_code', $iitm_dept_code)
+                                            ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                            ->whereDate('created_at', '<=', $years[1].'-03-31')
+                                            ->count();
+        // Requests that have been Denied by Librarian
+        $brf_pending_librarian_denied_count = BasicRequisitionForm::where('lac_status', "approved")
+                                                ->where('iitm_dept_code', $iitm_dept_code)
+                                                ->where('librarian_status', "denied")
+                                                ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                                ->whereDate('created_at', '<=', $years[1].'-03-31')
+                                                ->count();
+
+        // Requests that are new and pending LAC Member Approval
+        $brf_new_pending_lac_count = BasicRequisitionForm::where('lac_status', NULL)
+                                        ->where('iitm_dept_code', $iitm_dept_code)
+                                        ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                        ->whereDate('created_at', '<=', $years[1].'-03-31')
+                                        ->count();
+
+        // User Analytics - Department-wise
+        $users = DB::table('users')
+                    ->where('iitm_dept_code', $iitm_dept_code)
+                    ->get();
+        foreach ($users as $key => $user) {
+            $brf_requests_count = BasicRequisitionForm::where('iitm_id', $user->iitm_id)
+                                                        ->count();
+            $user->brf_requests_count = $brf_requests_count;
+        }
+        usort($users, function($a, $b) { //Sort the array using a user defined function
+            return $a->brf_requests_count > $b->brf_requests_count ? -1 : 1; //Compare the scores
+        });
+
+        return view('admin.admin-brf-analytics-year')
+                ->with('iitm_dept_code', $iitm_dept_code)
+                ->with('lac_users_departments', $lac_users_departments)
+                ->with('brf_all_count', $brf_all_count)
+                ->with('brf_pending_lac_approved_count', $brf_pending_lac_approved_count)
+                ->with('brf_pending_librarian_approved_count', $brf_pending_librarian_approved_count)
+                ->with('brf_approved_downloaded_count', $brf_approved_downloaded_count)
+                ->with('brf_pending_lac_denied_count', $brf_pending_lac_denied_count)
+                ->with('brf_pending_librarian_denied_count', $brf_pending_librarian_denied_count)
+                ->with('brf_new_pending_lac_count', $brf_new_pending_lac_count)
+                ->with('year_from', $year_from)
+                ->with('users', $users)
                 ->with('year_until', $year_untill);
     }
 

@@ -10,15 +10,33 @@
                 <div class="panel-body">
                     <div class ="row">
                         <div class="col-md-12">
-                            Showing data for <strong>31st March, {{ $year_from }}</strong> to <strong>1st April, {{ $year_until }} </strong> data.
-                            <!-- Single button -->
+                            Showing data for <strong>1st April, {{ $year_from }}</strong> to <strong>31st March, {{ $year_until }} </strong> data.
+                            <!-- Yearwise button -->
                             <div class="btn-group">
                               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                View Yearwise <span class="caret"></span>
+                                View Year-wise <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu">
                                 <li><a href="{{ url('/admin/brf-analytics/2016-2017') }}">2016-2017</a></li>
                                 <li><a href="{{ url('/admin/brf-analytics/2017-2018') }}">2017-2018</a></li>
+                              </ul>
+                            </div>
+                            <br>
+                            <br>
+                            @if(!is_null($iitm_dept_code))
+                            Showing data for <strong>{{ $iitm_dept_code }}</strong>
+                            @else
+                            Showing data for all departments.
+                            @endif
+                            <!-- Department button -->
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                View Department-wise <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                @foreach($lac_users_departments as $lac_users_department)
+                                <li><a href="{{ url('/admin/brf-analytics/') }}/{{ $year_from }}-{{ $year_until }}/{{ $lac_users_department->iitm_dept_code }}">{{ $lac_users_department->iitm_dept_code }}</a></li>
+                                @endforeach
                               </ul>
                             </div>
 
@@ -37,6 +55,28 @@
                         <div class="col-md-12">
                             <!--Div that will hold the pie chart-->
                             <div id="chart_div"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table">
+                                <caption>User Analytics displaying number of requests</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Faculty</th>
+                                        <th>Department</th>
+                                        <th>Requests</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                @foreach($users as $user)
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->iitm_dept_code }}</td>
+                                    <td>{{ $user->brf_requests_count }}</td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

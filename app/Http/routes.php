@@ -157,4 +157,9 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'admin-brf-analytics-year', 'uses' => 'AdminController@getAdminBRFAnalyticsYear'
 	]);
 
+    // Admin BRF Analytics - Year wise and Department wise
+	Route::get('admin/brf-analytics/{year_from_until}/{iitm_dept_code}', [
+	    'as' => 'admin-brf-analytics-year-department', 'uses' => 'AdminController@getAdminBRFAnalyticsYearDepartment'
+	]);
+
 });
