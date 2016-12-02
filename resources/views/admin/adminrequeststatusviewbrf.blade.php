@@ -15,7 +15,7 @@
                                 <p><strong>Author :</strong> {{ $admin_user_brf->author }}</p>
                                 <p><strong>Title :</strong> {{ $admin_user_brf->title }}</p>
                                 <p><strong>Publisher :</strong> {{ $admin_user_brf->publisher }}</p>
-                                <p><strong>Agency :</strong> {{ $admin_user_brf->agency }}</p>
+                                <p><strong>Vendor Name (Agency) :</strong> {{ $admin_user_brf->agency }}</p>
                                 <p><strong>ISBN :</strong> {{ $admin_user_brf->isbn  }}</p>
                                 <p><strong>Volume :</strong> {{ $admin_user_brf->volumne }}</p>
                                 <p><strong>Price :</strong> {{ $admin_user_brf->price }}</p>
@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <button class="btn btn-danger btn-lg btn-block disabled" disabled="">Deny</button>
-                        
+
                                     </div>
                                     <div class="col-md-6">
                                         <button class="btn btn-success btn-lg btn-block disabled" disabled="">Approve</button>
@@ -101,6 +101,6 @@
         document.getElementById("remarks").value = document.getElementById("modalremarks").value;
         document.getElementById("BRFapprovalForm").submit();
     }
-    
+
 </script>
 @endsection

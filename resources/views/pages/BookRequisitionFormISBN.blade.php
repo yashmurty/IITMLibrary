@@ -31,19 +31,19 @@
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="optionsDocumentType" id="optionsDocumentType1" value="Books / Monographs" checked>
-                                    Books / Monographs 
+                                    Books / Monographs
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="optionsDocumentType" id="optionsDocumentType2" value="Thesis">
-                                    Thesis 
+                                    Thesis
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="optionsDocumentType" id="optionsDocumentType3" value="Standards">
-                                    Standards 
+                                    Standards
                                   </label>
                                 </div>
                             </div>
@@ -51,19 +51,19 @@
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="optionsDocumentType" id="optionsDocumentType4" value="Conference Proceedings">
-                                    Conference Proceedings 
+                                    Conference Proceedings
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="optionsDocumentType" id="optionsDocumentType5" value="Audio / Video Materials">
-                                    Audio / Video Materials 
+                                    Audio / Video Materials
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="optionsDocumentType" id="optionsDocumentType6" value="Hindi Book(s)">
-                                    Hindi Book(s) 
+                                    Hindi Book(s)
                                   </label>
                                 </div>
                             </div>
@@ -71,19 +71,19 @@
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="optionsDocumentType" id="optionsDocumentType7" value="Technical Reports">
-                                    Technical Reports 
+                                    Technical Reports
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="optionsDocumentType" id="optionsDocumentType8" value="Patents">
-                                    Patents 
+                                    Patents
                                   </label>
                                 </div>
                                 <div class="radio">
                                   <label>
                                     <input type="radio" name="optionsDocumentType" id="optionsDocumentType9" value="Others">
-                                    Others 
+                                    Others
                                   </label>
                                 </div>
                             </div>
@@ -111,10 +111,10 @@
                         </div>
                         <!-- END - Publisher -->
 
-                        <!-- START - Agency -->
+                        <!-- START - Vendor Name (Agency) -->
                         <div class="form-group col-md-12">
-                            <label for="inputAgency">Issuing Agency and its address </label>
-                            <input type="text" class="form-control" id="inputAgency" name="inputAgency" placeholder="In case of non-book documents">
+                            <label for="inputAgency">Vendor Name </label>
+                            <input type="text" class="form-control" id="inputAgency" name="inputAgency" placeholder="Enter the Vendor Name">
                         </div>
                         <!-- END - Agency -->
 
