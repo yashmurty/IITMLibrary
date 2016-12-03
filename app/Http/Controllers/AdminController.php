@@ -506,5 +506,25 @@ class AdminController extends Controller
                 ->with('year_until', $year_untill);
     }
 
+    /* Admin Page - Git Management (GET) */
+    public function getAdminGitManagement()
+    {
+        return view('admin.git-management');
+    }
+
+    /* Admin Page - Git Pull (GET) */
+    public function getAdminGitPull()
+    {
+        $git_pull = shell_exec("git pull 2>&1");
+        return $git_pull;
+    }
+
+    /* Admin Page - Git Pull (POST) */
+    public function postAdminGitPull()
+    {
+        $git_pull = shell_exec("git pull 2>&1");
+        return $git_pull;
+    }
+
 
 }

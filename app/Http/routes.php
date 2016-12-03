@@ -162,4 +162,23 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'admin-brf-analytics-year-department', 'uses' => 'AdminController@getAdminBRFAnalyticsYearDepartment'
 	]);
 
+    // Git Management
+    /* Admin Page - Git Management (GET) */
+	Route::get('/admin/git-management',
+	  array('as' => 'admin-git-management',
+	        'uses' => 'AdminController@getAdminGitManagement'
+	));
+
+    /* Admin Page - Git Pull (GET) */
+	Route::get('/admin/git-pull',
+	  array('as' => 'admin-git-pull',
+	        'uses' => 'AdminController@getAdminGitPull'
+	));
+
+	/* Admin Page - Git Pull (POST) */
+	Route::post('/admin/git-pull',
+	  array('as' => 'admin-git-pull-post',
+	        'uses' => 'AdminController@postAdminGitPull'
+	));
+
 });
