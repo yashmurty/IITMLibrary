@@ -43,6 +43,7 @@ class AdminController extends Controller
 
         $admin_user_brfs = DB::table('brfs')
                         ->where('lac_status', "approved")
+                        ->where('download_status', NULL)
                         ->orderBy('id', 'desc')
                         ->get();
         if(!empty($admin_user_brfs)){
@@ -243,6 +244,29 @@ class AdminController extends Controller
 
     }
 
+    // Request Status - Archived
+    public function getAdminRequestStatusArchived()
+    {
+        $admin_user_brfs = DB::table('brfs')
+                        ->where('lac_status', "approved")
+                        ->where('librarian_status', "approved")
+                        ->where('download_status', "downloaded")
+                        ->orderBy('id', 'desc')
+                        ->get();
+        if(!empty($admin_user_brfs)){
+
+            return view('admin.adminrequeststatus-archived')
+                    ->with('admin_user_brfs', $admin_user_brfs);
+
+        } else {
+            // return "No Requests Found";
+            return view('admin.adminrequeststatus-archived')
+                    ->with('admin_user_brfs', null);
+        }
+
+    }
+
+    // GET LAC Memebers
     public function getAdminLACMembers()
     {
 

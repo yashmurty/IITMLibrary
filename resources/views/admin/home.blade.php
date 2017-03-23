@@ -18,14 +18,22 @@
                             </div>
                             </a>
 
-                            <a class="col-sm-12 col-md-4" href="{{ URL::route('admin-lacmembers') }}">
+                            <a class="col-sm-12 col-md-4" href="{{ URL::route('adminrequeststatus-archived') }}">
                             <div style="background-color:#DDD; padding: 15px;">
+                                Admin Request Status Archived
+                            </div>
+                            </a>
+
+                        </div>
+                        <div class="col-sm-12">
+                            <a class="col-sm-12 col-md-4" href="{{ URL::route('admin-lacmembers') }}">
+                            <div style="background-color:#DDD; padding: 15px; margin-top:20px;">
                                 LAC Memebers
                             </div>
                             </a>
 
                             <a class="col-sm-12 col-md-4" href="{{ URL::route('admin-staffmembers') }}">
-                            <div style="background-color:#DDD; padding: 15px;">
+                            <div style="background-color:#DDD; padding: 15px; margin-top:20px;">
                                 Admin Staff Members
                             </div>
                             </a>
