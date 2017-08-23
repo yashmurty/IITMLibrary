@@ -185,4 +185,11 @@ Route::group(['middleware' => 'web'], function () {
 	        'uses' => 'AdminController@postAdminGitPull'
 	));
 
+  // Email Management
+  /* Admin Page - Email Management (GET) */
+Route::get('/admin/email-management',
+  array('as' => 'admin-email-management',
+        'uses' => 'AdminController@getAdminEmailManagement'
+));
+
 });

@@ -550,5 +550,10 @@ class AdminController extends Controller
         return $git_pull;
     }
 
+    /* Admin Page - Git Management (GET) */
+    public function getAdminEmailManagement()
+    {
+        return view('admin.email-management');
+    }
 
 }
