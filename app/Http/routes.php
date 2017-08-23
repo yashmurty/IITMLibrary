@@ -187,9 +187,15 @@ Route::group(['middleware' => 'web'], function () {
 
   // Email Management
   /* Admin Page - Email Management (GET) */
-Route::get('/admin/email-management',
-  array('as' => 'admin-email-management',
-        'uses' => 'AdminController@getAdminEmailManagement'
-));
+  Route::get('/admin/email-management',
+    array('as' => 'admin-email-management',
+          'uses' => 'AdminController@getAdminEmailManagement'
+  ));
+
+  /* Admin Page - Email test (POST) */
+  Route::post('/admin/email-test',
+    array('as' => 'admin-email-test-post',
+          'uses' => 'AdminController@postEmailTest'
+  ));
 
 });
