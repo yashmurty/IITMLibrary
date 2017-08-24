@@ -46,7 +46,7 @@ class LacController extends Controller
                         ->orderBy('id', 'desc')
                         ->get();
         if(!empty($lac_user_brfs)){
-    
+
             return view('lac.lacrequeststatus')
                     ->with('lac_user_brfs', $lac_user_brfs);
 
@@ -72,7 +72,7 @@ class LacController extends Controller
         // dd($lac_user_brf);
 
         if(!empty($lac_user_brf)){
-    
+
             return view('lac.lacrequeststatusviewbrf')
                     ->with('lac_user_brf', $lac_user_brf);
 
@@ -107,13 +107,13 @@ class LacController extends Controller
             # code...
             $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
 
-            Mail::send('emails.deniedbylac', 
+            Mail::send('emails.deniedbylac',
                 [
                     'brf_model_instance'        => $brf_model_instance,
                     'brf_model_user_instance'   => $brf_model_user_instance
-                ], 
+                ],
                 function ($m) use ($brf_model_instance, $brf_model_user_instance) {
-                $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
+                $m->from('librarian@iitm.ac.in', 'Library Portal Team');
                 $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
                 // $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
             });

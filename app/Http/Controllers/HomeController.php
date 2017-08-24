@@ -86,16 +86,16 @@ class HomeController extends Controller
         // return $lac_user_instance->name;
         $inputTitle =  Input::get('inputTitle');
 
-        Mail::send('emails.newbrf', 
+        Mail::send('emails.newbrf',
                 [
                     'lac_user_instance'     => $lac_user_instance,
-                    'inputTitle'            => $inputTitle 
-                ], 
+                    'inputTitle'            => $inputTitle
+                ],
                 function ($m) use ($lac_user_instance, $inputTitle) {
-                $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
+                $m->from('librarian@iitm.ac.in', 'Library Portal Team');
                 $m->to($lac_user_instance->lac_email_id, $lac_user_instance->name)->subject('[Library] New Request for Book');
                 // $m->to("ae11b049@smail.iitm.ac.in", $lac_user_instance->name)->subject('[Library] New Request for Book');
-            });        
+            });
 
         return redirect('home')
                 ->with('globalalertmessage', 'Book Request Submitted')
@@ -118,7 +118,7 @@ class HomeController extends Controller
                         ->orderBy('id', 'desc')
                         ->get();
         if(!empty($user_brfs)){
-    
+
             return view('pages.requeststatus')
                     ->with('user_brfs', $user_brfs);
 
