@@ -567,7 +567,7 @@ class AdminController extends Controller
               'brf_model_instance'        => $emailAddress
           ],
           function ($m) use ($emailAddress) {
-          $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
+          $m->from('librarian@iitm.ac.in', 'Library Portal Team');
           $m->to($emailAddress, "Test User")->subject('[Library] Test Email');
           // $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name);
           $m->subject('[Library] Test Email');
