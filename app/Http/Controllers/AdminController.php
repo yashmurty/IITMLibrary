@@ -573,9 +573,17 @@ class AdminController extends Controller
           $m->subject('[Library] Test Email');
       });
 
+      // check for failures
+      if (Mail::failures()) {
+          // return response showing failed emails
+          return redirect('admin/email-management')
+              ->with('globalalertmessage', 'Test Email Failed')
+              ->with('globalalertclass', 'error');
+      }
+      // otherwise everything is okay ...
       return redirect('admin/email-management')
           ->with('globalalertmessage', 'Test Email Sent')
-          ->with('globalalertclass', 'error');
+          ->with('globalalertclass', 'success');
     }
 
 }
