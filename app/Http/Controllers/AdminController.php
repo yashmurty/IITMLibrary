@@ -559,7 +559,23 @@ class AdminController extends Controller
     /* Admin Page - Email Test (POST) */
     public function postEmailTest()
     {
-      return "Test";
+      // return Input::all();
+      $emailAddress = Input::get('inputEmail');
+
+      Mail::send('emails.test',
+          [
+              'brf_model_instance'        => $emailAddress
+          ],
+          function ($m) use ($emailAddress) {
+          $m->from('no-reply@iitm.ac.in', 'Library Portal Team');
+          $m->to($emailAddress, "Test User")->subject('[Library] Test Email');
+          // $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name);
+          $m->subject('[Library] Test Email');
+      });
+
+      return redirect('admin/email-management')
+          ->with('globalalertmessage', 'Test Email Sent')
+          ->with('globalalertclass', 'error');
     }
 
 }
