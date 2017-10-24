@@ -424,7 +424,9 @@ class AdminController extends Controller
                     ->get();
         foreach ($users as $key => $user) {
             $brf_requests_count = BasicRequisitionForm::where('iitm_id', $user->iitm_id)
-                                                        ->count();
+                                    ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                    ->whereDate('created_at', '<=', $years[1].'-03-31')
+                                    ->count();
             $user->brf_requests_count = $brf_requests_count;
         }
         usort($users, function($a, $b) { //Sort the array using a user defined function
@@ -508,7 +510,9 @@ class AdminController extends Controller
                     ->get();
         foreach ($users as $key => $user) {
             $brf_requests_count = BasicRequisitionForm::where('iitm_id', $user->iitm_id)
-                                                        ->count();
+                                    ->whereDate('created_at', '>=', $years[0].'-04-01')
+                                    ->whereDate('created_at', '<=', $years[1].'-03-31')
+                                    ->count();
             $user->brf_requests_count = $brf_requests_count;
         }
         usort($users, function($a, $b) { //Sort the array using a user defined function
