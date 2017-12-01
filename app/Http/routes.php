@@ -124,14 +124,18 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('admin/requeststatus/exporttoexcel', [
 	    'as' => 'adminrequeststatus-export-excel', 'uses' => 'AdminController@getAdminRequestStatusExportExcel'
 	]);
-    // Admin Pending Requests Export to Excel
+  // Admin Pending Requests Export to Excel
 	Route::get('admin/requeststatus/pending/exporttoexcel', [
 	    'as' => 'adminrequeststatus-pending-export-excel', 'uses' => 'AdminController@getAdminPendingRequestStatusExportExcel'
 	]);
-    // Admin Request Status - ARCHIVED
+  // Admin Request Status - ARCHIVED
 	Route::get('admin/requeststatus/archived', [
 	    'as' => 'adminrequeststatus-archived', 'uses' => 'AdminController@getAdminRequestStatusArchived'
 	]);
+  // Admin Request Status - ARCHIVED - Status - Year wise
+  Route::get('admin/requeststatus/archived/{archived_status}/{year_from_until}', [
+      'as' => 'adminrequeststatus-archived-status-year', 'uses' => 'AdminController@getAdminRequestStatusArchivedStatusYear'
+  ]);
 
 	// Admin LAC Memebers
 	Route::get('admin/lacmembers', [

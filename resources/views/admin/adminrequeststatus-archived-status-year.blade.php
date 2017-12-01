@@ -3,20 +3,26 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Admin Request Status</div>
+                <div class="panel-heading">Admin Request Status Archived</div>
 
                 <div class="panel-body">
-                    <p>
-                    Export the requests that have been aprroved by the Librarian
-                    <a href="{{ URL::route('adminrequeststatus-export-excel') }}" class="btn btn-primary">Export to Excel</a>
-                    </p>
-                    <p>
-                    Export the requests that are pending for approval by Librarian
-                    <a href="{{ URL::route('adminrequeststatus-pending-export-excel') }}" class="btn btn-default">Export to Excel</a>
-                    </p>
-                    <p style="padding:10px;" class="bg-primary">BRF Requests for Approval : <strong> {{ count($admin_user_brfs) }} </strong></p>
+                    Showing <strong>{{ $archived_status }}</strong> data for <strong>1st April, {{ $year_from }}</strong> to <strong>31st March, {{ $year_until }} </strong>
+                    <!-- Yearwise button -->
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        View Year-wise <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2018-2019">2018-2019</a></li>
+                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2017-2018">2017-2018</a></li>
+                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2016-2017">2016-2017</a></li>
+                      </ul>
+                    </div>
+                    <a href="{{ URL::route('adminrequeststatus-archived') }}" class="btn btn-default">Go Back to Archived Requests</a>
+                    <br>
+                    <p style="padding:10px;" class="bg-primary">BRF Requests in this period : <strong> {{ count($admin_user_brfs) }} </strong></p>
 
                     <table class="table">
                         <caption>Status of requests under you submitted via Book Requisition Form</caption>

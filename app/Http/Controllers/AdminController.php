@@ -43,6 +43,8 @@ class AdminController extends Controller
 
         $admin_user_brfs = DB::table('brfs')
                         ->where('lac_status', "approved")
+                        ->where('librarian_status', NULL)
+                        ->orWhere('librarian_status', 'approved')
                         ->where('download_status', NULL)
                         ->orderBy('id', 'desc')
                         ->get();
@@ -264,6 +266,55 @@ class AdminController extends Controller
                     ->with('admin_user_brfs', null);
         }
 
+    }
+
+    public function getAdminRequestStatusArchivedStatusYear($archived_status, $year_from_until)
+    {
+      $years = explode("-", $year_from_until);
+      $year_from = $years[0];
+      $year_untill = $years[1];
+
+      switch ($archived_status) {
+        case 'approved':
+          $admin_user_brfs = DB::table('brfs')
+                          ->where('lac_status', "approved")
+                          ->where('librarian_status', "approved")
+                          ->where('download_status', "downloaded")
+                          ->whereDate('created_at', '>=', $years[0].'-04-01')
+                          ->whereDate('created_at', '<=', $years[1].'-03-31')
+                          ->orderBy('id', 'desc')
+                          ->get();
+          break;
+
+        case 'denied':
+          $admin_user_brfs = DB::table('brfs')
+                          ->where('lac_status', "approved")
+                          ->where('librarian_status', "denied")
+                          ->whereDate('created_at', '>=', $years[0].'-04-01')
+                          ->whereDate('created_at', '<=', $years[1].'-03-31')
+                          ->orderBy('id', 'desc')
+                          ->get();
+          break;
+
+      }
+
+
+      if(!empty($admin_user_brfs)){
+
+          return view('admin.adminrequeststatus-archived-status-year')
+                  ->with('archived_status', $archived_status)
+                  ->with('year_from', $year_from)
+                  ->with('year_until', $year_untill)
+                  ->with('admin_user_brfs', $admin_user_brfs);
+
+      } else {
+          // return "No Requests Found";
+          return view('admin.adminrequeststatus-archived-status-year')
+                  ->with('archived_status', $archived_status)
+                  ->with('year_from', $year_from)
+                  ->with('year_until', $year_untill)
+                  ->with('admin_user_brfs', null);
+      }
     }
 
     // GET LAC Memebers
