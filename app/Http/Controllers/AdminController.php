@@ -430,7 +430,9 @@ class AdminController extends Controller
         $lac_users_departments = DB::table('lac_users')
                                     ->get();
 
-        $brf_all_count = BasicRequisitionForm::all()->count();
+        $brf_all_count = BasicRequisitionForm::whereDate('created_at', '>=', $years[0].'-04-01')
+                          ->whereDate('created_at', '<=', $years[1].'-03-31')
+                          ->count();
         // Requests that are pending but have been approved by LAC Members
         $brf_pending_lac_approved_count = BasicRequisitionForm::where('lac_status', "approved")
                                             ->where('librarian_status', NULL)
@@ -509,7 +511,11 @@ class AdminController extends Controller
         $lac_users_departments = DB::table('lac_users')
                                     ->get();
 
-        $brf_all_count = BasicRequisitionForm::all()->count();
+        $brf_all_count = BasicRequisitionForm::where('iitm_dept_code', $iitm_dept_code)
+                              ->whereDate('created_at', '>=', $years[0].'-04-01')
+                              ->whereDate('created_at', '<=', $years[1].'-03-31')
+                              ->count();
+
         // Requests that are pending but have been approved by LAC Members
         $brf_pending_lac_approved_count = BasicRequisitionForm::where('lac_status', "approved")
                                             ->where('iitm_dept_code', $iitm_dept_code)
