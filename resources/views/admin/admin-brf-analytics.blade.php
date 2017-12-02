@@ -17,8 +17,9 @@
                                 View Yearwise <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu">
-                                <li><a href="{{ url('/admin/brf-analytics/2016-2017') }}">2016-2017</a></li>
+                                <li><a href="{{ url('/admin/brf-analytics/2018-2019') }}">2018-2019</a></li>
                                 <li><a href="{{ url('/admin/brf-analytics/2017-2018') }}">2017-2018</a></li>
+                                <li><a href="{{ url('/admin/brf-analytics/2016-2017') }}">2016-2017</a></li>
                               </ul>
                             </div>
 
