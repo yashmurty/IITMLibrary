@@ -128,6 +128,11 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('admin/requeststatus/pending/exporttoexcel', [
 	    'as' => 'adminrequeststatus-pending-export-excel', 'uses' => 'AdminController@getAdminPendingRequestStatusExportExcel'
 	]);
+  // Admin Export to Excel
+	Route::get('admin/requeststatus/exporttoexcel/{archived_status}/{year_from_until}', [
+	    'as' => 'adminrequeststatus-export-excel-status-year', 'uses' => 'AdminController@getAdminRequestStatusExportExcelStatusYear'
+	]);
+
   // Admin Request Status - ARCHIVED
 	Route::get('admin/requeststatus/archived', [
 	    'as' => 'adminrequeststatus-archived', 'uses' => 'AdminController@getAdminRequestStatusArchived'

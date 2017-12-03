@@ -21,7 +21,10 @@
                       </ul>
                     </div>
                     <a href="{{ URL::route('adminrequeststatus-archived') }}" class="btn btn-default">Go Back to Archived Requests</a>
-                    <br>
+                    <p>
+                    Export the <strong>{{ $archived_status }}</strong>  requests
+                    <a href="{{ URL::route('adminrequeststatus') }}/exporttoexcel/{{ $archived_status }}/{{ $year_from }}-{{ $year_until }}" class="btn btn-primary">Export to Excel</a>
+                    </p>
                     <p style="padding:10px;" class="bg-primary">BRF Requests in this period : <strong> {{ count($admin_user_brfs) }} </strong></p>
 
                     <table class="table">

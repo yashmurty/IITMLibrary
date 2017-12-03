@@ -246,6 +246,70 @@ class AdminController extends Controller
 
     }
 
+    public function getAdminRequestStatusExportExcelStatusYear($archived_status ,$year_from_until)
+    {
+      $years = explode("-", $year_from_until);
+      $year_from = $years[0];
+      $year_untill = $years[1];
+
+      switch ($archived_status) {
+        case 'approved':
+          $admin_user_brfs = DB::table('brfs')
+                          ->where('lac_status', "approved")
+                          ->where('librarian_status', "approved")
+                          ->where('download_status', "downloaded")
+                          ->whereDate('created_at', '>=', $years[0].'-04-01')
+                          ->whereDate('created_at', '<=', $years[1].'-03-31')
+                          ->orderBy('id', 'desc')
+                          ->get();
+          break;
+
+        case 'denied':
+          $admin_user_brfs = DB::table('brfs')
+                          ->where('lac_status', "approved")
+                          ->where('librarian_status', "denied")
+                          ->whereDate('created_at', '>=', $years[0].'-04-01')
+                          ->whereDate('created_at', '<=', $years[1].'-03-31')
+                          ->orderBy('id', 'desc')
+                          ->get();
+          break;
+
+      }
+
+      // dd($admin_user_brfs);
+
+      if(!empty($admin_user_brfs)){
+
+          foreach ($admin_user_brfs as $key => $admin_user_brf) {
+
+              $brf_array_row = (array) $admin_user_brf;
+              $brf_array[] = $brf_array_row;
+          }
+          $data = (array) $brf_array;
+          $date = Carbon::now();
+          $currentDateTime = $date->toDateTimeString();
+
+          Excel::create($currentDateTime, function($excel) use($data) {
+
+              $excel->sheet('Sheetname', function($sheet) use($data) {
+
+                  $sheet->fromArray($data);
+
+              });
+
+          })->export('xls');
+
+          return $archived_status . " Status Excel Exported";
+
+      } else {
+          return redirect('admin/requeststatus/archived')
+              ->with('globalalertmessage', 'No requests found to be exported')
+              ->with('globalalertclass', 'error');
+      }
+
+
+    }
+
     // Request Status - Archived
     public function getAdminRequestStatusArchived()
     {
