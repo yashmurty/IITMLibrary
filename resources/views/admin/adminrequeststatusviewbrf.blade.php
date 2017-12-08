@@ -48,7 +48,7 @@
                                         <button type="submit" data-toggle="modal" data-target="#denyModal" class="btn btn-danger btn-lg btn-block">Deny</button>
                                     </div>
                                     <div class="col-md-6">
-                                        <button type="submit" onclick="approveFunction()" class="btn btn-success btn-lg btn-block">Approve</button>
+                                        <button type="submit" data-toggle="modal" data-target="#approveModal" class="btn btn-success btn-lg btn-block">Approve</button>
                                     </div>
                                 </div>
                                 @endif
@@ -65,21 +65,41 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="denyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="denyModal" tabindex="-1" role="dialog" aria-labelledby="denyModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Deny Request</h4>
+        <h4 class="modal-title" id="denyModalLabel">Deny Request</h4>
       </div>
       <div class="modal-body">
         <div class="form-group">
-            <input type="text" name="modalremarks" class="col-md-12 form-control" id="modalremarks" placeholder="Reason for denying the request.">
+            <input type="text" name="modalremarks" class="col-md-12 form-control" id="denyModalRemarks" placeholder="Reason for denying the request.">
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-danger" onclick="denyFunction()">Deny Book Request</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="approveModalLabel">Approve Request</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <input type="text" name="modalremarks" class="col-md-12 form-control" id="approveModalRemarks" value="Approved by Librarian" placeholder="Reason for Approving the request.">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" onclick="approveFunction()">Approve Book Request</button>
       </div>
     </div>
   </div>
@@ -92,13 +112,13 @@
 
     function approveFunction () {
         document.getElementById("librarian_status").value = "approved";
-        document.getElementById("remarks").value = "Approved by Librarian";
+        document.getElementById("remarks").value = document.getElementById("approveModalRemarks").value;
         document.getElementById("BRFapprovalForm").submit();
     }
 
     function denyFunction () {
         document.getElementById("librarian_status").value = "denied";
-        document.getElementById("remarks").value = document.getElementById("modalremarks").value;
+        document.getElementById("remarks").value = document.getElementById("denyModalRemarks").value;
         document.getElementById("BRFapprovalForm").submit();
     }
 
