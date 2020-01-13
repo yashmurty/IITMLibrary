@@ -7,7 +7,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Welcome to Admin Dashboard</div>
                 <div class="panel-body">
-                    Approve requests in <a href="">Admin Request Status</a>
+                    Approve requests in <a href="{{ URL::route('adminrequeststatus') }}">Admin Request Status</a>
+
                     <br><br>
 
                     <div class="row">
