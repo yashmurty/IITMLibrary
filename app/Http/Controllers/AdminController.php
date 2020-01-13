@@ -362,7 +362,6 @@ class AdminController extends Controller
 
       }
 
-
       if(!empty($admin_user_brfs)){
 
           return view('admin.adminrequeststatus-archived-status-year')

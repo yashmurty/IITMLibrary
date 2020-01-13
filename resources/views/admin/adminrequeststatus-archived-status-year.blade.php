@@ -27,7 +27,15 @@
                     Export the <strong>{{ $archived_status }}</strong>  requests
                     <a href="{{ URL::route('adminrequeststatus') }}/exporttoexcel/{{ $archived_status }}/{{ $year_from }}-{{ $year_until }}" class="btn btn-primary">Export to Excel</a>
                     </p>
-                    <p style="padding:10px;" class="bg-primary">BRF Requests in this period : <strong> {{ count($admin_user_brfs) }} </strong></p>
+                    <p style="padding:10px;" class="bg-primary">BRF Requests in this period :
+                        <strong>
+                        @if(!($admin_user_brfs == null))
+                        {{ count($admin_user_brfs) }}
+                        @else
+                        0
+                        @endif
+                        </strong>
+                    </p>
 
                     <table class="table">
                         <caption>Status of requests under you submitted via Book Requisition Form</caption>
