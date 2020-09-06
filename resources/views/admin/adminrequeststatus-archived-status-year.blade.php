@@ -47,6 +47,8 @@
                                 <th>Doctype</th>
                                 <th>Author</th>
                                 <th>Title</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
                                 <th>LAC Status</th>
                                 <th>Librarian Status</th>
                                 <th>Remarks</th>
@@ -67,6 +69,8 @@
                                     <td>{{ $user_brf->doctype }}</td>
                                     <td>{{ $user_brf->author }}</td>
                                     <td>{{ $user_brf->title }}</td>
+                                    <td>{{ $user_brf->created_at }}</td>
+                                    <td>{{ $user_brf->updated_at }}</td>
                                     @if( $user_brf->lac_status == null)
                                         <td><i class="fa fa-clock-o"></i></td>
                                     @elseif( $user_brf->lac_status == "approved" )
