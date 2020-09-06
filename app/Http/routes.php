@@ -183,15 +183,9 @@ Route::group(['middleware' => 'web'], function () {
 	));
 
     /* Admin Page - Git Pull (GET) */
-	Route::get('/admin/git-pull',
-	  array('as' => 'admin-git-pull',
-	        'uses' => 'AdminController@getAdminGitPull'
-	));
-
-	/* Admin Page - Git Pull (POST) */
-	Route::post('/admin/git-pull',
-	  array('as' => 'admin-git-pull-post',
-	        'uses' => 'AdminController@postAdminGitPull'
+	Route::get('/admin/git-management/git-pull',
+	  array('as' => 'admin-git-management-git-pull',
+	        'uses' => 'AdminController@getAdminGitManagementGitPull'
 	));
 
   // Email Management

@@ -660,15 +660,8 @@ class AdminController extends Controller
         return view('admin.git-management');
     }
 
-    /* Admin Page - Git Pull (GET) */
-    public function getAdminGitPull()
-    {
-        $git_pull = shell_exec("git pull 2>&1");
-        return $git_pull;
-    }
-
-    /* Admin Page - Git Pull (POST) */
-    public function postAdminGitPull()
+    /* Admin Page - Git Management - Git Pull (GET) */
+    public function getAdminGitManagementGitPull()
     {
         $git_pull = shell_exec("git pull 2>&1");
         return $git_pull;
