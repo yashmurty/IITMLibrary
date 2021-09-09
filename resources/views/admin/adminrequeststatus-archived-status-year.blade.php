@@ -15,6 +15,7 @@
                         View Year-wise <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
+                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2021-2022">2021-2022</a></li>
                         <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2020-2021">2020-2021</a></li>
                         <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2019-2020">2019-2020</a></li>
                         <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2018-2019">2018-2019</a></li>
