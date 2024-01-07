@@ -17,9 +17,6 @@
                                 View Yearwise <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu">
-                            
-                                <li><a href="{{ url('/admin/brf-analytics/2023-2024') }}">2023-2024</a></li>
-                                <li><a href="{{ url('/admin/brf-analytics/2022-2023') }}">2022-2023</a></li>
                                 <li><a href="{{ url('/admin/brf-analytics/2021-2022') }}">2021-2022</a></li>
                                 <li><a href="{{ url('/admin/brf-analytics/2020-2021') }}">2020-2021</a></li>
                                 <li><a href="{{ url('/admin/brf-analytics/2019-2020') }}">2019-2020</a></li>

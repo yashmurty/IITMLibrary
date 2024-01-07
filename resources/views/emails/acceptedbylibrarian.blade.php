@@ -8,5 +8,6 @@
 	This is an automatically generated Email, kindly do not reply to this mail.<br>
 	<br>
 	Regards,<br>
-	Library Portal Team
+	Dy. Librarian
+        Ph 4954
 </p>

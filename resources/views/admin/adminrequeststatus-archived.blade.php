@@ -17,6 +17,9 @@
                               Approved Requests
                             </h4>
                             <ul class="">
+
+		              <li><a href="{{ URL::route('adminrequeststatus') }}/archived/approved/2023-2024">2023-2024</a></li>
+                              <li><a href="{{ URL::route('adminrequeststatus') }}/archived/approved/2022-2023">2022-2023</a></li>
                               <li><a href="{{ URL::route('adminrequeststatus') }}/archived/approved/2021-2022">2021-2022</a></li>
                               <li><a href="{{ URL::route('adminrequeststatus') }}/archived/approved/2020-2021">2020-2021</a></li>
                               <li><a href="{{ URL::route('adminrequeststatus') }}/archived/approved/2019-2020">2019-2020</a></li>
@@ -34,6 +37,8 @@
                             Denied Requests
                           </h4>
                           <ul class="">
+                            <li><a href="{{ URL::route('adminrequeststatus') }}/archived/denied/2023-2024">2023-2024</a></li>
+                            <li><a href="{{ URL::route('adminrequeststatus') }}/archived/denied/2022-2023">2022-2023</a></li>
                             <li><a href="{{ URL::route('adminrequeststatus') }}/archived/denied/2021-2022">2021-2022</a></li>
                             <li><a href="{{ URL::route('adminrequeststatus') }}/archived/denied/2020-2021">2020-2021</a></li>
                             <li><a href="{{ URL::route('adminrequeststatus') }}/archived/denied/2019-2020">2019-2020</a></li>

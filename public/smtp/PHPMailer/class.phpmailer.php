@@ -217,6 +217,7 @@ class PHPMailer
      * Either a single hostname or multiple semicolon-delimited hostnames.
      * You can also specify a different port
      * for each host by using this format: [hostname:port]
+
      * (e.g. "smtp1.example.com:25;smtp2.example.com").
      * You can also specify encryption type, for example:
      * (e.g. "tls://smtp1.example.com:587;ssl://smtp2.example.com:465").
