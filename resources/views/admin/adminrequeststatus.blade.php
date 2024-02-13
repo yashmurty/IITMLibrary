@@ -16,7 +16,15 @@
                     Export the requests that are pending for approval by Librarian
                     <a href="{{ URL::route('adminrequeststatus-pending-export-excel') }}" class="btn btn-default">Export to Excel</a>
                     </p>
-                    <p style="padding:10px;" class="bg-primary">BRF Requests for Approval : <strong> {{ count($admin_user_brfs) }} </strong></p>
+
+                    <p style="padding:10px;" class="bg-primary">BRF Requests for Approval : 
+                    @if(($admin_user_brfs == null))
+                        0
+                    @else
+                        <strong> {{ count($admin_user_brfs) }} </strong>
+                    @endif
+                    </p>
+
 
                     <table class="table">
                         <caption>Status of requests under you submitted via Book Requisition Form</caption>

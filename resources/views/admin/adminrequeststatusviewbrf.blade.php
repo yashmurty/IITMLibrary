@@ -11,6 +11,7 @@
                             <h4 class="text-center">{{ $admin_user_brf->title }}</h4>
                             <hr>
                             <div class="col-md-8 col-md-offset-2">
+                                <p><strong>BRF ID :</strong> {{ $admin_user_brf->id }}</p>
                                 <p><strong>Document Type :</strong> {{ $admin_user_brf->doctype }}</p>
                                 <p><strong>Author :</strong> {{ $admin_user_brf->author }}</p>
                                 <p><strong>Title :</strong> {{ $admin_user_brf->title }}</p>
@@ -23,7 +24,12 @@
                                 <p><strong>Number of Copies :</strong> {{ $admin_user_brf->numberofcopies }}</p>
                                 <p><strong>LAC Status :</strong> {{ $admin_user_brf->lac_status }}</p>
                                 <p><strong>Librarian Status :</strong> {{ $admin_user_brf->librarian_status }}</p>
-                                <p><strong>Remarks :</strong> {{ $admin_user_brf->remarks }}</p>
+                                <p><strong>Remarks
+                                  <button type="submit" data-toggle="modal" data-target="#editModal" class="btn btn-info btn-s">Edit</button> : 
+                                </strong> 
+                                    {!! nl2br(e($admin_user_brf->remarks)) !!}
+                                    <br>
+                                  </p>
                                 <hr>
                                 <form class="form-horizontal" id="BRFapprovalForm" role="form" method="POST" action="{{ url('admin/requeststatus/brf') }}">
                                     {!! csrf_field() !!}
@@ -31,6 +37,13 @@
                                     <input type="hidden" id="librarian_status" name="librarian_status" value="">
                                     <input type="hidden" id="remarks" name="remarks" value="">
                                 </form>
+
+                                <form class="form-horizontal" id="BRFeditForm" role="form" method="POST" action="{{ url('admin/requeststatus/brf') }}/{{ $admin_user_brf->id }}">
+                                    {!! csrf_field() !!}
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="hidden" id="edit-remarks" name="edit-remarks" value="">
+                                </form>
+
                                 @if( $admin_user_brf->librarian_status == "approved" )
 
                                 <div class="row">
@@ -104,8 +117,27 @@
     </div>
   </div>
 </div>
-@endsection
 
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="editModalLabel">Edit Request</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <textarea name="modalremarks" class="col-md-12 form-control" id="editModalRemarks" rows="4">{{ $admin_user_brf->remarks }}</textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" onclick="editRemarkFunction()">Edit Book Request</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
 
 @section('jscontent')
 <script type="text/javascript">
@@ -120,6 +152,11 @@
         document.getElementById("librarian_status").value = "denied";
         document.getElementById("remarks").value = document.getElementById("denyModalRemarks").value;
         document.getElementById("BRFapprovalForm").submit();
+    }
+
+    function editRemarkFunction () {
+        document.getElementById("edit-remarks").value = document.getElementById("editModalRemarks").value;
+        document.getElementById("BRFeditForm").submit();
     }
 
 </script>

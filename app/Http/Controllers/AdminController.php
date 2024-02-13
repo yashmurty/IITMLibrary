@@ -84,6 +84,20 @@ class AdminController extends Controller
         }
     }
 
+    // Edit BRF - Remarks, etc.
+    public function putAdminRequestStatusEditBRF($brf_id)
+    {
+        $brf_model_instance = BasicRequisitionForm::find($brf_id);
+        $brf_model_instance->remarks = Input::get('edit-remarks');
+        $brf_model_instance->save();
+        // dd($admin_user_brf);
+
+        return redirect('admin/requeststatus/brf/'.$brf_id)
+            ->with('globalalertmessage', 'Request Successfully updated.')
+            ->with('globalalertclass', 'success');
+    }
+
+
     public function postAdminRequestStatusApproveBRF()
     {
         $validator = Validator::make(Input::all(), [
