@@ -668,6 +668,12 @@ class AdminController extends Controller
                 ->with('year_until', $year_untill);
     }
 
+    /* Admin Page - Book Budget (GET) */
+    public function getBookBudget($year_from_until, $iitm_dept_code)
+    {
+        
+    }
+
     /* Admin Page - Git Management (GET) */
     public function getAdminGitManagement()
     {
