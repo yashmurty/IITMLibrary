@@ -31,4 +31,14 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www
 
+# Copy application code to the container
+COPY . /var/www
+
+# Install Composer dependencies
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Adjust ownership (if necessary, depending on your setup)
+# RUN chown -R $user:$user /var/www
+
+# Switch to your non-root user for running the application
 USER $user

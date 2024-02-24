@@ -28,11 +28,16 @@
                             @if(!($lac_user_brfs == null))
                                 @foreach ($lac_user_brfs as $key => $user_brf) 
                                 <tr> 
-                                    <th scope="row">{{ $key + 1 }}</th> 
+                                    <th scope="row">
+                                        <!-- {{ $key + 1 }}  -->
+                                        #{{ $user_brf->id }} </br>
+                                        <span class="label label-default">{{ \Carbon\Carbon::parse($user_brf->created_at)->format('Y-m-d') }}</span>
+                                    </th> 
                                     <td>{{ $user_brf->faculty }}</td> 
                                     <td>{{ $user_brf->doctype }}</td> 
                                     <td>{{ $user_brf->author }}</td> 
                                     <td>{{ $user_brf->title }}</td> 
+                                    
                                     @if( $user_brf->lac_status == null)
                                         <td><i class="fa fa-clock-o"></i></td> 
                                     @elseif( $user_brf->lac_status == "approved" )

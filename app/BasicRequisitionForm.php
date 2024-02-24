@@ -23,7 +23,10 @@ class BasicRequisitionForm extends Model
         'isbn', 'volumne', 'price','sectioncatalogue',
         'numberofcopies', 'laravel_user_id', 'iitm_dept_code', 'iitm_id',
         'faculty', 'lac_status', 'librarian_status', 'remarks',
+        'lac_status_date', 'librarian_status_date', 'download_status_date',
     ];
+
+    protected $dates = ['lac_status_date', 'librarian_status_date', 'download_status_date'];
 
     /**
      * The attributes excluded from the model's JSON form.

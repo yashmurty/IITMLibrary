@@ -50,7 +50,11 @@
                                 @elseif( $user_brf->download_status == "downloaded" )
                                 <tr class="success">
                                 @endif
-                                    <th scope="row">{{ $key + 1 }}</th>
+                                    <th scope="row">
+                                        <!-- {{ $key + 1 }}  -->
+                                        #{{ $user_brf->id }} </br>
+                                        <span class="label label-default">{{ \Carbon\Carbon::parse($user_brf->created_at)->format('Y-m-d') }}</span>
+                                    </th> 
                                     <td>{{ $user_brf->faculty }}</td>
                                     <td>{{ $user_brf->iitm_dept_code }}</td>
                                     <td>{{ $user_brf->doctype }}</td>

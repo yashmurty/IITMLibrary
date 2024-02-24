@@ -11,7 +11,10 @@
                             <h4 class="text-center">{{ $admin_user_brf->title }}</h4>
                             <hr>
                             <div class="col-md-8 col-md-offset-2">
-                                <p><strong>BRF ID :</strong> {{ $admin_user_brf->id }}</p>
+                                <p>
+                                  <strong>BRF ID :</strong> {{ $admin_user_brf->id }}
+                                  <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->created_at)->format('Y-m-d') }}</span>
+                                </p>
                                 <p><strong>Document Type :</strong> {{ $admin_user_brf->doctype }}</p>
                                 <p><strong>Author :</strong> {{ $admin_user_brf->author }}</p>
                                 <p><strong>Title :</strong> {{ $admin_user_brf->title }}</p>
@@ -22,8 +25,18 @@
                                 <p><strong>Price :</strong> {{ $admin_user_brf->price }}</p>
                                 <p><strong>Section Catalogue :</strong> {{ $admin_user_brf->sectioncatalogue }}</p>
                                 <p><strong>Number of Copies :</strong> {{ $admin_user_brf->numberofcopies }}</p>
-                                <p><strong>LAC Status :</strong> {{ $admin_user_brf->lac_status }}</p>
-                                <p><strong>Librarian Status :</strong> {{ $admin_user_brf->librarian_status }}</p>
+                                <p>
+                                  <strong>LAC Status :</strong> {{ $admin_user_brf->lac_status }}
+                                  @if($admin_user_brf->lac_status_date)
+                                        <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->lac_status_date)->format('Y-m-d') }}</span>
+                                  @endif
+                                </p>
+                                <p>
+                                  <strong>Librarian Status :</strong> {{ $admin_user_brf->librarian_status }}
+                                  @if($admin_user_brf->librarian_status_date)
+                                        <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->librarian_status_date)->format('Y-m-d') }}</span>
+                                  @endif
+                                </p>
                                 <p><strong>Remarks
                                   <button type="submit" data-toggle="modal" data-target="#editModal" class="btn btn-info btn-s">Edit</button> : 
                                 </strong> 

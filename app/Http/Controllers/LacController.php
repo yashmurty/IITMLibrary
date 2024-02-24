@@ -14,7 +14,7 @@ use Validator;
 use App\BasicRequisitionForm;
 use Mail;
 use App\User;
-
+use Carbon\Carbon;
 
 class LacController extends Controller
 {
@@ -100,6 +100,8 @@ class LacController extends Controller
 
         $brf_model_instance = BasicRequisitionForm::find(Input::get('brf_id'));
         $brf_model_instance->lac_status = Input::get('lac_status');
+        // Set lac_status_date to the current date and time
+        $brf_model_instance->lac_status_date = Carbon::now();
         $brf_model_instance->remarks = Input::get('remarks');
         $brf_model_instance->save();
 

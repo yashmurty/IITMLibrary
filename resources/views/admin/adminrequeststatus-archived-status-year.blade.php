@@ -50,7 +50,6 @@
                                 <th>Doctype</th>
                                 <th>Author</th>
                                 <th>Title</th>
-                                <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>LAC Status</th>
                                 <th>Librarian Status</th>
@@ -66,29 +65,45 @@
                                 @elseif( $user_brf->download_status == "downloaded" )
                                 <tr class="success">
                                 @endif
-                                    <th scope="row">{{ $key + 1 }}</th>
+                                    <th scope="row">
+                                        <!-- {{ $key + 1 }}  -->
+                                        #{{ $user_brf->id }} </br>
+                                        <span class="label label-default">{{ \Carbon\Carbon::parse($user_brf->created_at)->format('Y-m-d') }}</span>
+                                    </th> 
                                     <td>{{ $user_brf->faculty }}</td>
                                     <td>{{ $user_brf->iitm_dept_code }}</td>
                                     <td>{{ $user_brf->doctype }}</td>
                                     <td>{{ $user_brf->author }}</td>
                                     <td>{{ $user_brf->title }}</td>
-                                    <td>{{ $user_brf->created_at }}</td>
                                     <td>{{ $user_brf->updated_at }}</td>
+
+                                    <td>
                                     @if( $user_brf->lac_status == null)
-                                        <td><i class="fa fa-clock-o"></i></td>
+                                        <i class="fa fa-clock-o"></i>
                                     @elseif( $user_brf->lac_status == "approved" )
-                                        <td><i class="fa fa-check-circle" style="color:green"></i></td>
+                                        <i class="fa fa-check-circle" style="color:green"></i>
                                     @else
-                                        <td><i class="fa fa-times-circle" style="color:red"></i></td>
+                                        <i class="fa fa-times-circle" style="color:red"></i>
                                     @endif
 
-                                    @if( $user_brf->librarian_status == null)
-                                        <td><i class="fa fa-clock-o"></i></td>
-                                    @elseif( $user_brf->librarian_status == "approved" )
-                                        <td><i class="fa fa-check-circle" style="color:green;"></i></td>
-                                    @else
-                                        <td><i class="fa fa-times-circle" style="color:red"></i></td>
+                                    @if($user_brf->lac_status_date)
+                                        <span class="label label-default">{{ \Carbon\Carbon::parse($user_brf->lac_status_date)->format('Y-m-d') }}</span>
                                     @endif
+                                    </td>
+
+                                    <td> 
+                                    @if( $user_brf->librarian_status == null)
+                                        <i class="fa fa-clock-o"></i>
+                                    @elseif( $user_brf->librarian_status == "approved" )
+                                        <i class="fa fa-check-circle" style="color:green;"></i>
+                                    @else
+                                        <i class="fa fa-times-circle" style="color:red"></i>
+                                    @endif
+
+                                    @if($user_brf->librarian_status_date)
+                                        <span class="label label-default">{{ \Carbon\Carbon::parse($user_brf->librarian_status_date)->format('Y-m-d') }}</span>
+                                    @endif
+                                    </td> 
 
                                     <td>{{ $user_brf->remarks }}</td>
                                     <td><a href="{{ url('admin/requeststatus/brf/') }}/{{ $user_brf->id }}" class="btn btn-primary">View</a></td>
