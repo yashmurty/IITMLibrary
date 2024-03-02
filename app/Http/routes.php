@@ -179,6 +179,19 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'admin-brf-analytics-year-department', 'uses' => 'AdminController@getAdminBRFAnalyticsYearDepartment'
 	]);
 
+    /* Admin Book Budget (GET) */
+	Route::get('/admin/book-budget-departments',
+	  array('as' => 'admin-book-budget-departments',
+	        'uses' => 'AdminController@getBookBudgetDepartments'
+	));
+
+	/* Admin Book Budget - Department wise (GET) */
+	Route::get('/admin/book-budget-departments/{iitm_dept_code}',
+	  array('as' => 'admin-book-budget-department-wise',
+	        'uses' => 'AdminController@getBookBudgetDepartments'
+	));
+
+
     // Git Management
     /* Admin Page - Git Management (GET) */
 	Route::get('/admin/git-management',
