@@ -14,16 +14,13 @@
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         View Year-wise <span class="caret"></span>
                       </button>
+                      
                       <ul class="dropdown-menu">
-                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2023-2024">2023-2024</a></li>
-                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2021-2022">2021-2022</a></li>
-                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2021-2022">2021-2022</a></li>
-                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2020-2021">2020-2021</a></li>
-                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2019-2020">2019-2020</a></li>
-                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2018-2019">2018-2019</a></li>
-                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2017-2018">2017-2018</a></li>
-                        <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/2016-2017">2016-2017</a></li>
+                            @for ($year = 2024; $year >= 2016; $year--)
+                                <li><a href="{{ URL::route('adminrequeststatus') }}/archived/{{ $archived_status }}/{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</a></li>
+                            @endfor
                       </ul>
+
                     </div>
                     <a href="{{ URL::route('adminrequeststatus-archived') }}" class="btn btn-default">Go Back to Archived Requests</a>
                     <p>
