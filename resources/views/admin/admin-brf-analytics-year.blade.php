@@ -26,9 +26,9 @@
                             <br>
                             <br>
                             @if(!is_null($iitm_dept_code))
-                            Showing data for <strong>{{ $iitm_dept_code }}</strong>
+                              Showing data for <strong>{{ $iitm_dept_code }}</strong>
                             @else
-                            Showing data for all departments.
+                              Showing data for all departments.
                             @endif
                             <!-- Department button -->
                             <div class="btn-group">

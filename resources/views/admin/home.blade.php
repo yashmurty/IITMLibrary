@@ -32,7 +32,7 @@
                             </div>
                             </a>
 
-                            <a class="col-sm-12 col-md-4" href="{{ URL::route('admin-book-budget-departments') }}">
+                            <a class="col-sm-12 col-md-4" href="{{ URL::route('admin-book-budget-year-list') }}">
                             <div style="background-color:#DDD; padding: 15px; margin-top:20px;">
                             <i class="fa fa-btn fa-money"></i>| Book Budget
                             </div>

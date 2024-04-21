@@ -179,14 +179,14 @@ Route::group(['middleware' => 'web'], function () {
 	    'as' => 'admin-brf-analytics-year-department', 'uses' => 'AdminController@getAdminBRFAnalyticsYearDepartment'
 	]);
 
-    /* Admin Book Budget (GET) */
-	Route::get('/admin/book-budget-departments',
-	  array('as' => 'admin-book-budget-departments',
-	        'uses' => 'AdminController@getBookBudgetDepartments'
+    /* Admin Book Budget - Year List (GET) */
+	Route::get('/admin/book-budget-year-list',
+	  array('as' => 'admin-book-budget-year-list',
+	        'uses' => 'AdminController@getBookBudgetYearList'
 	));
 
 	/* Admin Book Budget - Department wise (GET) */
-	Route::get('/admin/book-budget-departments/{iitm_dept_code}',
+	Route::get('/admin/book-budget-departments/{iitm_dept_code}/{year_from_until}',
 	  array('as' => 'admin-book-budget-department-wise',
 	        'uses' => 'AdminController@getBookBudgetDepartments'
 	));

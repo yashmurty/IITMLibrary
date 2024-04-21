@@ -643,23 +643,26 @@ class AdminController extends Controller
             ->with('year_until', $year_untill);
     }
 
-    /* Admin Page - Book Budget Departments (GET) */
-    public function getBookBudgetDepartments($iitm_dept_code = null)
+    /* Admin Page - Book Budget Year List (GET) */
+    public function getBookBudgetYearList()
     {
-        // If iitm_dept_code is set, return the book budget for all years for that specific department.
-        // If iitm_dept_code is not set, return the book budget for the year_from_until for all departments.
-        if ($iitm_dept_code) {
+        return view('admin.book-budget-year-list');
+    }
+
+    /* Admin Page - Book Budget Departments (GET) */
+    public function getBookBudgetDepartments($iitm_dept_code = "ALL", $year_from_until = "2023-2024")
+    {
+        if ($iitm_dept_code == "ALL") {
             $lac_users_departments = DB::table('lac_users')
-                ->where('iitm_dept_code', $iitm_dept_code)
-                ->get();
-            // TODO: Return the book budget for all years for that specific department.
+            ->get();
 
         } else {
             $lac_users_departments = DB::table('lac_users')
+            ->where('iitm_dept_code', $iitm_dept_code)
             ->get();
+        // TODO: Return the book budget for all years for that specific department.
         }
 
-        $year_from_until = "2023-2024";
       
 
         return view('admin.book-budget-departments')

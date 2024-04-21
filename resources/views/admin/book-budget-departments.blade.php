@@ -33,11 +33,11 @@
                                 <td>0</td>
                                 <td>0</td>
 
-                                <td><a href="{{ url('/') }}/admin/book-budget-departments/{{ $lac_users_department->iitm_dept_code }}" class="btn btn-primary">View</a></td>
+                                <td><a href="{{ url('/') }}/admin/book-budget-departments/{{ $lac_users_department->iitm_dept_code }}/ALL" class="btn btn-primary">View</a></td>
                             </tr>
                             @endforeach
                             @else
-                            No Book Users found.
+                            No Book Budget found.
                             @endif
 
                         </tbody>
