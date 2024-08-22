@@ -656,17 +656,46 @@ class AdminController extends Controller
             $lac_users_departments = DB::table('lac_users')
             ->get();
 
-        } else {
-            $lac_users_departments = DB::table('lac_users')
-            ->where('iitm_dept_code', $iitm_dept_code)
+            $book_budgets = DB::table('book_budgets')
+            ->where('year_from_until', $year_from_until)
             ->get();
-        // TODO: Return the book budget for all years for that specific department.
+
+            // Ensure we're working with collections
+            $lac_users_departments = collect($lac_users_departments);
+            $book_budgets = collect($book_budgets);
+
+            $default_budget = [
+                "year_from_until" => $year_from_until,
+                "budget_allocated" => "0",
+                "budget_spent" => "0",
+                "budget_on_order" => "0",
+                "budget_available" => "0"
+            ];
+
+            $lac_users_departments_with_budget = $lac_users_departments->map(function ($department) use ($book_budgets, $default_budget) {
+                $budget = $book_budgets->where('iitm_dept_code', $department->iitm_dept_code)->first();
+                
+                return (object) array_merge(
+                    (array) $department,
+                    $budget ? (array) $budget : $default_budget
+                );
+            });
+
+        } else {
+            $lac_users_departments_with_budget = DB::table('book_budgets')
+                ->where('iitm_dept_code', $iitm_dept_code)
+                ->orderBy('year_from_until', 'desc')
+                ->get();
+
+            
         }
 
       
 
         return view('admin.book-budget-departments')
-            ->with('lac_users_departments', $lac_users_departments)
+            ->with('year_from_until', $year_from_until)
+            ->with('lac_users_departments_with_budget', $lac_users_departments_with_budget)
+            ->with('iitm_dept_code', $iitm_dept_code)
             ->with('year_from_until', $year_from_until);
     }
 

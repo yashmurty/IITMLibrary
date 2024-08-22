@@ -15,6 +15,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Department Code</th>
+                                <th>Year</th>
                                 <th>Budget Allocated</th>
                                 <th>Budget Spent</th>
                                 <th>Budget On Order</th>
@@ -23,21 +24,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!($lac_users_departments == null))
-                            @foreach ($lac_users_departments as $key => $lac_users_department)
+                            @if(!($lac_users_departments_with_budget == null))
+                            @foreach ($lac_users_departments_with_budget as $key => $department_budget)
                             <tr>
                                 <th scope="row">{{ $key + 1 }}</th>
-                                <td>{{ $lac_users_department->iitm_dept_code }}</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <td>{{ $department_budget->iitm_dept_code }}</td>
+                                <td>{{ $department_budget->year_from_until }}</td>
+                                <td>{{ $department_budget->budget_allocated }}</td>
+                                <td>{{ $department_budget->budget_spent }}</td>
+                                <td>{{ $department_budget->budget_on_order }}</td>
+                                <td>{{ $department_budget->budget_available }}</td>
 
-                                <td><a href="{{ url('/') }}/admin/book-budget-departments/{{ $lac_users_department->iitm_dept_code }}/ALL" class="btn btn-primary">View</a></td>
+                                <td><a href="{{ url('/') }}/admin/book-budget-departments/{{ $department_budget->iitm_dept_code }}/ALL" class="btn btn-primary">View</a></td>
                             </tr>
                             @endforeach
                             @else
-                            No Book Budget found.
+                            No Book Budget found for: <strong>Year: {{ $year_from_until }}</strong> and <strong>Department: {{ $iitm_dept_code }}</strong>
                             @endif
 
                         </tbody>
