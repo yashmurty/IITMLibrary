@@ -694,6 +694,12 @@ class AdminController extends Controller
             ->with('year_from_until', $year_from_until);
     }
 
+    /* Admin Book Budget - Department and Year UPSERT (POST) */
+    public function postBookBudgetDepartments()
+    {
+        return Input::all();
+    }
+
     /* Admin Page - Git Management (GET) */
     public function getAdminGitManagement()
     {

@@ -229,6 +229,12 @@ Route::group(['middleware' => 'web'], function () {
         )
     );
 
+    /* Admin Book Budget - Department and Year UPSERT (POST) */
+    Route::post('/admin/book-budget-departments', [
+        'as' => 'book-budget-departments-post',
+        'uses' => 'AdminController@postBookBudgetDepartments'
+    ]);
+
 
     // Git Management
     /* Admin Page - Git Management (GET) */
