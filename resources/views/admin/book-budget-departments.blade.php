@@ -5,10 +5,26 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Admin Book Budget Department List</div>
+                <div class="panel-heading">
+                    <a href="{{ URL::route('admin-book-budget-year-list') }}">
+                        <i class="fa fa-btn fa-money"></i>| Admin Book Budget
+                    </a> -> Department List
+                </div>
 
                 <div class="panel-body">
                     <table class="table">
+                        @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+
+                        @if(session('error'))
+                        <div class="alert alert-error">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+
                         <caption>Showing Book Budget for the year: <strong>{{ $year_from_until }}</strong></caption>
                         <thead>
                             <tr>

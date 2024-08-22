@@ -11,6 +11,7 @@ use Validator;
 use Input;
 use Auth;
 use App\BasicRequisitionForm;
+use App\BookBudget;
 use Excel;
 use Mail;
 use App\User;
@@ -697,7 +698,25 @@ class AdminController extends Controller
     /* Admin Book Budget - Department and Year UPSERT (POST) */
     public function postBookBudgetDepartments()
     {
-        return Input::all();
+        $input = Input::all();
+
+        try {
+            $bookBudget = BookBudget::firstOrNew([
+                'iitm_dept_code' => $input['edit-department'],
+                'year_from_until' => $input['edit-year']
+            ]);
+
+            $bookBudget->budget_allocated = $input['edit-budget-allocated'];
+            $bookBudget->budget_spent = $input['edit-budget-spent'];
+            $bookBudget->budget_on_order = $input['edit-budget-on-order'];
+            $bookBudget->budget_available = $input['edit-budget-available'];
+
+            $bookBudget->save();
+
+            return redirect()->back()->with('success', 'Book budget updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error updating book budget: ' . $e->getMessage());
+        }
     }
 
     /* Admin Page - Git Management (GET) */
