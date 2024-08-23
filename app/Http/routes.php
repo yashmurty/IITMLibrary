@@ -94,6 +94,12 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'HomeController@getRequestStatus'
     ]);
 
+    // Book Budget - Department View Only for all users
+    Route::get('book-budget-department-view', [
+        'as' => 'book-budget-department-view',
+        'uses' => 'HomeController@getBookBudgetDepartmentView'
+    ]);
+
     /*
 	// LAC Module
 	*/

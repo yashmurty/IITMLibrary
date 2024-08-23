@@ -80,26 +80,28 @@ class HomeController extends Controller
         //return Auth::user();
 
         $lac_user_instance = DB::table('lac_users')
-                                    ->where('iitm_dept_code', '=', Auth::user()->iitm_dept_code)
-                                    ->first();
+            ->where('iitm_dept_code', '=', Auth::user()->iitm_dept_code)
+            ->first();
 
         // return $lac_user_instance->name;
         $inputTitle =  Input::get('inputTitle');
 
-        Mail::send('emails.newbrf',
-                [
-                    'lac_user_instance'     => $lac_user_instance,
-                    'inputTitle'            => $inputTitle
-                ],
-                function ($m) use ($lac_user_instance, $inputTitle) {
+        Mail::send(
+            'emails.newbrf',
+            [
+                'lac_user_instance'     => $lac_user_instance,
+                'inputTitle'            => $inputTitle
+            ],
+            function ($m) use ($lac_user_instance, $inputTitle) {
                 $m->from('librarian@iitm.ac.in', 'Library Portal Team');
                 $m->to($lac_user_instance->lac_email_id, $lac_user_instance->name)->subject('[Library] New Request for Book');
                 // $m->to("ae11b049@smail.iitm.ac.in", $lac_user_instance->name)->subject('[Library] New Request for Book');
-            });
+            }
+        );
 
         return redirect('home')
-                ->with('globalalertmessage', 'Book Request Submitted')
-                ->with('globalalertclass', 'success');
+            ->with('globalalertmessage', 'Book Request Submitted')
+            ->with('globalalertclass', 'success');
     }
 
     // Request Status
@@ -114,20 +116,18 @@ class HomeController extends Controller
         // });
 
         $user_brfs = DB::table('brfs')
-                        ->where('laravel_user_id', $laravel_user_id)
-                        ->orderBy('id', 'desc')
-                        ->get();
-        if(!empty($user_brfs)){
+            ->where('laravel_user_id', $laravel_user_id)
+            ->orderBy('id', 'desc')
+            ->get();
+        if (!empty($user_brfs)) {
 
             return view('pages.requeststatus')
-                    ->with('user_brfs', $user_brfs);
-
+                ->with('user_brfs', $user_brfs);
         } else {
             // return "No Requests Found";
             return view('pages.requeststatus')
-                    ->with('user_brfs', null);
+                ->with('user_brfs', null);
         }
-
     }
 
     public function postBookRequisitionFormISBN()
@@ -150,7 +150,7 @@ class HomeController extends Controller
         $inputISBN = str_replace('-', '', $inputISBN);
 
         $client = new Client();
-        $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:'.$inputISBN);
+        $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $inputISBN);
 
         $body = $response->getBody();
         $bodyContents = $body->getContents();
@@ -195,23 +195,17 @@ class HomeController extends Controller
 
 
             return view('pages.BookRequisitionFormISBN')
-                    ->with('authors', $authors)
-                    ->with('title', $title)
-                    ->with('publisher', $publisher)
-                    ->with('inputISBN', $inputISBN)
-                    ->with('publishedDate', $publishedDate)
-                    ->with('thumbnail', $thumbnail)
-                    ->with('webReaderLink', $webReaderLink);
-
-
+                ->with('authors', $authors)
+                ->with('title', $title)
+                ->with('publisher', $publisher)
+                ->with('inputISBN', $inputISBN)
+                ->with('publishedDate', $publishedDate)
+                ->with('thumbnail', $thumbnail)
+                ->with('webReaderLink', $webReaderLink);
         } else {
             return redirect('/home')
                 ->with('globalalertmessage', 'Book not found with this ISBN')
                 ->with('globalalertclass', 'error');
         }
-
-
-
-
     }
 }
