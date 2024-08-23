@@ -97,19 +97,19 @@
                     </div>
                     <div class="form-group">
                         <label for="editModalBudgetAllocated">Budget Allocated:</label>
-                        <input type="text" class="form-control" id="editModalBudgetAllocated">
+                        <input type="text" class="form-control budget-input" id="editModalBudgetAllocated">
                     </div>
                     <div class="form-group">
                         <label for="editModalBudgetSpent">Budget Spent:</label>
-                        <input type="text" class="form-control" id="editModalBudgetSpent">
+                        <input type="text" class="form-control budget-input" id="editModalBudgetSpent">
                     </div>
                     <div class="form-group">
                         <label for="editModalBudgetOnOrder">Budget On Order:</label>
-                        <input type="text" class="form-control" id="editModalBudgetOnOrder">
+                        <input type="text" class="form-control budget-input" id="editModalBudgetOnOrder">
                     </div>
                     <div class="form-group">
                         <label for="editModalBudgetAvailable">Budget Available:</label>
-                        <input type="text" class="form-control" id="editModalBudgetAvailable">
+                        <input type="text" class="form-control" id="editModalBudgetAvailable" readonly>
                     </div>
                 </form>
             </div>
@@ -145,7 +145,7 @@
             var available = String($(this).data('available'));
 
             var parseFormattedNumber = function(value) {
-                return parseFloat(value.replace(/,/g, ''));
+                return parseFloat(value.replace(/,/g, '')) || 0;
             };
 
             $('#editModalDepartment').val(dept);
@@ -154,12 +154,31 @@
             $('#editModalBudgetSpent').val(parseFormattedNumber(spent));
             $('#editModalBudgetOnOrder').val(parseFormattedNumber(onorder));
             $('#editModalBudgetAvailable').val(parseFormattedNumber(available));
+
+            calculateBudgetAvailable();
+        });
+
+        $('.budget-input').on('input', function() {
+            calculateBudgetAvailable();
         });
     });
 
+    function calculateBudgetAvailable() {
+        var parseFormattedNumber = function(value) {
+            return parseFloat(value.replace(/,/g, '')) || 0;
+        };
+
+        var allocated = parseFormattedNumber($('#editModalBudgetAllocated').val());
+        var spent = parseFormattedNumber($('#editModalBudgetSpent').val());
+        var onOrder = parseFormattedNumber($('#editModalBudgetOnOrder').val());
+
+        var available = allocated - spent - onOrder;
+        $('#editModalBudgetAvailable').val(available.toFixed(2));
+    }
+
     function editBookBudgetFunction() {
         var parseFormattedNumber = function(value) {
-            return parseFloat(value.replace(/,/g, ''));
+            return parseFloat(value.replace(/,/g, '')) || 0;
         };
 
         document.getElementById("edit-department").value = document.getElementById("editModalDepartment").value;

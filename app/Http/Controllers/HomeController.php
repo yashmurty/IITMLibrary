@@ -209,6 +209,8 @@ class HomeController extends Controller
         }
     }
 
+    private $INR_Regex = "/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i";
+
     public function getBookBudgetDepartmentView()
     {
         $iitm_dept_code = Auth::user()->iitm_dept_code;
@@ -217,6 +219,16 @@ class HomeController extends Controller
             ->where('iitm_dept_code', $iitm_dept_code)
             ->orderBy('year_from_until', 'desc')
             ->get();
+
+        $lac_users_departments_with_budget = collect($lac_users_departments_with_budget)
+            ->map(function ($budget) {
+                // Format budget fields using regex
+                $budget->budget_allocated = preg_replace($this->INR_Regex, "$1,", $budget->budget_allocated);
+                $budget->budget_spent = preg_replace($this->INR_Regex, "$1,", $budget->budget_spent);
+                $budget->budget_on_order = preg_replace($this->INR_Regex, "$1,", $budget->budget_on_order);
+                $budget->budget_available = preg_replace($this->INR_Regex, "$1,", $budget->budget_available);
+                return $budget;
+            });
 
         return view('pages.book-budget-department-view')
             ->with('lac_users_departments_with_budget', $lac_users_departments_with_budget)

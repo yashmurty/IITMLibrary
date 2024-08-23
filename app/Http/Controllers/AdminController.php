@@ -650,28 +650,7 @@ class AdminController extends Controller
         return view('admin.book-budget-year-list');
     }
 
-    function moneyFormatIndia($num)
-    {
-        $explrestunits = "";
-        if (strlen($num) > 3) {
-            $lastthree = substr($num, strlen($num) - 3, strlen($num));
-            $restunits = substr($num, 0, strlen($num) - 3); // extracts the last three digits
-            $restunits = (strlen($restunits) % 2 == 1) ? "0" . $restunits : $restunits; // explodes the remaining digits in 2's formats, adds a zero in the beginning to maintain the 2's grouping.
-            $expunit = str_split($restunits, 2);
-            for ($i = 0; $i < sizeof($expunit); $i++) {
-                // creates each of the 2's group and adds a comma to the end
-                if ($i == 0) {
-                    $explrestunits .= (int)$expunit[$i] . ","; // if is first value , convert into integer
-                } else {
-                    $explrestunits .= $expunit[$i] . ",";
-                }
-            }
-            $thecash = $explrestunits . $lastthree;
-        } else {
-            $thecash = $num;
-        }
-        return $thecash; // writes the final format where $currency is the currency symbol.
-    }
+    private $INR_Regex = "/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i";
 
     /* Admin Page - Book Budget Departments (GET) */
     public function getBookBudgetDepartments($iitm_dept_code = "ALL", $year_from_until = "2023-2024")
@@ -700,11 +679,11 @@ class AdminController extends Controller
                     $budget ? (array) $budget : $default_budget
                 );
 
-                // Format the budget fields
-                $merged->budget_allocated = $this->moneyFormatIndia($merged->budget_allocated);
-                $merged->budget_spent = $this->moneyFormatIndia($merged->budget_spent);
-                $merged->budget_on_order = $this->moneyFormatIndia($merged->budget_on_order);
-                $merged->budget_available = $this->moneyFormatIndia($merged->budget_available);
+                // Format budget fields using regex
+                $merged->budget_allocated = preg_replace($this->INR_Regex, "$1,", $merged->budget_allocated);
+                $merged->budget_spent = preg_replace($this->INR_Regex, "$1,", $merged->budget_spent);
+                $merged->budget_on_order = preg_replace($this->INR_Regex, "$1,", $merged->budget_on_order);
+                $merged->budget_available = preg_replace($this->INR_Regex, "$1,", $merged->budget_available);
 
                 return $merged;
             });
@@ -716,11 +695,11 @@ class AdminController extends Controller
 
             $lac_users_departments_with_budget = collect($lac_users_departments_with_budget)
                 ->map(function ($budget) {
-                    // Format the budget fields
-                    $budget->budget_allocated = $this->moneyFormatIndia($budget->budget_allocated);
-                    $budget->budget_spent = $this->moneyFormatIndia($budget->budget_spent);
-                    $budget->budget_on_order = $this->moneyFormatIndia($budget->budget_on_order);
-                    $budget->budget_available = $this->moneyFormatIndia($budget->budget_available);
+                    // Format budget fields using regex
+                    $budget->budget_allocated = preg_replace($this->INR_Regex, "$1,", $budget->budget_allocated);
+                    $budget->budget_spent = preg_replace($this->INR_Regex, "$1,", $budget->budget_spent);
+                    $budget->budget_on_order = preg_replace($this->INR_Regex, "$1,", $budget->budget_on_order);
+                    $budget->budget_available = preg_replace($this->INR_Regex, "$1,", $budget->budget_available);
                     return $budget;
                 });
         }
