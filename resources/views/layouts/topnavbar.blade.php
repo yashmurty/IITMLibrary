@@ -27,7 +27,7 @@
                 @else
                 <li><a href="{{ url('/home') }}">Home</a></li>
                 <li><a href="{{ URL::route('bookrequisitionform') }}">Book Requisition Form</a></li>
-                <li><a href="{{ URL::route('bookrequisitionform') }}">Book Budget</a></li>
+                <li><a href="{{ URL::route('book-budget-department-view') }}"><i class="fa fa-btn fa-money"></i>| Book Budget</a></li>
                 @if ($auth_usertype == "lac")
                 <li><a href="{{ URL::route('lachome') }}">LAC Home</a></li>
                 @elseif ($auth_usertype == "admin")

@@ -208,4 +208,18 @@ class HomeController extends Controller
                 ->with('globalalertclass', 'error');
         }
     }
+
+    public function getBookBudgetDepartmentView()
+    {
+        $iitm_dept_code = Auth::user()->iitm_dept_code;
+
+        $lac_users_departments_with_budget = DB::table('book_budgets')
+            ->where('iitm_dept_code', $iitm_dept_code)
+            ->orderBy('year_from_until', 'desc')
+            ->get();
+
+        return view('pages.book-budget-department-view')
+            ->with('lac_users_departments_with_budget', $lac_users_departments_with_budget)
+            ->with('iitm_dept_code', $iitm_dept_code);
+    }
 }

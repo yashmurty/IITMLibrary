@@ -689,7 +689,6 @@ class AdminController extends Controller
         }
 
         return view('admin.book-budget-departments')
-            ->with('year_from_until', $year_from_until)
             ->with('lac_users_departments_with_budget', $lac_users_departments_with_budget)
             ->with('iitm_dept_code', $iitm_dept_code)
             ->with('year_from_until', $year_from_until);
