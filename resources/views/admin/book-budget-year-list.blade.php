@@ -11,15 +11,15 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h4>
-                              Select Year for Book Budget
+                                Select Year for Book Budget
                             </h4>
                             <ul>
-                                @for ($year = 2024; $year >= 2023; $year--)
-                                    <li>
-                                        <a href="{{ route('admin-book-budget-department-wise', ['iitm_dept_code' => 'ALL', 'year_from_until' => $year . '-' . ($year + 1)]) }}">
-                                            {{ $year }}-{{ $year + 1 }}
-                                        </a>
-                                    </li>
+                                @for ($year = 2024; $year >= 2024; $year--)
+                                <li>
+                                    <a href="{{ route('admin-book-budget-department-wise', ['iitm_dept_code' => 'ALL', 'year_from_until' => $year . '-' . ($year + 1)]) }}">
+                                        {{ $year }}-{{ $year + 1 }}
+                                    </a>
+                                </li>
                                 @endfor
                             </ul>
                         </div>
