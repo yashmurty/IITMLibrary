@@ -650,18 +650,38 @@ class AdminController extends Controller
         return view('admin.book-budget-year-list');
     }
 
+    function moneyFormatIndia($num)
+    {
+        $explrestunits = "";
+        if (strlen($num) > 3) {
+            $lastthree = substr($num, strlen($num) - 3, strlen($num));
+            $restunits = substr($num, 0, strlen($num) - 3); // extracts the last three digits
+            $restunits = (strlen($restunits) % 2 == 1) ? "0" . $restunits : $restunits; // explodes the remaining digits in 2's formats, adds a zero in the beginning to maintain the 2's grouping.
+            $expunit = str_split($restunits, 2);
+            for ($i = 0; $i < sizeof($expunit); $i++) {
+                // creates each of the 2's group and adds a comma to the end
+                if ($i == 0) {
+                    $explrestunits .= (int)$expunit[$i] . ","; // if is first value , convert into integer
+                } else {
+                    $explrestunits .= $expunit[$i] . ",";
+                }
+            }
+            $thecash = $explrestunits . $lastthree;
+        } else {
+            $thecash = $num;
+        }
+        return $thecash; // writes the final format where $currency is the currency symbol.
+    }
+
     /* Admin Page - Book Budget Departments (GET) */
     public function getBookBudgetDepartments($iitm_dept_code = "ALL", $year_from_until = "2023-2024")
     {
         if ($iitm_dept_code == "ALL") {
-            $lac_users_departments = DB::table('lac_users')
-                ->get();
-
+            $lac_users_departments = DB::table('lac_users')->get();
             $book_budgets = DB::table('book_budgets')
                 ->where('year_from_until', $year_from_until)
                 ->get();
 
-            // Ensure we're working with collections
             $lac_users_departments = collect($lac_users_departments);
             $book_budgets = collect($book_budgets);
 
@@ -675,17 +695,34 @@ class AdminController extends Controller
 
             $lac_users_departments_with_budget = $lac_users_departments->map(function ($department) use ($book_budgets, $default_budget) {
                 $budget = $book_budgets->where('iitm_dept_code', $department->iitm_dept_code)->first();
-
-                return (object) array_merge(
+                $merged = (object) array_merge(
                     (array) $department,
                     $budget ? (array) $budget : $default_budget
                 );
+
+                // Format the budget fields
+                $merged->budget_allocated = $this->moneyFormatIndia($merged->budget_allocated);
+                $merged->budget_spent = $this->moneyFormatIndia($merged->budget_spent);
+                $merged->budget_on_order = $this->moneyFormatIndia($merged->budget_on_order);
+                $merged->budget_available = $this->moneyFormatIndia($merged->budget_available);
+
+                return $merged;
             });
         } else {
             $lac_users_departments_with_budget = DB::table('book_budgets')
                 ->where('iitm_dept_code', $iitm_dept_code)
                 ->orderBy('year_from_until', 'desc')
                 ->get();
+
+            $lac_users_departments_with_budget = collect($lac_users_departments_with_budget)
+                ->map(function ($budget) {
+                    // Format the budget fields
+                    $budget->budget_allocated = $this->moneyFormatIndia($budget->budget_allocated);
+                    $budget->budget_spent = $this->moneyFormatIndia($budget->budget_spent);
+                    $budget->budget_on_order = $this->moneyFormatIndia($budget->budget_on_order);
+                    $budget->budget_available = $this->moneyFormatIndia($budget->budget_available);
+                    return $budget;
+                });
         }
 
         return view('admin.book-budget-departments')

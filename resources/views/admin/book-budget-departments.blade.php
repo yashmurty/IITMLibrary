@@ -48,10 +48,10 @@
                                 <td>
                                     <span class="label label-default">{{ $department_budget->year_from_until }}</span>
                                 </td>
-                                <td>{{ $department_budget->budget_allocated }}</td>
-                                <td>{{ $department_budget->budget_spent }}</td>
-                                <td>{{ $department_budget->budget_on_order }}</td>
-                                <td>{{ $department_budget->budget_available }}</td>
+                                <td>₹{{ $department_budget->budget_allocated }}</td>
+                                <td>₹{{ $department_budget->budget_spent }}</td>
+                                <td>₹{{ $department_budget->budget_on_order }}</td>
+                                <td>₹{{ $department_budget->budget_available }}</td>
                                 <td><a href="{{ url('/') }}/admin/book-budget-departments/{{ $department_budget->iitm_dept_code }}/ALL" class="btn btn-primary">View Department</a></td>
                                 <td><button type="button" data-toggle="modal" data-target="#editModal"
                                         class="btn btn-info btn-s edit-btn"
@@ -97,19 +97,19 @@
                     </div>
                     <div class="form-group">
                         <label for="editModalBudgetAllocated">Budget Allocated:</label>
-                        <input type="number" class="form-control" id="editModalBudgetAllocated">
+                        <input type="text" class="form-control" id="editModalBudgetAllocated">
                     </div>
                     <div class="form-group">
                         <label for="editModalBudgetSpent">Budget Spent:</label>
-                        <input type="number" class="form-control" id="editModalBudgetSpent">
+                        <input type="text" class="form-control" id="editModalBudgetSpent">
                     </div>
                     <div class="form-group">
                         <label for="editModalBudgetOnOrder">Budget On Order:</label>
-                        <input type="number" class="form-control" id="editModalBudgetOnOrder">
+                        <input type="text" class="form-control" id="editModalBudgetOnOrder">
                     </div>
                     <div class="form-group">
                         <label for="editModalBudgetAvailable">Budget Available:</label>
-                        <input type="number" class="form-control" id="editModalBudgetAvailable">
+                        <input type="text" class="form-control" id="editModalBudgetAvailable">
                     </div>
                 </form>
             </div>
@@ -139,27 +139,35 @@
         $('.edit-btn').on('click', function() {
             var dept = $(this).data('dept');
             var year = $(this).data('year');
-            var allocated = $(this).data('allocated');
-            var spent = $(this).data('spent');
-            var onorder = $(this).data('onorder');
-            var available = $(this).data('available');
+            var allocated = String($(this).data('allocated'));
+            var spent = String($(this).data('spent'));
+            var onorder = String($(this).data('onorder'));
+            var available = String($(this).data('available'));
+
+            var parseFormattedNumber = function(value) {
+                return parseFloat(value.replace(/,/g, ''));
+            };
 
             $('#editModalDepartment').val(dept);
             $('#editModalYear').val(year);
-            $('#editModalBudgetAllocated').val(allocated);
-            $('#editModalBudgetSpent').val(spent);
-            $('#editModalBudgetOnOrder').val(onorder);
-            $('#editModalBudgetAvailable').val(available);
+            $('#editModalBudgetAllocated').val(parseFormattedNumber(allocated));
+            $('#editModalBudgetSpent').val(parseFormattedNumber(spent));
+            $('#editModalBudgetOnOrder').val(parseFormattedNumber(onorder));
+            $('#editModalBudgetAvailable').val(parseFormattedNumber(available));
         });
     });
 
     function editBookBudgetFunction() {
+        var parseFormattedNumber = function(value) {
+            return parseFloat(value.replace(/,/g, ''));
+        };
+
         document.getElementById("edit-department").value = document.getElementById("editModalDepartment").value;
         document.getElementById("edit-year").value = document.getElementById("editModalYear").value;
-        document.getElementById("edit-budget-allocated").value = document.getElementById("editModalBudgetAllocated").value;
-        document.getElementById("edit-budget-spent").value = document.getElementById("editModalBudgetSpent").value;
-        document.getElementById("edit-budget-on-order").value = document.getElementById("editModalBudgetOnOrder").value;
-        document.getElementById("edit-budget-available").value = document.getElementById("editModalBudgetAvailable").value;
+        document.getElementById("edit-budget-allocated").value = parseFormattedNumber(document.getElementById("editModalBudgetAllocated").value);
+        document.getElementById("edit-budget-spent").value = parseFormattedNumber(document.getElementById("editModalBudgetSpent").value);
+        document.getElementById("edit-budget-on-order").value = parseFormattedNumber(document.getElementById("editModalBudgetOnOrder").value);
+        document.getElementById("edit-budget-available").value = parseFormattedNumber(document.getElementById("editModalBudgetAvailable").value);
         document.getElementById("BookBudgetEditForm").submit();
     }
 </script>
