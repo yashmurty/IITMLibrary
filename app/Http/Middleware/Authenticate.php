@@ -29,17 +29,23 @@ class Authenticate
         $iitm_id = Auth::user()->iitm_id;
 
         $lac_user = DB::table('lac_users')
-                        ->where('iitm_id', '=', $iitm_id)
-                        ->first();
+            ->where('iitm_id', '=', $iitm_id)
+            ->first();
 
         $admin_user = DB::table('admin_users')
-                        ->where('iitm_id', '=', $iitm_id)
-                        ->first();
+            ->where('iitm_id', '=', $iitm_id)
+            ->first();
 
         if (!empty($lac_user)) {
             view()->share('auth_usertype', 'lac');
         } elseif (!empty($admin_user)) {
-            view()->share('auth_usertype', 'admin');
+            if ($admin_user->role === config('roles.admin')) {
+                view()->share('auth_usertype', 'admin');
+            } elseif ($admin_user->role === config('roles.staff_approver')) {
+                view()->share('auth_usertype', 'staff_approver');
+            } else {
+                view()->share('auth_usertype', 'unknown_admin');
+            }
         } else {
             view()->share('auth_usertype', 'faculty');
         }
