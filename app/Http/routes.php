@@ -241,6 +241,16 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'AdminController@postBookBudgetDepartments'
     ]);
 
+    /*
+	// Staff Approver Module //
+	*/
+    Route::get(
+        '/staff-approver/requeststatus',
+        array(
+            'as' => 'staff-approver-requeststatus',
+            'uses' => 'StaffApproverController@getRequestStatus'
+        )
+    );
 
     // Git Management
     /* Admin Page - Git Management (GET) */

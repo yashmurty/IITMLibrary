@@ -42,21 +42,21 @@ class AdminController extends Controller
     public function getAdminRequestStatus()
     {
 
-        $admin_user_brfs = DB::table('brfs')
+        $user_brfs = DB::table('brfs')
             ->where('lac_status', "approved")
             ->where('librarian_status', NULL)
             ->orWhere('librarian_status', 'approved')
             ->where('download_status', NULL)
             ->orderBy('id', 'desc')
             ->get();
-        if (!empty($admin_user_brfs)) {
+        if (!empty($user_brfs)) {
 
-            return view('admin.adminrequeststatus')
-                ->with('admin_user_brfs', $admin_user_brfs);
+            return view('admin.requeststatus')
+                ->with('user_brfs', $user_brfs);
         } else {
             // return "No Requests Found";
-            return view('admin.adminrequeststatus')
-                ->with('admin_user_brfs', null);
+            return view('admin.requeststatus')
+                ->with('user_brfs', null);
         }
     }
 
