@@ -14,7 +14,7 @@ class UpdateAdminUsersRoleTable extends Migration
     {
         //
         Schema::table('admin_users', function (Blueprint $table) {
-            $table->timestamp('role')->nullable();
+            $table->string('role')->nullable();
         });
     }
 

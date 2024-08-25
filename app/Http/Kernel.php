@@ -47,6 +47,7 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'lacauth' => \App\Http\Middleware\LacAuthenticate::class,
         'adminauth' => \App\Http\Middleware\AdminAuthenticate::class,
+        'staff.approver' => \App\Http\Middleware\StaffApproverAuthenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,

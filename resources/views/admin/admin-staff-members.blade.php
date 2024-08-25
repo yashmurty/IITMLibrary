@@ -18,6 +18,7 @@
                                 <th>Name</th>
                                 <th>Employee ID</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>Edit</th>
                             </tr>
                         </thead>
@@ -30,6 +31,7 @@
                                 <td>{{ $admin_user->name }}</td>
                                 <td>{{ $admin_user->iitm_id }}</td>
                                 <td>{{ $admin_user->email }}</td>
+                                <td>{{ $admin_user->role }}</td>
 
                                 <td><a href="#" class="btn btn-danger" disabled>Edit</a></td>
                             </tr>

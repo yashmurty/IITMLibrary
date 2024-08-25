@@ -435,11 +435,11 @@ class AdminController extends Controller
             ->get();
         if (!empty($admin_users)) {
 
-            return view('admin.adminstaffmembers')
+            return view('admin.admin-staff-members')
                 ->with('admin_users', $admin_users);
         } else {
             // return "No Requests Found";
-            return view('admin.adminstaffmembers')
+            return view('admin.admin-staff-members')
                 ->with('admin_users', null);
         }
     }

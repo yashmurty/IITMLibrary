@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
-class AdminAuthenticate
+class StaffApproverAuthenticate
 {
     /**
      * Handle an incoming request.
@@ -23,15 +23,15 @@ class AdminAuthenticate
             return redirect('login');
         }
 
-        $admin_user = DB::table('admin_users')
+        $staff_approver = DB::table('admin_users')
             ->where('iitm_id', '=', $user->iitm_id)
             ->first();
 
-        if ($admin_user && $admin_user->role === config('roles.admin')) {
+        if ($staff_approver && $staff_approver->role === config('roles.staff_approver')) {
             return $next($request);
         } else {
             return redirect('home')
-                ->with('globalalertmessage', 'You do not have admin privileges')
+                ->with('globalalertmessage', 'You do not have staff approver privileges')
                 ->with('globalalertclass', 'error');
         }
     }
