@@ -199,6 +199,12 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'AdminController@getAdminStaffMembers'
     ]);
 
+    // LAS Memebers
+    Route::get('admin/staffmembers', [
+        'as' => 'admin-staffmembers',
+        'uses' => 'AdminController@getAdminStaffMembers'
+    ]);
+
     // Admin BRF Analytics
     Route::get('admin/brf-analytics', [
         'as' => 'admin-brf-analytics',

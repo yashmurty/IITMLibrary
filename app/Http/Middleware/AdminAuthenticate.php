@@ -17,14 +17,14 @@ class AdminAuthenticate
      */
     public function handle($request, Closure $next)
     {
-        
+
         //return Auth::user();
         $iitm_id = Auth::user()->iitm_id;
 
         // $BasicProfileData = BasicProfile::where('api_userId', '=', 1);
         $admin_user = DB::table('admin_users')
-                        ->where('iitm_id', '=', $iitm_id)
-                        ->first();
+            ->where('iitm_id', '=', $iitm_id)
+            ->first();
         if (!empty($admin_user)) {
             return $next($request);
         } else {
@@ -33,7 +33,5 @@ class AdminAuthenticate
                 ->with('globalalertmessage', 'You are not an Admin')
                 ->with('globalalertclass', 'error');
         }
-
-
     }
 }
