@@ -656,7 +656,9 @@ class AdminController extends Controller
     public function getBookBudgetDepartments($iitm_dept_code = "ALL", $year_from_until = "2023-2024")
     {
         if ($iitm_dept_code == "ALL") {
-            $lac_users_departments = DB::table('lac_users')->get();
+            $lac_users_departments = DB::table('lac_users')
+                ->orderBy('iitm_dept_code', 'asc')
+                ->get();
             $book_budgets = DB::table('book_budgets')
                 ->where('year_from_until', $year_from_until)
                 ->get();
