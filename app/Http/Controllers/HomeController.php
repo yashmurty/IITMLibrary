@@ -149,7 +149,12 @@ class HomeController extends Controller
         $inputISBN = str_replace(' ', '', $inputISBN);
         $inputISBN = str_replace('-', '', $inputISBN);
 
+        // Fetch Google Books API Key from env file.
+        // $google_books_api_key = env('GOOGLE_BOOKS_API_KEY');
+
         $client = new Client();
+        // Add Google Books API Key to the URL
+        // $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $inputISBN . '&key=' . $google_books_api_key);
         $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $inputISBN);
 
         $body = $response->getBody();
