@@ -154,6 +154,7 @@ class HomeController extends Controller
 
         $client = new Client();
         // Add Google Books API Key to the URL
+        // Link: https://console.cloud.google.com/apis/api/books.googleapis.com/quotas
         // $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $inputISBN . '&key=' . $google_books_api_key);
         $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $inputISBN);
 
