@@ -10,6 +10,17 @@
                 <div class="panel-body">
 
                     <table class="table">
+                        @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+
+                        @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                        @endif
                         <caption>Admin Staff Members</caption>
                         <thead>
                             <tr>
@@ -39,8 +50,9 @@
                                         data-target="#editRoleModal"
                                         data-userid="{{ $admin_user->id }}"
                                         data-username="{{ $admin_user->name }}"
+                                        data-useremail="{{ $admin_user->email }}"
                                         data-userrole="{{ $admin_user->role }}">
-                                        Edit Role
+                                        Edit User
                                     </button>
                                 </td>
                             </tr>
@@ -64,14 +76,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="editRoleModalLabel">Edit User Role</h4>
+                <h4 class="modal-title" id="editRoleModalLabel">Edit User Information</h4>
             </div>
             <form id="editRoleForm" method="POST" action="" id="edit-user-form">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="userName">User Name:</label>
-                        <p id="editUserName" class="form-control-static"></p>
+                        <input type="text" name="name" id="editUserName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Email:</label>
+                        <input type="email" name="email" id="editUserEmail" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="userRole">Role:</label>
@@ -84,7 +100,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Update Role</button>
+                    <button type="submit" class="btn btn-success">Update User</button>
                 </div>
             </form>
         </div>
@@ -99,12 +115,14 @@
         var button = $(event.relatedTarget);
         var userId = button.data('userid');
         var userName = button.data('username');
+        var userEmail = button.data('useremail');
         var userRole = button.data('userrole');
 
         var modal = $(this);
         var form = modal.find('form');
         form.attr('action', '{{ url("admin/staffmembers") }}/' + userId + '/edit-role');
-        modal.find('#editUserName').text(userName);
+        modal.find('#editUserName').val(userName);
+        modal.find('#editUserEmail').val(userEmail);
         modal.find('#editUserRole').val(userRole);
     });
 </script>

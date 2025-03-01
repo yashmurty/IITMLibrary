@@ -445,7 +445,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Update the role of an admin user.
+     * Update the information and role of an admin user.
      *
      * @param  int  $user_id
      * @return \Illuminate\Http\Response
@@ -453,6 +453,8 @@ class AdminController extends Controller
     public function postAdminEditRole($user_id)
     {
         // Get input data
+        $name = Input::get('name');
+        $email = Input::get('email');
         $role = Input::get('role');
 
         // Validate role is one of the configured role values
@@ -460,15 +462,24 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Invalid role specified.');
         }
 
-        // Update the user's role
+        // Validate email is valid
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return redirect()->back()->with('error', 'Invalid email address.');
+        }
+
+        // Update the user's information and role
         $updated = DB::table('admin_users')
             ->where('id', $user_id)
-            ->update(['role' => $role]);
+            ->update([
+                'name' => $name,
+                'email' => $email,
+                'role' => $role
+            ]);
 
         if ($updated) {
-            return redirect('/admin/staffmembers')->with('status', 'User role updated successfully!');
+            return redirect('/admin/staffmembers')->with('success', 'User information updated successfully!');
         } else {
-            return redirect()->back()->with('error', 'Failed to update user role.');
+            return redirect()->back()->with('error', 'Failed to update user information.');
         }
     }
 
