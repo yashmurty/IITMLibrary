@@ -429,57 +429,170 @@ class AdminController extends Controller
 
     public function getAdminStaffMembers()
     {
-
         $admin_users = DB::table('admin_users')
-            ->orderBy('id', 'asc')
+            ->select(
+                'admin_users.id',
+                'admin_users.iitm_id',
+                'admin_users.role',
+                'users.name',
+                'users.email'
+            )
+            ->leftJoin('users', 'admin_users.iitm_id', '=', 'users.iitm_id')
+            ->orderBy('admin_users.id', 'asc')
             ->get();
-        if (!empty($admin_users)) {
 
+        // Transform the results to handle nulls from the join
+        // For older Laravel versions that return arrays
+        foreach ($admin_users as $key => $user) {
+            // If name or email is null (user not found in users table), 
+            // set them to null explicitly for consistency
+            if (!isset($user->name)) {
+                $admin_users[$key]->name = null;
+            }
+            if (!isset($user->email)) {
+                $admin_users[$key]->email = null;
+            }
+        }
+
+        if (!empty($admin_users)) {
             return view('admin.admin-staff-members')
                 ->with('admin_users', $admin_users);
         } else {
-            // return "No Requests Found";
             return view('admin.admin-staff-members')
                 ->with('admin_users', null);
         }
     }
 
     /**
-     * Update the information and role of an admin user.
+     * Add a new admin user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function postAdminStaffAddUser()
+    {
+        // Get input data
+        $iitm_id = Input::get('iitm_id');
+        $role = Input::get('role');
+
+        // Validate input
+        if (empty($iitm_id)) {
+            return redirect()->back()->with('error', 'IITM ID is required.')->withInput();
+        }
+
+        // Validate role is one of the configured role values
+        if (!in_array($role, array_values(config('roles')))) {
+            return redirect()->back()->with('error', 'Invalid role specified.')->withInput();
+        }
+
+        // Check if user with this IITM ID already exists in admin_users
+        $existingUser = DB::table('admin_users')
+            ->where('iitm_id', $iitm_id)
+            ->first();
+
+        if ($existingUser) {
+            return redirect()->back()->with('error', 'User with this IITM ID already exists in admin users.')->withInput();
+        }
+
+        // Get user details from users table
+        $user = DB::table('users')->where('iitm_id', $iitm_id)->first();
+
+        // Prepare data for insertion
+        $userData = [
+            'iitm_id' => $iitm_id,
+            'role' => $role,
+            'created_at' => DB::raw('NOW()'),
+            'updated_at' => DB::raw('NOW()')
+        ];
+
+        // Add name and email if user found in users table
+        if ($user) {
+            $userData['name'] = $user->name;
+            $userData['email'] = $user->email;
+        } else {
+            $userData['name'] = "Not Found";
+            $userData['email'] = "Not Found";
+        }
+
+        // Insert new admin user
+        $inserted = DB::table('admin_users')->insert($userData);
+
+        if ($inserted) {
+            return redirect('/admin/staffmembers')->with('success', 'New user added successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to add new user.')->withInput();
+        }
+    }
+
+    /**
+     * Update the IITM ID and role of an admin user.
      *
      * @param  int  $user_id
      * @return \Illuminate\Http\Response
      */
-    public function postAdminEditRole($user_id)
+    public function postAdminStaffEditRole($user_id)
     {
         // Get input data
-        $name = Input::get('name');
-        $email = Input::get('email');
+        $iitm_id = Input::get('iitm_id');
         $role = Input::get('role');
+
+        // Validate input
+        if (empty($iitm_id)) {
+            return redirect()->back()->with('error', 'IITM ID is required.');
+        }
 
         // Validate role is one of the configured role values
         if (!in_array($role, array_values(config('roles')))) {
             return redirect()->back()->with('error', 'Invalid role specified.');
         }
 
-        // Validate email is valid
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return redirect()->back()->with('error', 'Invalid email address.');
+        // Get user details from users table
+        $user = DB::table('users')->where('iitm_id', $iitm_id)->first();
+
+        // Prepare update data
+        $updateData = [
+            'iitm_id' => $iitm_id,
+            'role' => $role
+        ];
+
+        // If user is found, include name and email from users table
+        if ($user) {
+            $updateData['name'] = $user->name;
+            $updateData['email'] = $user->email;
+        } else {
+            // If user not found, set name and email to NULL
+            $updateData['name'] = null;
+            $updateData['email'] = null;
         }
 
         // Update the user's information and role
         $updated = DB::table('admin_users')
             ->where('id', $user_id)
-            ->update([
-                'name' => $name,
-                'email' => $email,
-                'role' => $role
-            ]);
+            ->update($updateData);
 
         if ($updated) {
             return redirect('/admin/staffmembers')->with('success', 'User information updated successfully!');
         } else {
             return redirect()->back()->with('error', 'Failed to update user information.');
+        }
+    }
+
+    /**
+     * Delete an admin user.
+     *
+     * @param  int  $user_id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAdminStaffUser($user_id)
+    {
+        // Delete the admin user
+        $deleted = DB::table('admin_users')
+            ->where('id', $user_id)
+            ->delete();
+
+        if ($deleted) {
+            return redirect('/admin/staffmembers')->with('success', 'Admin user removed successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to remove admin user.');
         }
     }
 

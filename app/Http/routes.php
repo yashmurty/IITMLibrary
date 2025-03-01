@@ -199,9 +199,19 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'AdminController@getAdminStaffMembers'
     ]);
 
+    Route::post('admin/staffmembers/add', [
+        'as' => 'admin-staff-add-post',
+        'uses' => 'AdminController@postAdminStaffAddUser'
+    ]);
+
     Route::post('admin/staffmembers/{user_id}/edit-role', [
         'as' => 'admin-staff-edit-role-post',
-        'uses' => 'AdminController@postAdminEditRole'
+        'uses' => 'AdminController@postAdminStaffEditRole'
+    ]);
+
+    Route::delete('admin/staffmembers/{user_id}/delete', [
+        'as' => 'admin-staff-delete',
+        'uses' => 'AdminController@deleteAdminStaffUser'
     ]);
 
     // Admin BRF Analytics
