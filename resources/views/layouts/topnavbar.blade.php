@@ -55,8 +55,13 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a class="disabled"><i class="fa fa-btn fa-user"></i>Role: <span class="label label-default">{{$auth_usertype}}</span></a></li>
-                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                        <li><a class="disabled"><i class="fa fa-btn fa-user"></i> Legacy Role: <span class="label label-default">{{$auth_usertype}}</span></a></li>
+                        <li><a class="disabled"><i class="fa fa-btn fa-users"></i>Roles:
+                                @foreach($user_authRoles as $role)
+                                <span class="label label-info" style="margin-right: 3px;">{{$role}}</span>
+                                @endforeach
+                            </a></li>
+                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                     </ul>
                 </li>
                 @endif

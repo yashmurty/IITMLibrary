@@ -27,28 +27,55 @@ class Authenticate
         }
 
         $iitm_id = Auth::user()->iitm_id;
+        $userRoles = [];
+        $userType = null;
 
-        $lac_user = DB::table('lac_users')
+        // Check for LAC user
+        $isLacUser = DB::table('lac_users')
             ->where('iitm_id', '=', $iitm_id)
-            ->first();
+            ->exists();
 
-        $admin_user = DB::table('admin_users')
-            ->where('iitm_id', '=', $iitm_id)
-            ->first();
-
-        if (!empty($lac_user)) {
-            view()->share('auth_usertype', 'lac');
-        } elseif (!empty($admin_user)) {
-            if ($admin_user->role === config('roles.admin')) {
-                view()->share('auth_usertype', 'admin');
-            } elseif ($admin_user->role === config('roles.staff_approver')) {
-                view()->share('auth_usertype', 'staff_approver');
-            } else {
-                view()->share('auth_usertype', 'unknown_admin');
-            }
-        } else {
-            view()->share('auth_usertype', 'faculty');
+        if ($isLacUser) {
+            $userRoles[] = 'lac';
         }
+
+        // Check for Admin user
+        $adminUser = DB::table('admin_users')
+            ->where('iitm_id', '=', $iitm_id)
+            ->first();
+
+        if (!empty($adminUser)) {
+            if ($adminUser->role === config('roles.admin')) {
+                $userRoles[] = 'admin';
+                $userRoles[] = 'staff_approver'; // Admin always has staff_approver role
+            } elseif ($adminUser->role === config('roles.staff_approver')) {
+                $userRoles[] = 'staff_approver';
+            } else {
+                $userRoles[] = 'unknown_admin';
+            }
+        }
+
+        // If no role assigned yet, user is faculty
+        if (empty($userRoles)) {
+            $userRoles[] = 'faculty';
+        }
+
+        // Determine legacy auth_usertype (first priority role)
+        if (in_array('lac', $userRoles)) {
+            $userType = 'lac';
+        } elseif (in_array('admin', $userRoles)) {
+            $userType = 'admin';
+        } elseif (in_array('staff_approver', $userRoles)) {
+            $userType = 'staff_approver';
+        } elseif (in_array('unknown_admin', $userRoles)) {
+            $userType = 'unknown_admin';
+        } else {
+            $userType = 'faculty';
+        }
+
+        // Share variables with all views
+        view()->share('auth_usertype', $userType);
+        view()->share('user_authRoles', $userRoles);
 
         return $next($request);
     }

@@ -444,6 +444,34 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Update the role of an admin user.
+     *
+     * @param  int  $user_id
+     * @return \Illuminate\Http\Response
+     */
+    public function postAdminEditRole($user_id)
+    {
+        // Get input data
+        $role = Input::get('role');
+
+        // Validate role is one of the configured role values
+        if (!in_array($role, array_values(config('roles')))) {
+            return redirect()->back()->with('error', 'Invalid role specified.');
+        }
+
+        // Update the user's role
+        $updated = DB::table('admin_users')
+            ->where('id', $user_id)
+            ->update(['role' => $role]);
+
+        if ($updated) {
+            return redirect('/admin/staffmembers')->with('status', 'User role updated successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to update user role.');
+        }
+    }
+
     public function getAdminBRFAnalytics()
     {
         $brf_all_count = BasicRequisitionForm::all()->count();

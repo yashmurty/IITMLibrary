@@ -7,7 +7,10 @@
 </p>
 
 <table class="table">
-    <caption>Status of requests under you submitted via Book Requisition Form</caption>
+    <caption>
+        Status of requests under you submitted via Book Requisition Form.
+        Your Role: <strong> {{ $auth_usertype }} </strong>
+    </caption>
     <thead>
         <tr>
             <th>#</th>

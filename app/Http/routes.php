@@ -199,6 +199,11 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'AdminController@getAdminStaffMembers'
     ]);
 
+    Route::post('admin/staffmembers/{user_id}/edit-role', [
+        'as' => 'admin-staff-edit-role-post',
+        'uses' => 'AdminController@postAdminEditRole'
+    ]);
+
     // Admin BRF Analytics
     Route::get('admin/brf-analytics', [
         'as' => 'admin-brf-analytics',
