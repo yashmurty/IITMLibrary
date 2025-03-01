@@ -23,11 +23,10 @@ class AdminAuthenticate
             return redirect('login');
         }
 
-        $admin_user = DB::table('admin_users')
-            ->where('iitm_id', '=', $user->iitm_id)
-            ->first();
+        // Get user_authRoles from the shared view data
+        $userAuthRoles = view()->shared('user_authRoles', []);
 
-        if ($admin_user && $admin_user->role === config('roles.admin')) {
+        if (in_array('admin', $userAuthRoles)) {
             return $next($request);
         } else {
             return redirect('home')

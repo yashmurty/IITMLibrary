@@ -23,8 +23,8 @@ class LacAuthenticate
 
         // $BasicProfileData = BasicProfile::where('api_userId', '=', 1);
         $lac_user = DB::table('lac_users')
-                        ->where('iitm_id', '=', $iitm_id)
-                        ->first();
+            ->where('iitm_id', '=', $iitm_id)
+            ->first();
         if (!empty($lac_user)) {
             return $next($request);
         } else {
@@ -33,6 +33,5 @@ class LacAuthenticate
                 ->with('globalalertmessage', 'You are not an LAC Member')
                 ->with('globalalertclass', 'error');
         }
-
     }
 }

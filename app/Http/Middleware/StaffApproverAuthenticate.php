@@ -23,11 +23,11 @@ class StaffApproverAuthenticate
             return redirect('login');
         }
 
-        $staff_approver = DB::table('admin_users')
-            ->where('iitm_id', '=', $user->iitm_id)
-            ->first();
+        // Assuming user_authRoles is set by Authenticate middleware
+        // We can use view()->shared() to retrieve it
+        $userAuthRoles = view()->shared('user_authRoles', []);
 
-        if ($staff_approver && $staff_approver->role === config('roles.staff_approver')) {
+        if (in_array('staff_approver', $userAuthRoles)) {
             return $next($request);
         } else {
             return redirect('home')
