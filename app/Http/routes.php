@@ -135,11 +135,7 @@ Route::group(['middleware' => 'web'], function () {
         'as' => 'adminrequeststatus',
         'uses' => 'AdminController@getAdminRequestStatus'
     ]);
-    // Admin Request Status View BRF
-    Route::get('admin/requeststatus/brf/{brf_id}', [
-        'as' => 'adminrequeststatus-view-brf',
-        'uses' => 'AdminController@getAdminRequestStatusViewBRF'
-    ]);
+
     // Admin Request Status Edit BRF - Remarks, etc.
     Route::put('admin/requeststatus/brf/{brf_id}', [
         'as' => 'adminrequeststatus-edit-brf-put',
@@ -263,9 +259,15 @@ Route::group(['middleware' => 'web'], function () {
         '/staff-approver/requeststatus',
         array(
             'as' => 'staff-approver-requeststatus',
-            'uses' => 'StaffApproverController@getRequestStatus'
+            'uses' => 'StaffApproverController@getStaffAdminRequestStatus'
         )
     );
+
+    // Staff Request Status View BRF
+    Route::get('/staff-approver/requeststatus/brf/{brf_id}', [
+        'as' => 'staff-requeststatus-view-brf',
+        'uses' => 'StaffApproverController@getStaffAdminRequestStatusViewBRF'
+    ]);
 
     // Git Management
     /* Admin Page - Git Management (GET) */

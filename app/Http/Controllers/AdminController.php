@@ -41,45 +41,8 @@ class AdminController extends Controller
     // Request Status
     public function getAdminRequestStatus()
     {
-
-        $user_brfs = DB::table('brfs')
-            ->where('lac_status', "approved")
-            ->where('librarian_status', NULL)
-            ->orWhere('librarian_status', 'approved')
-            ->where('download_status', NULL)
-            ->orderBy('id', 'desc')
-            ->get();
-        if (!empty($user_brfs)) {
-
-            return view('admin.requeststatus')
-                ->with('user_brfs', $user_brfs);
-        } else {
-            // return "No Requests Found";
-            return view('admin.requeststatus')
-                ->with('user_brfs', null);
-        }
-    }
-
-    // Request Status View BRF
-    public function getAdminRequestStatusViewBRF($brf_id)
-    {
-        $admin_user_brf = DB::table('brfs')
-            ->where('lac_status', "approved")
-            ->where('id', $brf_id)
-            ->orderBy('id', 'desc')
-            ->first();
-
-        // dd($lac_user_brf);
-
-        if (!empty($admin_user_brf)) {
-
-            return view('admin.adminrequeststatusviewbrf')
-                ->with('admin_user_brf', $admin_user_brf);
-        } else {
-            // return "No Requests Found";
-            return view('admin.adminrequeststatusviewbrf')
-                ->with('admin_user_brf', null);
-        }
+        // Redirect to staff approver request status
+        return redirect()->route('staff-approver-requeststatus');
     }
 
     // Edit BRF - Remarks, etc.
@@ -90,7 +53,7 @@ class AdminController extends Controller
         $brf_model_instance->save();
         // dd($admin_user_brf);
 
-        return redirect('admin/requeststatus/brf/' . $brf_id)
+        return redirect('staff-approver/requeststatus/brf/' . $brf_id)
             ->with('globalalertmessage', 'Request Successfully updated.')
             ->with('globalalertclass', 'success');
     }

@@ -14,7 +14,7 @@
                         <div class="col-sm-12">
                             <div class="panel-heading">BRF Management</div>
 
-                            <a class="col-sm-12 col-md-4" href="{{ URL::route('adminrequeststatus') }}">
+                            <a class="col-sm-12 col-md-4" href="{{ URL::route('staff-approver-requeststatus') }}">
                                 <div style="background-color:#DDD; padding: 15px;">
                                     Admin Request Status
                                 </div>

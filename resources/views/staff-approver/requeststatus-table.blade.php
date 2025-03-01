@@ -75,7 +75,7 @@
             </td>
 
             <td>{{ $user_brf->remarks }}</td>
-            <td><a href="{{ url('admin/requeststatus/brf/') }}/{{ $user_brf->id }}" class="btn btn-primary">View</a></td>
+            <td><a href="{{ url('staff-approver/requeststatus/brf/') }}/{{ $user_brf->id }}" class="btn btn-primary">View</a></td>
         </tr>
         @endforeach
         @else

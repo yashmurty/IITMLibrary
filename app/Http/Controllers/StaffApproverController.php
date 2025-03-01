@@ -31,7 +31,7 @@ class StaffApproverController extends Controller
     }
 
     // Request Status
-    public function getRequestStatus()
+    public function getStaffAdminRequestStatus()
     {
 
         $user_brfs = DB::table('brfs')
@@ -49,6 +49,28 @@ class StaffApproverController extends Controller
             // return "No Requests Found";
             return view('staff-approver.requeststatus')
                 ->with('user_brfs', null);
+        }
+    }
+
+    // Request Status View BRF
+    public function getStaffAdminRequestStatusViewBRF($brf_id)
+    {
+        $admin_user_brf = DB::table('brfs')
+            ->where('lac_status', "approved")
+            ->where('id', $brf_id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        // dd($lac_user_brf);
+
+        if (!empty($admin_user_brf)) {
+
+            return view('staff-approver.requeststatus-view-brf')
+                ->with('admin_user_brf', $admin_user_brf);
+        } else {
+            // return "No Requests Found";
+            return view('staff-approver.requeststatus-view-brf')
+                ->with('admin_user_brf', null);
         }
     }
 }
