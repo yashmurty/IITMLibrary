@@ -39,6 +39,8 @@
                             </a>
 
                         </div>
+                        @if(in_array('admin', $user_authRoles))
+
                         <div class="col-sm-12">
                             <div class="panel-heading">Admin Management</div>
 
@@ -69,6 +71,8 @@
                                 </div>
                             </a>
                         </div>
+                        @endif
+
                     </div>
 
                 </div>

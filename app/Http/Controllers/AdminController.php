@@ -32,84 +32,11 @@ class AdminController extends Controller
         $this->middleware('adminauth');
     }
 
-    public function getHome()
-    {
-
-        return view('admin.home');
-    }
-
     // Request Status
     public function getAdminRequestStatus()
     {
         // Redirect to staff approver request status
         return redirect()->route('staff-approver-requeststatus');
-    }
-
-    // Edit BRF - Remarks, etc.
-    public function putAdminRequestStatusEditBRF($brf_id)
-    {
-        $brf_model_instance = BasicRequisitionForm::find($brf_id);
-        $brf_model_instance->remarks = Input::get('edit-remarks');
-        $brf_model_instance->save();
-        // dd($admin_user_brf);
-
-        return redirect('staff-approver/requeststatus/brf/' . $brf_id)
-            ->with('globalalertmessage', 'Request Successfully updated.')
-            ->with('globalalertclass', 'success');
-    }
-
-
-    public function postAdminRequestStatusApproveBRF()
-    {
-        $validator = Validator::make(Input::all(), [
-            'brf_id'    => 'required',
-            'librarian_status' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/admin/requeststatus')
-                ->withInput()
-                ->withErrors($validator)
-                ->with('globalalertmessage', 'Failed to Aprove. Try Again')
-                ->with('globalalertclass', 'error');
-        }
-
-        $brf_model_instance = BasicRequisitionForm::find(Input::get('brf_id'));
-        $brf_model_instance->librarian_status = Input::get('librarian_status');
-        $brf_model_instance->remarks = Input::get('remarks');
-        $brf_model_instance->save();
-
-        if (Input::get('librarian_status') == "denied") {
-            # code...
-            $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
-
-            $lac_user_instance = DB::table('lac_users')
-                ->where('iitm_dept_code', '=', $brf_model_instance->iitm_dept_code)
-                ->first();
-
-            // return $lac_user_instance;
-
-            Mail::send(
-                'emails.deniedbylibrarian',
-                [
-                    'brf_model_instance'        => $brf_model_instance,
-                    'brf_model_user_instance'   => $brf_model_user_instance,
-                    'lac_user_instance'         => $lac_user_instance
-                ],
-                function ($m) use ($brf_model_instance, $brf_model_user_instance, $lac_user_instance) {
-                    $m->from('librarian@iitm.ac.in', 'Library Portal Team');
-                    $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)->subject('[Library] Request Denied for Book');
-                    // $m->to("ae11b049@smail.iitm.ac.in", $brf_model_user_instance->name);
-                    $m->cc($lac_user_instance->lac_email_id, $lac_user_instance->name)->subject('[Library] Request Denied for Book');
-                    // $m->cc("test@smail.iitm.ac.in", "X LAC Member");
-                    $m->subject('[Library] Request Denied for Book');
-                }
-            );
-        }
-
-        return redirect('admin/requeststatus')
-            ->with('globalalertmessage', 'Request Successfully updated.')
-            ->with('globalalertclass', 'success');
     }
 
     public function getAdminRequestStatusExportExcel()

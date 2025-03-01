@@ -23,21 +23,23 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 @if (Auth::guest())
-
+                <!-- Guest user navigation -->
                 @else
                 <li><a href="{{ url('/home') }}">Home</a></li>
                 <li><a href="{{ URL::route('bookrequisitionform') }}">Book Requisition Form</a></li>
                 <li><a href="{{ URL::route('book-budget-department-view') }}"><i class="fa fa-btn fa-money"></i>| Book Budget</a></li>
-                @if ($auth_usertype == "lac")
+
+                @if (in_array('lac', $user_authRoles))
                 <li><a href="{{ URL::route('lachome') }}">LAC Home</a></li>
-                @elseif ($auth_usertype == "admin")
-                <li><a href="{{ URL::route('adminhome') }}">Admin Home</a></li>
-                @elseif ($auth_usertype == "staff_approver")
-                <li><a href="{{ URL::route('staff-approver-requeststatus') }}">Approve Request Status</a></li>
-                @else
-                <li><a href="{{ URL::route('requeststatus') }}">Request Status</a></li>
                 @endif
 
+                @if (in_array('admin', $user_authRoles) || in_array('staff_approver', $user_authRoles))
+                <li><a href="{{ URL::route('admin-home') }}">Admin Home</a></li>
+                @endif
+
+                @if (count($user_authRoles) == 1 && in_array('faculty', $user_authRoles))
+                <li><a href="{{ URL::route('requeststatus') }}">Request Status</a></li>
+                @endif
                 @endif
             </ul>
 

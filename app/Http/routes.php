@@ -126,26 +126,13 @@ Route::group(['middleware' => 'web'], function () {
     /*
 	// Admin Module //
 	*/
-    Route::get('admin', [
-        'as' => 'adminhome',
-        'uses' => 'AdminController@getHome'
-    ]);
+
     // Admin Request Status
     Route::get('admin/requeststatus', [
         'as' => 'adminrequeststatus',
         'uses' => 'AdminController@getAdminRequestStatus'
     ]);
 
-    // Admin Request Status Edit BRF - Remarks, etc.
-    Route::put('admin/requeststatus/brf/{brf_id}', [
-        'as' => 'adminrequeststatus-edit-brf-put',
-        'uses' => 'AdminController@putAdminRequestStatusEditBRF'
-    ]);
-    // Admin Request Status Approve BRF
-    Route::post('admin/requeststatus/brf', [
-        'as' => 'adminrequeststatus-approve-brf-post',
-        'uses' => 'AdminController@postAdminRequestStatusApproveBRF'
-    ]);
     // Admin Export to Excel
     Route::get('admin/requeststatus/exporttoexcel', [
         'as' => 'adminrequeststatus-export-excel',
@@ -255,6 +242,11 @@ Route::group(['middleware' => 'web'], function () {
     /*
 	// Staff Approver Module //
 	*/
+    Route::get('admin', [
+        'as' => 'admin-home',
+        'uses' => 'StaffApproverController@getHome'
+    ]);
+
     Route::get(
         '/staff-approver/requeststatus',
         array(
@@ -267,6 +259,18 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/staff-approver/requeststatus/brf/{brf_id}', [
         'as' => 'staff-requeststatus-view-brf',
         'uses' => 'StaffApproverController@getStaffAdminRequestStatusViewBRF'
+    ]);
+
+    // Staff Request Status Approve BRF
+    Route::post('/staff-approver/requeststatus/brf', [
+        'as' => 'staff-requeststatus-approve-brf-post',
+        'uses' => 'StaffApproverController@postStaffAdminRequestStatusApproveBRF'
+    ]);
+
+    // Staff Request Status Edit BRF - Remarks, etc.
+    Route::put('/staff-approver/requeststatus/brf/{brf_id}', [
+        'as' => 'staff-requeststatus-edit-brf-put',
+        'uses' => 'StaffApproverController@putStaffAdminRequestStatusEditBRF'
     ]);
 
     // Git Management

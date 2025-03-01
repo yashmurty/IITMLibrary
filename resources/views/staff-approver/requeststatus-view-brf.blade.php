@@ -2,91 +2,91 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Admin - View BRF Request</div>
-                <div class="panel-body">
-                        @if(!($admin_user_brf == null))
-                            <h4 class="text-center">{{ $admin_user_brf->title }}</h4>
-                            <hr>
-                            <div class="col-md-8 col-md-offset-2">
-                                <p>
-                                  <strong>BRF ID :</strong> {{ $admin_user_brf->id }}
-                                  <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->created_at)->format('Y-m-d') }}</span>
-                                </p>
-                                <p><strong>Document Type :</strong> {{ $admin_user_brf->doctype }}</p>
-                                <p><strong>Author :</strong> {{ $admin_user_brf->author }}</p>
-                                <p><strong>Title :</strong> {{ $admin_user_brf->title }}</p>
-                                <p><strong>Publisher :</strong> {{ $admin_user_brf->publisher }}</p>
-                                <p><strong>Vendor Name (Agency) :</strong> {{ $admin_user_brf->agency }}</p>
-                                <p><strong>ISBN :</strong> {{ $admin_user_brf->isbn  }}</p>
-                                <p><strong>Volume :</strong> {{ $admin_user_brf->volumne }}</p>
-                                <p><strong>Price :</strong> {{ $admin_user_brf->price }}</p>
-                                <p><strong>Section Catalogue :</strong> {{ $admin_user_brf->sectioncatalogue }}</p>
-                                <p><strong>Number of Copies :</strong> {{ $admin_user_brf->numberofcopies }}</p>
-                                <p>
-                                  <strong>LAC Status :</strong> {{ $admin_user_brf->lac_status }}
-                                  @if($admin_user_brf->lac_status_date)
-                                        <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->lac_status_date)->format('Y-m-d') }}</span>
-                                  @endif
-                                </p>
-                                <p>
-                                  <strong>Librarian Status :</strong> {{ $admin_user_brf->librarian_status }}
-                                  @if($admin_user_brf->librarian_status_date)
-                                        <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->librarian_status_date)->format('Y-m-d') }}</span>
-                                  @endif
-                                </p>
-                                <p><strong>Remarks
-                                  <button type="submit" data-toggle="modal" data-target="#editModal" class="btn btn-info btn-s">Edit</button> : 
-                                </strong> 
-                                    {!! nl2br(e($admin_user_brf->remarks)) !!}
-                                    <br>
-                                  </p>
-                                <hr>
-                                <form class="form-horizontal" id="BRFapprovalForm" role="form" method="POST" action="{{ url('admin/requeststatus/brf') }}">
-                                    {!! csrf_field() !!}
-                                    <input type="hidden" id="brf_id" name="brf_id" value="{{ $admin_user_brf->id }}">
-                                    <input type="hidden" id="librarian_status" name="librarian_status" value="">
-                                    <input type="hidden" id="remarks" name="remarks" value="">
-                                </form>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">Admin - View BRF Request</div>
+        <div class="panel-body">
+          @if(!($admin_user_brf == null))
+          <h4 class="text-center">{{ $admin_user_brf->title }}</h4>
+          <hr>
+          <div class="col-md-8 col-md-offset-2">
+            <p>
+              <strong>BRF ID :</strong> {{ $admin_user_brf->id }}
+              <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->created_at)->format('Y-m-d') }}</span>
+            </p>
+            <p><strong>Document Type :</strong> {{ $admin_user_brf->doctype }}</p>
+            <p><strong>Author :</strong> {{ $admin_user_brf->author }}</p>
+            <p><strong>Title :</strong> {{ $admin_user_brf->title }}</p>
+            <p><strong>Publisher :</strong> {{ $admin_user_brf->publisher }}</p>
+            <p><strong>Vendor Name (Agency) :</strong> {{ $admin_user_brf->agency }}</p>
+            <p><strong>ISBN :</strong> {{ $admin_user_brf->isbn  }}</p>
+            <p><strong>Volume :</strong> {{ $admin_user_brf->volumne }}</p>
+            <p><strong>Price :</strong> {{ $admin_user_brf->price }}</p>
+            <p><strong>Section Catalogue :</strong> {{ $admin_user_brf->sectioncatalogue }}</p>
+            <p><strong>Number of Copies :</strong> {{ $admin_user_brf->numberofcopies }}</p>
+            <p>
+              <strong>LAC Status :</strong> {{ $admin_user_brf->lac_status }}
+              @if($admin_user_brf->lac_status_date)
+              <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->lac_status_date)->format('Y-m-d') }}</span>
+              @endif
+            </p>
+            <p>
+              <strong>Librarian Status :</strong> {{ $admin_user_brf->librarian_status }}
+              @if($admin_user_brf->librarian_status_date)
+              <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->librarian_status_date)->format('Y-m-d') }}</span>
+              @endif
+            </p>
+            <p><strong>Remarks
+                <button type="submit" data-toggle="modal" data-target="#editModal" class="btn btn-info btn-s">Edit</button> :
+              </strong>
+              {!! nl2br(e($admin_user_brf->remarks)) !!}
+              <br>
+            </p>
+            <hr>
+            <form class="form-horizontal" id="BRFapprovalForm" role="form" method="POST" action="{{ url('staff-approver/requeststatus/brf') }}">
+              {!! csrf_field() !!}
+              <input type="hidden" id="brf_id" name="brf_id" value="{{ $admin_user_brf->id }}">
+              <input type="hidden" id="librarian_status" name="librarian_status" value="">
+              <input type="hidden" id="remarks" name="remarks" value="">
+            </form>
 
-                                <form class="form-horizontal" id="BRFeditForm" role="form" method="POST" action="{{ url('admin/requeststatus/brf') }}/{{ $admin_user_brf->id }}">
-                                    {!! csrf_field() !!}
-                                    <input type="hidden" name="_method" value="PUT">
-                                    <input type="hidden" id="edit-remarks" name="edit-remarks" value="">
-                                </form>
+            <form class="form-horizontal" id="BRFeditForm" role="form" method="POST" action="{{ url('staff-approver/requeststatus/brf') }}/{{ $admin_user_brf->id }}">
+              {!! csrf_field() !!}
+              <input type="hidden" name="_method" value="PUT">
+              <input type="hidden" id="edit-remarks" name="edit-remarks" value="">
+            </form>
 
-                                @if( $admin_user_brf->librarian_status == "approved" )
+            @if( $admin_user_brf->librarian_status == "approved" )
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <button class="btn btn-danger btn-lg btn-block disabled" disabled="">Deny</button>
+            <div class="row">
+              <div class="col-md-6">
+                <button class="btn btn-danger btn-lg btn-block disabled" disabled="">Deny</button>
 
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button class="btn btn-success btn-lg btn-block disabled" disabled="">Approve</button>
-                                    </div>
-                                </div>
-                                @else
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <button type="submit" data-toggle="modal" data-target="#denyModal" class="btn btn-danger btn-lg btn-block">Deny</button>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button type="submit" data-toggle="modal" data-target="#approveModal" class="btn btn-success btn-lg btn-block">Approve</button>
-                                    </div>
-                                </div>
-                                @endif
-
-                            </div>
-                        @else
-                            There seems to be an error.
-                        @endif
-                </div>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-success btn-lg btn-block disabled" disabled="">Approve</button>
+              </div>
             </div>
+            @else
+            <div class="row">
+              <div class="col-md-6">
+                <button type="submit" data-toggle="modal" data-target="#denyModal" class="btn btn-danger btn-lg btn-block">Deny</button>
+              </div>
+              <div class="col-md-6">
+                <button type="submit" data-toggle="modal" data-target="#approveModal" class="btn btn-success btn-lg btn-block">Approve</button>
+              </div>
+            </div>
+            @endif
+
+          </div>
+          @else
+          There seems to be an error.
+          @endif
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 
@@ -100,7 +100,7 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-            <input type="text" name="modalremarks" class="col-md-12 form-control" id="denyModalRemarks" placeholder="Reason for denying the request.">
+          <input type="text" name="modalremarks" class="col-md-12 form-control" id="denyModalRemarks" placeholder="Reason for denying the request.">
         </div>
       </div>
       <div class="modal-footer">
@@ -120,7 +120,7 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-            <input type="text" name="modalremarks" class="col-md-12 form-control" id="approveModalRemarks" value="Approved by Librarian" placeholder="Reason for Approving the request.">
+          <input type="text" name="modalremarks" class="col-md-12 form-control" id="approveModalRemarks" value="Approved by Librarian" placeholder="Reason for Approving the request.">
         </div>
       </div>
       <div class="modal-footer">
@@ -140,7 +140,7 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-            <textarea name="modalremarks" class="col-md-12 form-control" id="editModalRemarks" rows="4">{{ $admin_user_brf->remarks }}</textarea>
+          <textarea name="modalremarks" class="col-md-12 form-control" id="editModalRemarks" rows="4">{{ $admin_user_brf->remarks }}</textarea>
         </div>
       </div>
       <div class="modal-footer">
@@ -154,23 +154,21 @@
 
 @section('jscontent')
 <script type="text/javascript">
+  function approveFunction() {
+    document.getElementById("librarian_status").value = "approved";
+    document.getElementById("remarks").value = document.getElementById("approveModalRemarks").value;
+    document.getElementById("BRFapprovalForm").submit();
+  }
 
-    function approveFunction () {
-        document.getElementById("librarian_status").value = "approved";
-        document.getElementById("remarks").value = document.getElementById("approveModalRemarks").value;
-        document.getElementById("BRFapprovalForm").submit();
-    }
+  function denyFunction() {
+    document.getElementById("librarian_status").value = "denied";
+    document.getElementById("remarks").value = document.getElementById("denyModalRemarks").value;
+    document.getElementById("BRFapprovalForm").submit();
+  }
 
-    function denyFunction () {
-        document.getElementById("librarian_status").value = "denied";
-        document.getElementById("remarks").value = document.getElementById("denyModalRemarks").value;
-        document.getElementById("BRFapprovalForm").submit();
-    }
-
-    function editRemarkFunction () {
-        document.getElementById("edit-remarks").value = document.getElementById("editModalRemarks").value;
-        document.getElementById("BRFeditForm").submit();
-    }
-
+  function editRemarkFunction() {
+    document.getElementById("edit-remarks").value = document.getElementById("editModalRemarks").value;
+    document.getElementById("BRFeditForm").submit();
+  }
 </script>
 @endsection
