@@ -67,16 +67,29 @@ class StaffApproverController extends Controller
             ->orderBy('id', 'desc')
             ->first();
 
-        // dd($lac_user_brf);
+        // Initialize email preview variable
+        $email_preview = '';
 
         if (!empty($admin_user_brf)) {
+            // Get the full BRF model instance for relationships
+            $brf_model_instance = BasicRequisitionForm::find($brf_id);
+
+            // Get the user associated with the BRF
+            $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
+
+            // Render the email template to create the preview
+            $email_preview = view('emails.brfUpdatedByLibrarian', [
+                'brf_model_instance' => $brf_model_instance,
+                'brf_model_user_instance' => $brf_model_user_instance
+            ])->render();
 
             return view('staff-approver.requeststatus-view-brf')
-                ->with('admin_user_brf', $admin_user_brf);
+                ->with('admin_user_brf', $admin_user_brf)
+                ->with('email_preview', $email_preview);
         } else {
-            // return "No Requests Found";
             return view('staff-approver.requeststatus-view-brf')
-                ->with('admin_user_brf', null);
+                ->with('admin_user_brf', null)
+                ->with('email_preview', '');
         }
     }
 
@@ -144,5 +157,60 @@ class StaffApproverController extends Controller
         return redirect('staff-approver/requeststatus/brf/' . $brf_id)
             ->with('globalalertmessage', 'Request Successfully updated.')
             ->with('globalalertclass', 'success');
+    }
+
+    /**
+     * Send an update email to the user for a specific BRF
+     *
+     * @param  int  $brf_id
+     * @return \Illuminate\Http\Response
+     */
+    public function postStaffAdminBRFSendEmail($brf_id)
+    {
+        try {
+            // Find the BRF
+            $brf_model_instance = BasicRequisitionForm::find($brf_id);
+
+            if (!$brf_model_instance) {
+                return redirect()
+                    ->back()
+                    ->with('globalalertmessage', 'BRF not found')
+                    ->with('globalalertclass', 'error');
+            }
+
+            // Get the user associated with the BRF
+            $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
+
+            if (!$brf_model_user_instance) {
+                return redirect()
+                    ->back()
+                    ->with('globalalertmessage', 'User associated with BRF not found')
+                    ->with('globalalertclass', 'error');
+            }
+
+            // Send email notification
+            Mail::send(
+                'emails.brfUpdatedByLibrarian',
+                [
+                    'brf_model_instance'        => $brf_model_instance,
+                    'brf_model_user_instance'   => $brf_model_user_instance
+                ],
+                function ($m) use ($brf_model_instance, $brf_model_user_instance) {
+                    $m->from('librarian@iitm.ac.in', 'Library Portal Team');
+                    $m->to($brf_model_user_instance->email, $brf_model_user_instance->name)
+                        ->subject('[Library] Update on your Book Request');
+                }
+            );
+
+            return redirect()
+                ->back()
+                ->with('globalalertmessage', 'Update email sent successfully')
+                ->with('globalalertclass', 'success');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('globalalertmessage', 'Error sending email: ' . $e->getMessage())
+                ->with('globalalertclass', 'error');
+        }
     }
 }

@@ -816,12 +816,6 @@ class AdminController extends Controller
             }
         );
 
-        // Mail::send('emails.test', [], function ($m) {
-        //       $m->from('msoffice@iitm.ac.in', 'DoMS, IIT Madras');
-        //
-        //     $m->to('yashmurty@gmail.com', 'Yash Murty')->subject('Your Reminder!');
-        // });
-
         // check for failures
         if (Mail::failures()) {
             // return response showing failed emails

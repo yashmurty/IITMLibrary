@@ -37,12 +37,23 @@
               <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->librarian_status_date)->format('Y-m-d') }}</span>
               @endif
             </p>
-            <p><strong>Remarks
-                <button type="submit" data-toggle="modal" data-target="#editModal" class="btn btn-info btn-s">Edit</button> :
-              </strong>
-              {!! nl2br(e($admin_user_brf->remarks)) !!}
-              <br>
-            </p>
+
+            <div class="row">
+              <div class="col-md-12">
+                <p>
+                  <strong>Remarks</strong>
+                  <button type="submit" data-toggle="modal" data-target="#editModal" class="btn btn-info btn-s">Edit</button>
+                </p>
+                <div class="well" style="margin-top: 10px;">
+                  {!! nl2br(e($admin_user_brf->remarks)) !!}
+                </div>
+                <button type="button" data-toggle="modal" data-target="#emailModal" class="btn btn-primary btn-s">
+                  <i class="fa fa-btn fa-envelope"></i>| Manually send updated email
+                </button>
+
+              </div>
+            </div>
+
             <hr>
             <form class="form-horizontal" id="BRFapprovalForm" role="form" method="POST" action="{{ url('staff-approver/requeststatus/brf') }}">
               {!! csrf_field() !!}
@@ -55,6 +66,10 @@
               {!! csrf_field() !!}
               <input type="hidden" name="_method" value="PUT">
               <input type="hidden" id="edit-remarks" name="edit-remarks" value="">
+            </form>
+
+            <form class="form-horizontal" id="sendEmailForm" role="form" method="POST" action="{{ url('staff-approver/requeststatus/brf/send-email') }}/{{ $admin_user_brf->id }}">
+              {!! csrf_field() !!}
             </form>
 
             @if( $admin_user_brf->librarian_status == "approved" )
@@ -150,6 +165,27 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="emailModalLabel">Send Update Email</h4>
+      </div>
+      <div class="modal-body">
+        <p>The following email will be sent to the user:</p>
+        <div class="well" style="margin-top: 10px;">
+          {!! $email_preview !!}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="sendEmailUpdate()"><i class="fa fa-btn fa-envelope"></i>| Send Email</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('jscontent')
@@ -169,6 +205,10 @@
   function editRemarkFunction() {
     document.getElementById("edit-remarks").value = document.getElementById("editModalRemarks").value;
     document.getElementById("BRFeditForm").submit();
+  }
+
+  function sendEmailUpdate() {
+    document.getElementById("sendEmailForm").submit();
   }
 </script>
 @endsection

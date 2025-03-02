@@ -273,6 +273,12 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'StaffApproverController@putStaffAdminRequestStatusEditBRF'
     ]);
 
+    // Send Update Email for BRF
+    Route::post('/staff-approver/requeststatus/brf/send-email/{brf_id}', [
+        'as' => 'staff-requeststatus-send-email-brf',
+        'uses' => 'StaffApproverController@postStaffAdminBRFSendEmail'
+    ]);
+
     // Git Management
     /* Admin Page - Git Management (GET) */
     Route::get(
