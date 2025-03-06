@@ -112,6 +112,7 @@ class StaffApproverController extends Controller
         $brf_model_instance->librarian_status = Input::get('librarian_status');
         // Set lac_status_date to the current date and time
         $brf_model_instance->librarian_status_date = Carbon::now();
+        $brf_model_instance->librarian_approver_iitm_id = Auth::user()->iitm_id;
         $brf_model_instance->remarks = Input::get('remarks');
         $brf_model_instance->save();
 
