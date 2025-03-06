@@ -58,7 +58,7 @@ class StaffApproverController extends Controller
         }
     }
 
-    // Request Status View BRF
+    // Request Status - View BRF
     public function getStaffAdminRequestStatusViewBRF($brf_id)
     {
         $admin_user_brf = DB::table('brfs')
@@ -69,6 +69,8 @@ class StaffApproverController extends Controller
 
         // Initialize email preview variable
         $email_preview = '';
+        $librarian_approver_name = '';
+        $downloader_approver_name = '';
 
         if (!empty($admin_user_brf)) {
             // Get the full BRF model instance for relationships
@@ -76,6 +78,28 @@ class StaffApproverController extends Controller
 
             // Get the user associated with the BRF
             $brf_model_user_instance = User::find($brf_model_instance->laravel_user_id);
+
+            // Check if librarian_approver_iitm_id exists and is not empty
+            if (!empty($admin_user_brf->librarian_approver_iitm_id)) {
+                // Find the librarian user based on iitm_id
+                $librarian_user = User::where('iitm_id', $admin_user_brf->librarian_approver_iitm_id)->first();
+
+                // If found, get the name
+                if ($librarian_user) {
+                    $librarian_approver_name = $librarian_user->name;
+                }
+            }
+
+            // Check if downloader_approver_iitm_id exists and is not empty
+            if (!empty($admin_user_brf->downloader_approver_iitm_id)) {
+                // Find the downloader user based on iitm_id
+                $downloader_user = User::where('iitm_id', $admin_user_brf->downloader_approver_iitm_id)->first();
+
+                // If found, get the name
+                if ($downloader_user) {
+                    $downloader_approver_name = $downloader_user->name;
+                }
+            }
 
             // Render the email template to create the preview
             $email_preview = view('emails.brfUpdatedByLibrarian', [
@@ -85,11 +109,15 @@ class StaffApproverController extends Controller
 
             return view('staff-approver.requeststatus-view-brf')
                 ->with('admin_user_brf', $admin_user_brf)
-                ->with('email_preview', $email_preview);
+                ->with('email_preview', $email_preview)
+                ->with('librarian_approver_name', $librarian_approver_name)
+                ->with('downloader_approver_name', $downloader_approver_name);
         } else {
             return view('staff-approver.requeststatus-view-brf')
                 ->with('admin_user_brf', null)
-                ->with('email_preview', '');
+                ->with('email_preview', '')
+                ->with('librarian_approver_name', '')
+                ->with('downloader_approver_name', '');
         }
     }
 

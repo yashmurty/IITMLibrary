@@ -57,6 +57,9 @@ class AdminController extends Controller
 
                 $brf_model_instance = BasicRequisitionForm::find($admin_user_brf->id);
                 $brf_model_instance->download_status = "downloaded";
+                // Set download_status_date to the current date and time
+                $brf_model_instance->download_status_date = Carbon::now();
+                $brf_model_instance->downloader_approver_iitm_id = Auth::user()->iitm_id;
                 $brf_model_instance->remarks = "The procurement process has been initiated.";
                 $brf_model_instance->save();
 

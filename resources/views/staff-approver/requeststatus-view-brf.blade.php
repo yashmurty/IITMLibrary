@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <div class="panel panel-default">
-        <div class="panel-heading">Admin - View BRF Request</div>
+        <div class="panel-heading">Staff Approver Admin - View BRF Request</div>
         <div class="panel-body">
           @if(!($admin_user_brf == null))
           <h4 class="text-center">{{ $admin_user_brf->title }}</h4>
@@ -15,28 +15,119 @@
               <strong>BRF ID :</strong> {{ $admin_user_brf->id }}
               <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->created_at)->format('Y-m-d') }}</span>
             </p>
-            <p><strong>Document Type :</strong> {{ $admin_user_brf->doctype }}</p>
-            <p><strong>Author :</strong> {{ $admin_user_brf->author }}</p>
-            <p><strong>Title :</strong> {{ $admin_user_brf->title }}</p>
-            <p><strong>Publisher :</strong> {{ $admin_user_brf->publisher }}</p>
-            <p><strong>Vendor Name (Agency) :</strong> {{ $admin_user_brf->agency }}</p>
-            <p><strong>ISBN :</strong> {{ $admin_user_brf->isbn  }}</p>
-            <p><strong>Volume :</strong> {{ $admin_user_brf->volumne }}</p>
-            <p><strong>Price :</strong> {{ $admin_user_brf->price }}</p>
-            <p><strong>Section Catalogue :</strong> {{ $admin_user_brf->sectioncatalogue }}</p>
-            <p><strong>Number of Copies :</strong> {{ $admin_user_brf->numberofcopies }}</p>
-            <p>
-              <strong>LAC Status :</strong> {{ $admin_user_brf->lac_status }}
-              @if($admin_user_brf->lac_status_date)
-              <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->lac_status_date)->format('Y-m-d') }}</span>
-              @endif
-            </p>
-            <p>
-              <strong>Librarian Status :</strong> {{ $admin_user_brf->librarian_status }}
-              @if($admin_user_brf->librarian_status_date)
-              <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->librarian_status_date)->format('Y-m-d') }}</span>
-              @endif
-            </p>
+            <strong>Document Type :</strong> {{ $admin_user_brf->doctype }}</br>
+            <strong>Author :</strong> {{ $admin_user_brf->author }}</br>
+            <strong>Title :</strong> {{ $admin_user_brf->title }}</br>
+            <strong>Publisher :</strong> {{ $admin_user_brf->publisher }}</br>
+            <strong>Vendor Name (Agency) :</strong> {{ $admin_user_brf->agency }}</br>
+            <strong>ISBN :</strong> {{ $admin_user_brf->isbn  }}</br>
+            <strong>Volume :</strong> {{ $admin_user_brf->volumne }}</br>
+            <strong>Price :</strong> {{ $admin_user_brf->price }}</br>
+            <strong>Section Catalogue :</strong> {{ $admin_user_brf->sectioncatalogue }}</br>
+            <strong>Number of Copies :</strong> {{ $admin_user_brf->numberofcopies }}</br>
+            <hr>
+
+            <!-- Replace the old status display with this workflow table -->
+            <table class="table">
+              <caption>BRF Approval Workflow Status</caption>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Step Name</th>
+                  <th>Date </th>
+                  <th>Person</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Faculty Submits BRF</td>
+                  <td>
+                    <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->created_at)->format('Y-m-d') }}</span>
+                  </td>
+                  <td>{{ $admin_user_brf->faculty }}</td>
+                  <td>
+                    <i class="fa fa-check-circle" style="color:green"></i>
+                  </td>
+
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>LAC Approves BRF</td>
+                  <td>
+                    @if($admin_user_brf->lac_status_date)
+                    <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->lac_status_date)->format('Y-m-d') }}</span>
+                    @else
+                    -
+                    @endif
+                  </td>
+                  <td><strong>{{ $admin_user_brf->iitm_dept_code }}</strong> Deptartment LAC</td>
+                  <td>
+                    @if($admin_user_brf->lac_status == null)
+                    <i class="fa fa-clock-o"></i>
+                    @elseif($admin_user_brf->lac_status == "approved")
+                    <i class="fa fa-check-circle" style="color:green"></i>
+                    @else
+                    <i class="fa fa-times-circle" style="color:red"></i>
+                    @endif
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Librarian Approve/Deny</td>
+                  <td>
+                    @if($admin_user_brf->librarian_status_date)
+                    <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->librarian_status_date)->format('Y-m-d') }}</span>
+                    @else
+                    -
+                    @endif
+                  </td>
+                  <td>{{ $librarian_approver_name ?: '-' }}</td>
+                  <td>
+                    @if($admin_user_brf->librarian_status == null)
+                    <i class="fa fa-clock-o"></i>
+                    @elseif($admin_user_brf->librarian_status == "approved")
+                    <i class="fa fa-check-circle" style="color:green"></i>
+                    @else
+                    <i class="fa fa-times-circle" style="color:red"></i>
+                    @endif
+                  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Librarian Excel Download</td>
+                  <td>
+                    @if($admin_user_brf->download_status_date)
+                    <span class="label label-default">{{ \Carbon\Carbon::parse($admin_user_brf->download_status_date)->format('Y-m-d') }}</span>
+                    @else
+                    -
+                    @endif
+                  </td>
+                  <td>{{ $downloader_approver_name ?: '-' }}</td>
+                  <td>
+                    @if($admin_user_brf->download_status == null)
+                    <i class="fa fa-clock-o"></i>
+                    @elseif($admin_user_brf->download_status == "downloaded")
+                    <i class="fa fa-check-circle" style="color:green"></i>
+                    @else
+                    <i class="fa fa-times-circle" style="color:red"></i>
+                    @endif
+                  </td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Librarian Procurment Finished</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>
+                    <i class="fa fa-clock-o"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <hr>
+
 
             <div class="row">
               <div class="col-md-12">

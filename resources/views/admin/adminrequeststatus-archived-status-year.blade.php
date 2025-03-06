@@ -102,7 +102,8 @@
                                     @endif
                                 </td>
 
-                                <td>{{ $user_brf->remarks }}</td>
+                                <td style="max-width: 200px; word-wrap: break-word;">{{ $user_brf->remarks }}</td>
+
                                 <td><a href="{{ url('staff-approver/requeststatus/brf/') }}/{{ $user_brf->id }}" class="btn btn-primary">View</a></td>
                             </tr>
                             @endforeach
