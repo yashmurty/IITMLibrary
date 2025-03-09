@@ -273,6 +273,12 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'StaffApproverController@putStaffAdminRequestStatusEditBRF'
     ]);
 
+    // Staff Request Status Edit BRF - Final Step (Book Details)
+    Route::put('/staff-approver/requeststatus/brf/finalstep/{brf_id}', [
+        'as' => 'staff-requeststatus-edit-brf-finalstep-put',
+        'uses' => 'StaffApproverController@putStaffAdminRequestStatusEditBRFFinalStep'
+    ]);
+
     // Send Update Email for BRF
     Route::post('/staff-approver/requeststatus/brf/send-email/{brf_id}', [
         'as' => 'staff-requeststatus-send-email-brf',

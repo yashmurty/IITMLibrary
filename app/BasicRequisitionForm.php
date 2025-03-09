@@ -44,7 +44,9 @@ class BasicRequisitionForm extends Model
         'account_number_of_book',
         'call_number_of_book',
         'purchase_price_of_book',
-        'optional_ebook_hyperlink'
+        'optional_ebook_hyperlink',
+        'purchase_price_approver_iitm_id',
+        'purchase_target_year_from_until',
     ];
 
     protected $dates = ['lac_status_date', 'librarian_status_date', 'download_status_date'];

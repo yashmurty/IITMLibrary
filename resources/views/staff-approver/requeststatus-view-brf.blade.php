@@ -119,9 +119,14 @@
                   <td>5</td>
                   <td>Librarian Procurment Finished</td>
                   <td>-</td>
-                  <td>-</td>
+                  <td>{{ $purchase_price_approver_name ?: '-' }}</td>
+                  <!-- If purchase_price_of_book is not empty or null, then show green check mark -->
                   <td>
+                    @if($admin_user_brf->purchase_price_of_book)
+                    <i class="fa fa-check-circle" style="color:green"></i>
+                    @else
                     <i class="fa fa-clock-o"></i>
+                    @endif
                   </td>
                 </tr>
               </tbody>
@@ -132,16 +137,43 @@
             <div class="row">
               <div class="col-md-12">
                 <p>
-                  <strong>Remarks</strong>
+                  <strong>Remarks: </strong>
                   <button type="submit" data-toggle="modal" data-target="#editModal" class="btn btn-info btn-s">Edit</button>
                 </p>
                 <div class="well" style="margin-top: 10px;">
                   {!! nl2br(e($admin_user_brf->remarks)) !!}
                 </div>
+
+                <!-- Display of book details -->
+                <div class="" style="margin-top: 10px;">
+                  <h5>
+                    Procurment Finished Details:
+                    <button type="button" class="btn btn-info btn-s" data-toggle="modal" data-target="#editFinalStepModal">
+                      Edit Procurment Finished Details
+                    </button>
+                  </h5>
+
+                  <p><strong>Book Account Number:</strong> {{ $admin_user_brf->account_number_of_book ?: 'Not specified' }}</p>
+                  <p><strong>Book Call Number:</strong> {{ $admin_user_brf->call_number_of_book ?: 'Not specified' }}</p>
+                  <p>
+                    <strong>Book Final Purchase Price (₹):</strong> {{ $admin_user_brf->purchase_price_of_book ?: 'Not specified' }}
+                    @if($admin_user_brf->purchase_target_year_from_until)
+                    <span class="label label-default">{{ $admin_user_brf->purchase_target_year_from_until }}</span>
+                    @endif
+                  </p>
+                  <p><strong>E-Book Link:</strong>
+                    @if($admin_user_brf->optional_ebook_hyperlink)
+                    <a href="{{ $admin_user_brf->optional_ebook_hyperlink }}" target="_blank">{{ $admin_user_brf->optional_ebook_hyperlink }}</a>
+                    @else
+                    Not specified
+                    @endif
+                  </p>
+                </div>
+
+                <hr>
                 <button type="button" data-toggle="modal" data-target="#emailModal" class="btn btn-primary btn-s">
                   <i class="fa fa-btn fa-envelope"></i>| Manually send updated email
                 </button>
-
               </div>
             </div>
 
@@ -157,6 +189,17 @@
               {!! csrf_field() !!}
               <input type="hidden" name="_method" value="PUT">
               <input type="hidden" id="edit-remarks" name="edit-remarks" value="">
+            </form>
+
+            <!-- Form for submitting the final step edited data -->
+            <form class="form-horizontal" id="BRFfinalStepForm" role="form" method="POST" action="{{ url('staff-approver/requeststatus/brf/finalstep') }}/{{ $admin_user_brf->id }}">
+              {!! csrf_field() !!}
+              <input type="hidden" name="_method" value="PUT">
+              <input type="hidden" id="edit-account-number" name="edit-account-number" value="">
+              <input type="hidden" id="edit-call-number" name="edit-call-number" value="">
+              <input type="hidden" id="edit-purchase-price" name="edit-purchase-price" value="">
+              <input type="hidden" id="edit-ebook-link" name="edit-ebook-link" value="">
+              <input type="hidden" id="edit-purchase-target-year" name="edit-purchase-target-year" value="">
             </form>
 
             <form class="form-horizontal" id="sendEmailForm" role="form" method="POST" action="{{ url('staff-approver/requeststatus/brf/send-email') }}/{{ $admin_user_brf->id }}">
@@ -257,6 +300,48 @@
   </div>
 </div>
 
+<!-- Edit Final Step Modal -->
+<div class="modal fade" id="editFinalStepModal" tabindex="-1" role="dialog" aria-labelledby="editFinalStepModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="editFinalStepModalLabel">Edit Book Details</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="accountNumberInput">Book Account Number:</label>
+          <input type="text" name="account_number_of_book" class="form-control" id="accountNumberInput" value="{{ $admin_user_brf->account_number_of_book }}">
+        </div>
+        <div class="form-group">
+          <label for="callNumberInput">Book Call Number:</label>
+          <input type="text" name="call_number_of_book" class="form-control" id="callNumberInput" value="{{ $admin_user_brf->call_number_of_book }}">
+        </div>
+        <div class="form-group">
+          <label for="purchasePriceInput">Book Final Purchase Price (₹):</label>
+          <input type="text" name="purchase_price_of_book" class="form-control" id="purchasePriceInput" value="{{ $admin_user_brf->purchase_price_of_book }}">
+        </div>
+        <div class="form-group">
+          <label for="ebookLinkInput">E-Book Link (Optional):</label>
+          <input type="text" name="optional_ebook_hyperlink" class="form-control" id="ebookLinkInput" value="{{ $admin_user_brf->optional_ebook_hyperlink }}">
+        </div>
+        <div class="form-group">
+          <label for="purchaseTargetYearInput">Budget Year:</label>
+          <select name="purchase_target_year_from_until" class="form-control" id="purchaseTargetYearInput">
+            @foreach($department_year_from_until as $year)
+            <option value="{{ $year }}" {{ $admin_user_brf->purchase_target_year_from_until == $year ? 'selected' : '' }}>{{ $year }}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" onclick="editFinalStepFunction()">Update Book Details</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -298,8 +383,21 @@
     document.getElementById("BRFeditForm").submit();
   }
 
+  function editFinalStepFunction() {
+    document.getElementById("edit-account-number").value = document.getElementById("accountNumberInput").value;
+    document.getElementById("edit-call-number").value = document.getElementById("callNumberInput").value;
+    document.getElementById("edit-purchase-price").value = parseFormattedNumber(document.getElementById("purchasePriceInput").value);
+    document.getElementById("edit-ebook-link").value = document.getElementById("ebookLinkInput").value;
+    document.getElementById("edit-purchase-target-year").value = document.getElementById("purchaseTargetYearInput").value;
+    document.getElementById("BRFfinalStepForm").submit();
+  }
+
   function sendEmailUpdate() {
     document.getElementById("sendEmailForm").submit();
+  }
+
+  function parseFormattedNumber(value) {
+    return parseFloat(value.replace(/,/g, '')) || 0;
   }
 </script>
 @endsection
