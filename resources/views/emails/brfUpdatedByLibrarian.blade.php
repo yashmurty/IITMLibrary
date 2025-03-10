@@ -1,5 +1,5 @@
 <p>
-    Dear {{$brf_model_user_instance->name}}<br>
+    Dear Dr./Prof. {{$brf_model_user_instance->name}}<br>
     <br>
     Your book request <strong>"{{$brf_model_instance->title}}"</strong> has been <strong>updated</strong> by the Library with the following remarks:
 </p>
