@@ -698,7 +698,7 @@ class AdminController extends Controller
     private $INR_Regex = "/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i";
 
     /* Admin Page - Book Budget Departments (GET) */
-    public function getBookBudgetDepartments($iitm_dept_code = "ALL", $year_from_until = "2023-2024")
+    public function getBookBudgetDepartments($iitm_dept_code = "ALL", $year_from_until = "2024-2025")
     {
         if ($iitm_dept_code == "ALL") {
             $lac_users_departments = DB::table('lac_users')

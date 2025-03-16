@@ -14,11 +14,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h4>
-                              Approved Requests
+                                Approved Requests
                             </h4>
                             <ul class="">
-                                @for ($year = 2024; $year >= 2015; $year--)
-                                    <li><a href="{{ URL::route('adminrequeststatus') }}/archived/approved/{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</a></li>
+                                @for ($year = 2025; $year >= 2015; $year--)
+                                <li><a href="{{ URL::route('adminrequeststatus') }}/archived/approved/{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</a></li>
                                 @endfor
                             </ul>
                         </div>
@@ -26,14 +26,14 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                          <h4>
-                            Denied Requests
-                          </h4>
-                          <ul class="">
-                            @for ($year = 2024; $year >= 2015; $year--)
+                            <h4>
+                                Denied Requests
+                            </h4>
+                            <ul class="">
+                                @for ($year = 2025; $year >= 2015; $year--)
                                 <li><a href="{{ URL::route('adminrequeststatus') }}/archived/denied/{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</a></li>
-                            @endfor
-                          </ul>
+                                @endfor
+                            </ul>
                         </div>
                     </div>
 
